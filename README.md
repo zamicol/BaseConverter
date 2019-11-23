@@ -5,4 +5,4 @@ Zamicol's Base Converter - Convert arbitrary bases of arbitrary alphabets of arb
 
 I couldn't find a converter online that meet my needs, so I built this.  
 
-If you project needs to do base conversion, use `base_converter.js`.  
+If your project needs to do base conversion, use `base_converter.js`.  
