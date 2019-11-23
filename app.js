@@ -4,9 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector("#ConvertBaseButton").addEventListener('click', Convert);
 	document.querySelector("#ExampleButton").addEventListener('click', ExampleConversion);
 	document.querySelector("#FlipButton").addEventListener('click', Flip);
+	document.querySelectorAll("#ClearButton").forEach(t => {t.addEventListener('click', Clear);});
 	document.querySelectorAll(".copy").forEach(t => {t.addEventListener('click', Copy);});
 	document.querySelectorAll(".source").forEach(t => {t.addEventListener('click', Source);});
 	document.querySelectorAll(".destination").forEach(t => {t.addEventListener('click', Desintation);});
+	
 });
 
 
@@ -67,4 +69,12 @@ function Desintation(){
 	let input = this.parentNode.parentNode.firstElementChild.firstElementChild.value;
 	console.log(input);
 	document.getElementById("destinationAlphabet").value = input;
+}
+
+function Clear(){
+	console.log("Entered Clear");
+	document.getElementById("sourceAlphabet").value = "";
+	document.getElementById("sourceString").value = "";
+	document.getElementById("destinationAlphabet").value = "";
+	document.getElementById("destinationString").value = "";
 }
