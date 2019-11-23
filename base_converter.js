@@ -40,7 +40,7 @@ function arbitraryBaseConvert(string, srcAlphabet, dstAlphabet) {
 
 	// decodeInput finds the position of each character in alphabet, thus
 	// decoding the input string into a useful array.  
-	const decodeInput = (string, base) => {
+	const decodeInput = (string) => {
 		const digits = string.split('');
 		let arr = [];
 		for (let i = digits.length - 1; i >= 0; i--) {
@@ -53,7 +53,7 @@ function arbitraryBaseConvert(string, srcAlphabet, dstAlphabet) {
 
 	const fromBase = srcAlphabet.length;
 	const toBase = dstAlphabet.length;
-	const digits = decodeInput(string, fromBase);
+	const digits = decodeInput(string);
 	if (digits === null) return null;
 
 
