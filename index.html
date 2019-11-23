@@ -1,0 +1,455 @@
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Base conversion in Javascript</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+	<script defer src="base_converter.js"></script>
+	<script defer src="app.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+</head>
+
+<body>
+<a class="github-fork-ribbon" href="https://zamicol.github.io/BaseConverter" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+	<div class="wrapper">
+		<section class="hero">
+			<div class="hero-body">
+				<div class="container">
+					<h1 class="title">
+						Zamicol's Base Converter
+					</h1>
+					<h2 class="subtitle">
+						Convert arbitrary bases of arbitrary alphabets of arbitrary lengths.
+					</h2>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container">
+				<div class="columns">
+					<div class="column">
+						<article class="message is-primary">
+							<div class="message-header">
+								<p>Source</p>
+							</div>
+							<div class="message-body">
+								<div class="field">
+									<label class="label">Alphabet</label>
+									<div class="control">
+										<input class="input is-primary" type="text" id="sourceAlphabet" placeholder="Source Alphabet">
+									</div>
+								</div>
+								<label class="label">String</label>
+								<textarea rows="20" class="textarea is-primary" placeholder="Source String" id="sourceString"></textarea>
+							</div>
+						</article>
+					</div>
+					<div class="column">
+						<article class="message is-danger">
+							<div class="message-header">
+								<p>Destination</p>
+							</div>
+							<div class="message-body">
+								<div class="field">
+									<label class="label">Alphabet</label>
+									<div class="control">
+										<input class="input is-danger" type="text" id="destinationAlphabet" placeholder="Destination Alphabet">
+									</div>
+								</div>
+								<label class="label">String</label>
+								<textarea rows="20" class="textarea is-danger" placeholder="Destination Encoding" id="destinationString"></textarea>
+							</div>
+						</article>
+					</div>
+				</div>
+
+				<div class="field">
+					<div class="control">
+						<button class="button is-large is-info is-focused is-fullwidth" id="ConvertBaseButton">
+							<span>Convert ⇒ </span>
+						</button>
+					</div>
+				</div>
+				<div class="field">
+					<div class="control">
+						<button class="button is-large is-warning is-focused is-fullwidth" id="FlipButton">
+							<span>Flip ⇄</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+		<section class="section">
+			<div class="container has-text-centered">
+				<h1 class="title is-1">Useful Alphabets</h1>
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 2 (Binary)</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="01" readonly id="base2">
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									Source
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Destination
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 4</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="0123" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									Source
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Destination
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 8 (octal)</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="01234567" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									Source
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Destination
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 10 (decimal)</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="0123456789" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									Source
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Destination
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 12 (dozenal)</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="0123456789↊↋" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									Source
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Destination
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 16</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="0123456789ABCDEF" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									Source
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Destination
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 32 (z-base-32)</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="ybndrfg8ejkmcpqxot1uwisza345h769" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									Source
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Destination
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 37</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									Source
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Destination
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 58 (Bitcoin)</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									Source
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Destination
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 64 (Url Safe)</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									Source
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Destination
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 64 (Url Unsafe)</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									Source
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Destination
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 85 (RFC 1924)</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									Source
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Destination
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container has-text-centered">
+				<div class="field">
+					<div class="control">
+						<button class="button is-large is-info is-focused is-fullwidth" id="ExampleButton">
+							<span>Base 64 to Base 37 Example</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+	</div>
