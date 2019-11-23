@@ -1,11 +1,10 @@
 "use strict";
 
-
-// arbitraryBaseConvert converts a given string with a given encoding alphabet
+// baseConvert converts a given string with a given encoding alphabet
 // into another base with another given encoding alphabet.  
 //
 // Base is assumed from alphabet sizes. 
-function arbitraryBaseConvert(string, srcAlphabet, dstAlphabet) {
+function baseConvert(string, inputAlphabet, outputAlphabet) {
 
 	const add = (x, y, base) => {
 		let z = [];
@@ -44,18 +43,17 @@ function arbitraryBaseConvert(string, srcAlphabet, dstAlphabet) {
 		const digits = string.split('');
 		let arr = [];
 		for (let i = digits.length - 1; i >= 0; i--) {
-			const n = srcAlphabet.indexOf(digits[i])
+			const n = inputAlphabet.indexOf(digits[i])
 			if (n == -1) return null;
 			arr.push(n);
 		}
 		return arr;
 	}
 
-	const fromBase = srcAlphabet.length;
-	const toBase = dstAlphabet.length;
+	const fromBase = inputAlphabet.length;
+	const toBase = outputAlphabet.length;
 	const digits = decodeInput(string);
 	if (digits === null) return null;
-
 
 	// Get an array of what each position of character should be. 
 	let outArray = [];
@@ -68,9 +66,8 @@ function arbitraryBaseConvert(string, srcAlphabet, dstAlphabet) {
 	// Finally, decode array into characters.  
 	let out = '';
 	for (let i = outArray.length - 1; i >= 0; i--){
-		out += dstAlphabet[outArray[i]];
+		out += outputAlphabet[outArray[i]];
 	}
 		
-
 	return out;
 }

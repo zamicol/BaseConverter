@@ -30,41 +30,41 @@
 					<div class="column">
 						<article class="message is-primary">
 							<div class="message-header">
-								<p>Source</p>
+								<p>In</p>
 							</div>
 							<div class="message-body">
 								<div class="field">
 									<label class="label">Alphabet</label>
 									<div class="control">
-										<input class="input is-primary" type="text" id="sourceAlphabet" placeholder="Source Alphabet">
+										<input class="input is-primary" type="text" id="inputAlphabet" placeholder="In Alphabet">
 									</div>
 								</div>
 								<label class="label">String</label>
-								<textarea rows="20" class="textarea is-primary" placeholder="Source String" id="sourceString"></textarea>
+								<textarea rows="20" class="textarea is-primary" placeholder="In String" id="inputString"></textarea>
 							</div>
 						</article>
 					</div>
 					<div class="column">
 						<article class="message is-danger">
 							<div class="message-header">
-								<p>Destination</p>
+								<p>Out</p>
 							</div>
 							<div class="message-body">
 								<div class="field">
 									<label class="label">Alphabet</label>
 									<div class="control">
-										<input class="input is-danger" type="text" id="destinationAlphabet" placeholder="Destination Alphabet">
+										<input class="input is-danger" type="text" id="outputAlphabet" placeholder="Out Alphabet">
 									</div>
 								</div>
 								<label class="label">String</label>
-								<textarea rows="20" class="textarea is-danger" placeholder="Destination Encoding" id="destinationString"></textarea>
+								<textarea rows="20" class="textarea is-danger" placeholder="Out Encoding" id="outputString"></textarea>
 							</div>
 						</article>
 					</div>
 				</div>
 
 				<div class="field">
-					<div class="control">
+					<div class="control is-large">
 						<button class="button is-large is-info is-focused is-fullwidth" id="ConvertBaseButton">
 							<span>Convert ⇒ </span>
 						</button>
@@ -72,7 +72,7 @@
 				</div>
 				<div class="field">
 					<div class="control">
-						<button class="button is-large is-warning is-fullwidth" id="FlipButton">
+						<button class="button is-warning is-fullwidth" id="FlipButton">
 							<span>Flip ⇄</span>
 						</button>
 					</div>
@@ -80,7 +80,7 @@
 
 								<div class="field">
 					<div class="control">
-						<button class="button is-large is-fullwidth" id="ClearButton">
+						<button class="button is-fullwidth" id="ClearButton">
 							<span>Clear ⎚</span>
 						</button>
 					</div>
@@ -113,12 +113,12 @@
 							</div>
 							<div class="control">
 								<a class="button is-primary source">
-									Source
+									In
 								</a>
 							</div>
 							<div class="control">
 								<a class="button is-danger destination">
-									Destination
+									Out
 								</a>
 							</div>
 						</div>
@@ -141,12 +141,12 @@
 							</div>
 							<div class="control">
 								<a class="button is-primary source">
-									Source
+									In
 								</a>
 							</div>
 							<div class="control">
 								<a class="button is-danger destination">
-									Destination
+									Out
 								</a>
 							</div>
 						</div>
@@ -169,12 +169,12 @@
 							</div>
 							<div class="control">
 								<a class="button is-primary source">
-									Source
+									In
 								</a>
 							</div>
 							<div class="control">
 								<a class="button is-danger destination">
-									Destination
+									Out
 								</a>
 							</div>
 						</div>
@@ -197,12 +197,12 @@
 							</div>
 							<div class="control">
 								<a class="button is-primary source">
-									Source
+									In
 								</a>
 							</div>
 							<div class="control">
 								<a class="button is-danger destination">
-									Destination
+									Out
 								</a>
 							</div>
 						</div>
@@ -225,12 +225,12 @@
 							</div>
 							<div class="control">
 								<a class="button is-primary source">
-									Source
+									In
 								</a>
 							</div>
 							<div class="control">
 								<a class="button is-danger destination">
-									Destination
+									Out
 								</a>
 							</div>
 						</div>
@@ -253,12 +253,12 @@
 							</div>
 							<div class="control">
 								<a class="button is-primary source">
-									Source
+									In
 								</a>
 							</div>
 							<div class="control">
 								<a class="button is-danger destination">
-									Destination
+									Out
 								</a>
 							</div>
 						</div>
@@ -281,12 +281,12 @@
 							</div>
 							<div class="control">
 								<a class="button is-primary source">
-									Source
+									In
 								</a>
 							</div>
 							<div class="control">
 								<a class="button is-danger destination">
-									Destination
+									Out
 								</a>
 							</div>
 						</div>
@@ -310,12 +310,12 @@
 							</div>
 							<div class="control">
 								<a class="button is-primary source">
-									Source
+									In
 								</a>
 							</div>
 							<div class="control">
 								<a class="button is-danger destination">
-									Destination
+									Out
 								</a>
 							</div>
 						</div>
@@ -327,7 +327,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 58 (Bitcoin)</label>
+						<label class="label">Base 58 (bitcoin)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -341,12 +341,12 @@
 							</div>
 							<div class="control">
 								<a class="button is-primary source">
-									Source
+									In
 								</a>
 							</div>
 							<div class="control">
 								<a class="button is-danger destination">
-									Destination
+									Out
 								</a>
 							</div>
 						</div>
@@ -359,7 +359,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 64 (Url Safe)</label>
+						<label class="label">Base 64 (url safe)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -373,12 +373,12 @@
 							</div>
 							<div class="control">
 								<a class="button is-primary source">
-									Source
+									In
 								</a>
 							</div>
 							<div class="control">
 								<a class="button is-danger destination">
-									Destination
+									Out
 								</a>
 							</div>
 						</div>
@@ -389,7 +389,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 64 (Url Unsafe)</label>
+						<label class="label">Base 64 (url unsafe)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -403,12 +403,12 @@
 							</div>
 							<div class="control">
 								<a class="button is-primary source">
-									Source
+									In
 								</a>
 							</div>
 							<div class="control">
 								<a class="button is-danger destination">
-									Destination
+									Out
 								</a>
 							</div>
 						</div>
@@ -432,12 +432,12 @@
 							</div>
 							<div class="control">
 								<a class="button is-primary source">
-									Source
+									In
 								</a>
 							</div>
 							<div class="control">
 								<a class="button is-danger destination">
-									Destination
+									Out
 								</a>
 							</div>
 						</div>
