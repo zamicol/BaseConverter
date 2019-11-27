@@ -54,13 +54,13 @@
 							<div class="message-body">
 								<div class="field">
 									<label class="label">Alphabet</label>
-										<input class="input is-danger conversionTextArea" type="text" id="outputAlphabet" placeholder="Out Alphabet">
+									<input class="input is-danger conversionTextArea" type="text" id="outputAlphabet" placeholder="Out Alphabet">
 									<p class="help has-text-right">Base: <span class="lengthDisplay" id="outputAlphabetLength">0</span></p>
 								</div>
 								<div class="field">
-								<label class="label">String</label>
-								<textarea rows="20" class="textarea is-danger conversionTextArea" placeholder="Out Encoding" id="outputString"></textarea>
-								<p class="help has-text-right">Length: <span class="lengthDisplay" id="outputStringLength">0</span></p>
+									<label class="label">String</label>
+									<textarea rows="20" class="textarea is-danger conversionTextArea" placeholder="Out Encoding" id="outputString"></textarea>
+									<p class="help has-text-right">Length: <span class="lengthDisplay" id="outputStringLength">0</span></p>
 								</div>
 							</div>
 						</article>
@@ -249,6 +249,62 @@
 						<div class="field has-addons">
 							<div class="control is-expanded">
 								<input class="input" type="text" value="0123456789ABCDEF" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									In
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Out
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 16 (lower hex)</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="0123456789abcdef" readonly>
+							</div>
+							<div class="control">
+								<a class="button is-info copy">
+									Copy
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-primary source">
+									In
+								</a>
+							</div>
+							<div class="control">
+								<a class="button is-danger destination">
+									Out
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field is-horizontal">
+					<div class="field-label">
+						<label class="label">Base 32 (RFC 4648)</label>
+					</div>
+					<div class="field-body">
+						<div class="field has-addons">
+							<div class="control is-expanded">
+								<input class="input" type="text" value="ABCDEFGHJKLMNPQRSTUVWXYZ234567" readonly>
 							</div>
 							<div class="control">
 								<a class="button is-info copy">
