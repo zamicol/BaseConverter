@@ -43,6 +43,13 @@
 									<textarea rows="20" class="textarea is-primary conversionTextArea" placeholder="In String" id="inputString"></textarea>
 									<p class="help has-text-right">Length: <span class="lengthDisplay" id="inputStringLength">0</span></p>
 								</div>
+								<div class="field">
+									<div class="control">
+										<button class="button is-info is-fullwidth" id="reverseInButton">
+											<span>Reverse String ⇄</span>
+										</button>
+									</div>
+								</div>
 							</div>
 						</article>
 					</div>
@@ -62,13 +69,20 @@
 									<textarea rows="20" class="textarea is-danger conversionTextArea" placeholder="Out Encoding" id="outputString"></textarea>
 									<p class="help has-text-right">Length: <span class="lengthDisplay" id="outputStringLength">0</span></p>
 								</div>
+								<div class="field">
+									<div class="control">
+										<button class="button is-info is-fullwidth" id="reverseOutButton">
+											<span>Reverse String ⇄</span>
+										</button>
+									</div>
+								</div>
 							</div>
 						</article>
 					</div>
 				</div>
 
 				<div class="field">
-					<div class="control is-large">
+					<div class="control">
 						<button class="button is-large is-info is-focused is-fullwidth" id="ConvertBaseButton">
 							<span>Convert ⇒ </span>
 						</button>
@@ -77,7 +91,7 @@
 				<div class="field">
 					<div class="control">
 						<button class="button is-warning is-fullwidth" id="FlipButton">
-							<span>Flip ⇄</span>
+							<span>Flip In and Out ⇄</span>
 						</button>
 					</div>
 				</div>
@@ -85,7 +99,7 @@
 				<div class="field">
 					<div class="control">
 						<button class="button is-fullwidth" id="ClearButton">
-							<span>Clear ⎚</span>
+							<span>Clear All ⎚</span>
 						</button>
 					</div>
 				</div>

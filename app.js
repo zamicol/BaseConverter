@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector("#ConvertBaseButton").addEventListener('click', Convert);
 	document.querySelector("#ExampleButton").addEventListener('click', ExampleConversion);
 	document.querySelector("#FlipButton").addEventListener('click', Flip);
+	document.querySelector("#reverseInButton").addEventListener('click', ReverseIn);
+	document.querySelector("#reverseOutButton").addEventListener('click', ReverseOut);
+
 	document.querySelectorAll("#ClearButton").forEach(t => {
 		t.addEventListener('click', Clear);
 	});
@@ -59,10 +62,24 @@ function Flip() {
 }
 
 
+function ReverseIn(){
+	var string = document.getElementById("inputString").value;
+	string = string.split("").reverse().join("");
+	document.getElementById("inputString").value = string;
+}
+
+function ReverseOut(){
+	var string = document.getElementById("outputString").value;
+	string = string.split("").reverse().join("");
+	document.getElementById("outputString").value = string;
+}
+
+
 function ExampleConversion() {
-	document.getElementById("inputString").value = "k-6cq1CLkrfCmW84VUX-6AmJUfkP-orILPxm_BuBPjY";
+	document.getElementById("inputString").value = "KNBrzb9SPxyILkIHg5XE-z7Lm8x8Y5UjS4kXY3StK14";
 	document.getElementById("inputAlphabet").value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 	document.getElementById("outputAlphabet").value = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-";
+	// Out should be 12BWR7JBVQZDDNW5M1Z4CF8VYEPZZQNVC-G7KRV-ZOCUX-7P7F
 	Convert();
 	Update();
 }
