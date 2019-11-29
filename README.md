@@ -1,4 +1,4 @@
-https://zamicol.github.io/BaseConverter/
+https://convert.zamicol.com/
 
 # BaseConverter
 Zamicol's Base Converter - Convert arbitrary bases of arbitrary alphabets of arbitrary lengths in javascript.
