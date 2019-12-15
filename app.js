@@ -40,6 +40,12 @@ function Convert() {
 	let inputString = document.getElementById("inputString").value;
 	let outputAlphabet = document.getElementById("outputAlphabet").value;
 
+
+	if (inputAlphabet == "" || inputString =="" || outputAlphabet == ""){
+		console.log("Empty input.");
+		return null;
+	}
+
 	let outputString = baseConvert(inputString, inputAlphabet, outputAlphabet);
 	console.log(outputString);
 	document.getElementById("outputString").value = outputString;

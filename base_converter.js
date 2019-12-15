@@ -5,6 +5,10 @@
 //
 // Base is assumed from alphabet sizes. 
 function baseConvert(string, inputAlphabet, outputAlphabet) {
+if (string == "" || inputAlphabet == "" || outputAlphabet == ""){
+	return null;
+}
+
 
 	const add = (x, y, base) => {
 		let z = [];
