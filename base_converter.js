@@ -1,9 +1,19 @@
 "use strict";
 
 // baseConvert converts a given string with a given encoding alphabet
-// into another base with another given encoding alphabet.  
+// 
 //
 // Base is assumed from alphabet sizes. 
+
+
+/**
+ * baseConvert converts a given string with a given encoding alphabet
+ * into another base with another given encoding alphabet.  
+ * Base is assumed from alphabet sizes. 
+ * @param  {string} string The string to be encoded into another base.  
+ * @param  {string} inputAlphabet The characters of the input alphabet (i.e. 0123456789ABCDEF)
+ * @param  {string} outputAlphabet The characters of the output alphabet (i.e. ABCDEFGHJKLMNPQRSTUVWXYZ234567)
+ */
 function baseConvert(string, inputAlphabet, outputAlphabet) {
 	if (string == "" || inputAlphabet == "" || outputAlphabet == "") {
 		return null;
@@ -81,9 +91,11 @@ function baseConvert(string, inputAlphabet, outputAlphabet) {
 
 /**
  * Get how many bits are needed to represent a particular number base
- * @param  {Number} base The length of the characters of the alphabet (the base, ie base 64 would be 64)
+ * @param  {Number} base The length of the characters of the alphabet (the base,
+ * e.g. for base 64 would be the number 64 and the output would be 6)
+ * @returns {number} The number of bits required to represent the base.  
  */
-function baseBits(base) {
+function bitPerBase(base) {
 	var bits = 0;
 	var space = 1;
 
@@ -95,8 +107,12 @@ function baseBits(base) {
 	return bits;
 }
 
-
-// Reduce a fraction by finding the Greatest Common Divisor and dividing by it.
+/**
+ * Reduce a fraction by finding the Greatest Common Divisor and dividing by it.
+ * @param  {Number} numerator 
+ * @param  {Number} denominator
+ * @returns {number} Greatest Common Divisor
+ */
 function reduce(numerator, denominator) {
 	var gcd = function gcd(a, b) {
 		return b ? gcd(b, a % b) : a;

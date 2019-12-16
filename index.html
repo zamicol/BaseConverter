@@ -113,12 +113,6 @@
 						</label>
 					</div>
 				</div>
-
-
-
-
-
-
 			</div>
 
 
@@ -134,7 +128,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 2 (binary)</label>
+						<label class="label">Base 2 (<a href="https://en.wikipedia.org/wiki/Binary_number">binary</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -162,7 +156,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 4 (quaternary)</label>
+						<label class="label">Base 4 (<a href="https://en.wikipedia.org/wiki/Quaternary_numeral_system">quaternary</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -190,7 +184,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 8 (octal)</label>
+						<label class="label">Base 8 (<a href="https://en.wikipedia.org/wiki/Octal">octal</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -218,7 +212,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 10 (decimal)</label>
+						<label class="label">Base 10 (<a href="https://en.wikipedia.org/wiki/Decimal">decimal</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -246,7 +240,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 12 (dozenal)</label>
+						<label class="label">Base 12 (<a href="https://en.wikipedia.org/wiki/Dozenal">dozenal</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -274,7 +268,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 16 (hex)</label>
+						<label class="label">Base 16 (<a href="https://en.wikipedia.org/wiki/Hexadecimal">hex</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -302,7 +296,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 16 (lower hex)</label>
+						<label class="label">Base 16 (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates">lower hex</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -335,7 +329,7 @@
 					<div class="field-body">
 						<div class="field has-addons">
 							<div class="control is-expanded">
-								<input class="input" type="text" value="ABCDEFGHJKLMNPQRSTUVWXYZ234567" readonly>
+								<input class="input" id="base32" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" readonly>
 							</div>
 							<div class="control">
 								<a class="button is-info copy">
@@ -358,7 +352,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 32 (z-base-32)</label>
+						<label class="label">Base 32 (<a href="https://philzimmermann.com/docs/human-oriented-base-32-encoding.txt">z-base-32</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -387,7 +381,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 37 (<a href="https://zamicol.com">qr-alphanum-url</a>)</label>
+						<label class="label">Base 37 (<a href="https://zamicol.com">qr-url</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -418,7 +412,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 58 (bitcoin)</label>
+						<label class="label">Base 58 (<a href="https://en.wikipedia.org/wiki/Base58">bitcoin</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -450,7 +444,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 64 (url safe)</label>
+						<label class="label">Base 64 (<a href="https://tools.ietf.org/html/rfc4648#section-5">url safe</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -480,7 +474,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 64 (url unsafe)</label>
+						<label class="label">Base 64 (<a href="https://tools.ietf.org/html/rfc3548#section-3">url unsafe</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -509,7 +503,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 85 (RFC 1924)</label>
+						<label class="label">Base 85 (<a href="https://tools.ietf.org/html/rfc1924#section-4.2">RFC 1924</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -538,14 +532,14 @@
 
 
 
-				<!-- https://en.wikipedia.org/wiki/List_of_Unicode_characters
-used U+00A1 to fill in non-prinatable characters. 
-A character for non-printable characters
-
--->
+				<!-- https://en.wikipedia.org/wiki/List_of_Unicode_characters used
+				U+00A1 to fill in non-prinatable characters. A character for
+				non-printable characters.  U+00A1 is the first single character
+				printable character past the ASCII range.  
+			-->
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 128† (Modified ASCII)</label>
+						<label class="label">Base 128† (<a href="https://en.wikipedia.org/wiki/ASCII">Modified ASCII</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -572,15 +566,14 @@ A character for non-printable characters
 				</div>
 
 				<!-- TODO use printable UTF-8 characters past 127 -->
-
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 256† (Modified ASCII)</label>
+						<label class="label">Base 256† (<a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters">Modified Unicode</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
 							<div class="control is-expanded">
-								<input class="input" type="text" value='¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡' readonly>
+								<input class="input" id="base256" type="text" value='¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡' readonly>
 							</div>
 							<div class="control">
 								<a class="button is-info copy">
@@ -610,23 +603,40 @@ A character for non-printable characters
 			<div class="container has-text-centered">
 				<div class="field">
 					<div class="control">
-						<button class="button is-large is-info is-focused is-fullwidth" id="ExampleButton">
+						<button class="button is-large is-info is-fullwidth" id="ExampleButton">
 							<span>Base 64 to Base 37 Example</span>
 						</button>
 					</div>
 				</div>
+
+				<div class="field">
+					<div class="control">
+						<button class="button is-large is-info is-fullwidth" id="Example64To256Button">
+							<span>Base 64 to Base 256 Example</span>
+						</button>
+					</div>
+				</div>
+
+
+
+				<div class="field">
+					<div class="control">
+						<button class="button is-large is-info is-fullwidth" id="Example256to32Button">
+							<span>Base 256 to Base 32 Example</span>
+						</button>
+					</div>
+				</div>
+
 			</div>
 		</section>
 
 
 		<section class="section">
 			<div class="container has-text-centered">
-				†"Modified ASCII"?
-				Only the printable characters. Will not work with numbers requiring
-				encoding to non-printable characters. "¡" is used to represent
-				non-printable characters.
-
-
+				†"Modified ASCII"? Only the printable characters. Will not work with
+				numbers requiring encoding to non-printable characters. "¡" is used to
+				represent non-printable characters. U+00A1 ("¡") is the first printable
+				character past the ASCII range.
 			</div>
 		</section>
 

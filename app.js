@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector("#ConvertBaseButton").addEventListener('click', Convert);
-	document.querySelector("#ExampleButton").addEventListener('click', ExampleConversion);
+
 	document.querySelector("#FlipButton").addEventListener('click', Flip);
 	document.querySelector("#reverseInButton").addEventListener('click', ReverseIn);
 	document.querySelector("#reverseOutButton").addEventListener('click', ReverseOut);
@@ -20,8 +20,29 @@ document.addEventListener('DOMContentLoaded', () => {
 		t.addEventListener('click', Desintation);
 	});
 
+	//////////////////
+	// Live Update Conversion
+	//////////////////
+		// I don't know if change does anything, but input doesn't seem to cover all
+	// cases of user interaction. 
+	document.querySelector("#inputString").addEventListener('input', Convert);
+	document.querySelector("#inputAlphabet").addEventListener('input', Convert);
+	document.querySelector("#outputAlphabet").addEventListener('input', Convert);
 
 
+
+	//////////////////
+	// Examples
+	//////////////////
+	document.querySelector("#ExampleButton").addEventListener('click', ExampleConversion);
+	document.querySelector("#Example64To256Button").addEventListener('click', Example64To256);
+	document.querySelector("#Example256to32Button").addEventListener('click', Example256to32);
+
+	
+
+	//////////////////
+	// Live Update Length
+	//////////////////
 	document.querySelectorAll(".conversionTextArea").forEach(t => {
 		t.addEventListener('input', Length);
 	});
@@ -31,20 +52,24 @@ document.addEventListener('DOMContentLoaded', () => {
 		t.addEventListener('change', Length);
 	});
 
-	console.log(baseBits(2));
-	console.log(baseBits(32));
-	console.log(baseBits(35));
-	console.log(baseBits(64));
+
 
 	console.log(reduce(6, 8));
 });
 
 
-function FullBuckets(){
+function FullBuckets() {
 	var inputBase = document.getElementById("inputAlphabet").value.length;
 	var outputBase = document.getElementById("outputAlphabet").value.length;
 	console.log(inputBase);
 	console.log(outputBase);
+
+	inBits = bitPerBase(inputBase);
+	outBits = bitPerBase(outputBase);
+
+
+
+	console.log(reduce(inBits, outBits));
 }
 
 
@@ -56,7 +81,7 @@ function Convert() {
 	let outputAlphabet = document.getElementById("outputAlphabet").value;
 
 
-	if (inputAlphabet == "" || inputString =="" || outputAlphabet == ""){
+	if (inputAlphabet == "" || inputString == "" || outputAlphabet == "") {
 		console.log("Empty input.");
 		return null;
 	}
@@ -83,27 +108,23 @@ function Flip() {
 }
 
 
-function ReverseIn(){
+function ReverseIn() {
 	var string = document.getElementById("inputString").value;
 	string = string.split("").reverse().join("");
 	document.getElementById("inputString").value = string;
 }
 
-function ReverseOut(){
+function ReverseOut() {
 	var string = document.getElementById("outputString").value;
 	string = string.split("").reverse().join("");
 	document.getElementById("outputString").value = string;
 }
 
 
-function ExampleConversion() {
-	document.getElementById("inputString").value = "KNBrzb9SPxyILkIHg5XE-z7Lm8x8Y5UjS4kXY3StK14";
-	document.getElementById("inputAlphabet").value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
-	document.getElementById("outputAlphabet").value = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-";
-	// Out should be 12BWR7JBVQZDDNW5M1Z4CF8VYEPZZQNVC-G7KRV-ZOCUX-7P7F
-	Convert();
-	Update();
-}
+
+
+
+
 
 
 function Copy() {
@@ -160,6 +181,36 @@ function LengthAll() {
 }
 
 // Update updates all information presented on the screen.  
-function Update(){
+function Update() {
 	LengthAll();
 }
+
+
+
+
+function ExampleConversion() {
+	document.getElementById("inputString").value = "KNBrzb9SPxyILkIHg5XE-z7Lm8x8Y5UjS4kXY3StK14";
+	document.getElementById("inputAlphabet").value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+	document.getElementById("outputAlphabet").value = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-";
+	// Out should be 12BWR7JBVQZDDNW5M1Z4CF8VYEPZZQNVC-G7KRV-ZOCUX-7P7F
+	Convert();
+}
+
+
+function Example64To256() {
+	document.getElementById("inputString").value = "eyJhbGciOiJFUzUxMiJ9";
+	document.getElementById("inputAlphabet").value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+	document.getElementById("outputAlphabet").value = document.getElementById("base256").value;
+	// Out should be {"alg":"ES512"}
+	Convert();
+}
+
+function Example256to32() {
+	document.getElementById("inputString").value = "foobar¡¡¡¡";
+	document.getElementById("inputAlphabet").value = document.getElementById("base256").value;
+	document.getElementById("outputAlphabet").value = document.getElementById("base32").value;
+	// Out should be MZXW6YTBOI======
+	Convert();
+}
+
+
