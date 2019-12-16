@@ -5,10 +5,9 @@
 //
 // Base is assumed from alphabet sizes. 
 function baseConvert(string, inputAlphabet, outputAlphabet) {
-if (string == "" || inputAlphabet == "" || outputAlphabet == ""){
-	return null;
-}
-
+	if (string == "" || inputAlphabet == "" || outputAlphabet == "") {
+		return null;
+	}
 
 	const add = (x, y, base) => {
 		let z = [];
@@ -71,9 +70,37 @@ if (string == "" || inputAlphabet == "" || outputAlphabet == ""){
 
 	// Finally, decode array into characters.  
 	let out = '';
-	for (let i = outArray.length - 1; i >= 0; i--){
+	for (let i = outArray.length - 1; i >= 0; i--) {
 		out += outputAlphabet[outArray[i]];
 	}
-		
+
 	return out;
+}
+
+
+
+/**
+ * Get how many bits are needed to represent a particular number base
+ * @param  {Number} base The length of the characters of the alphabet (the base, ie base 64 would be 64)
+ */
+function baseBits(base) {
+	var bits = 0;
+	var space = 1;
+
+	while (base > space) {
+		space = space * 2;
+		bits++;
+	}
+
+	return bits;
+}
+
+
+// Reduce a fraction by finding the Greatest Common Divisor and dividing by it.
+function reduce(numerator, denominator) {
+	var gcd = function gcd(a, b) {
+		return b ? gcd(b, a % b) : a;
+	};
+	gcd = gcd(numerator, denominator);
+	return [numerator / gcd, denominator / gcd];
 }

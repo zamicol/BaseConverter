@@ -103,7 +103,24 @@
 						</button>
 					</div>
 				</div>
+
+
+				<div class="field">
+					<div class="control">
+						<label class="checkbox">
+							<input type="checkbox" checked>
+							Even buckets
+						</label>
+					</div>
+				</div>
+
+
+
+
+
+
 			</div>
+
 
 
 
@@ -313,7 +330,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 32 (RFC 4648)</label>
+						<label class="label">Base 32 (<a href="https://tools.ietf.org/html/rfc4648#section-6">RFC 4648</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -370,7 +387,7 @@
 
 				<div class="field is-horizontal">
 					<div class="field-label">
-						<label class="label">Base 37 (qr-alphanum-url)</label>
+						<label class="label">Base 37 (<a href="https://zamicol.com">qr-alphanum-url</a>)</label>
 					</div>
 					<div class="field-body">
 						<div class="field has-addons">
@@ -554,7 +571,7 @@ A character for non-printable characters
 					</div>
 				</div>
 
-
+				<!-- TODO use printable UTF-8 characters past 127 -->
 
 				<div class="field is-horizontal">
 					<div class="field-label">
@@ -605,7 +622,9 @@ A character for non-printable characters
 		<section class="section">
 			<div class="container has-text-centered">
 				†"Modified ASCII"?
-				Only the printable characters. Will not work with numbers requiring encoding to non-printable characters. "¡" is used to represent non-printable characters.
+				Only the printable characters. Will not work with numbers requiring
+				encoding to non-printable characters. "¡" is used to represent
+				non-printable characters.
 
 
 			</div>

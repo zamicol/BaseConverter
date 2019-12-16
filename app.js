@@ -30,7 +30,22 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll(".conversionTextArea").forEach(t => {
 		t.addEventListener('change', Length);
 	});
+
+	console.log(baseBits(2));
+	console.log(baseBits(32));
+	console.log(baseBits(35));
+	console.log(baseBits(64));
+
+	console.log(reduce(6, 8));
 });
+
+
+function FullBuckets(){
+	var inputBase = document.getElementById("inputAlphabet").value.length;
+	var outputBase = document.getElementById("outputAlphabet").value.length;
+	console.log(inputBase);
+	console.log(outputBase);
+}
 
 
 
