@@ -6,7 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector("#FlipButton").addEventListener('click', Flip);
 	document.querySelector("#reverseInButton").addEventListener('click', ReverseIn);
 	document.querySelector("#reverseOutButton").addEventListener('click', ReverseOut);
+	document.querySelector("#ShareButton").addEventListener('click', ShareURL);
 
+	
+	// TODO this seems wrong
 	document.querySelectorAll("#ClearButton").forEach(t => {
 		t.addEventListener('click', Clear);
 	});
@@ -20,10 +23,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		t.addEventListener('click', Desintation);
 	});
 
+
+	
+
+	//////////////////
+	// URL parameters
+	//////////////////
+	PopulateFromURL();
+
 	//////////////////
 	// Live Update Conversion
 	//////////////////
-		// I don't know if change does anything, but input doesn't seem to cover all
+	// I don't know if change does anything, but input doesn't seem to cover all
 	// cases of user interaction. 
 	document.querySelector("#inputString").addEventListener('input', Convert);
 	document.querySelector("#inputAlphabet").addEventListener('input', Convert);
@@ -38,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector("#Example64To256Button").addEventListener('click', Example64To256);
 	document.querySelector("#Example256to32Button").addEventListener('click', Example256to32);
 
-	
+
 
 	//////////////////
 	// Live Update Length
@@ -186,6 +197,45 @@ function Update() {
 }
 
 
+// Populate fields from URL parameters. 
+function PopulateFromURL() {
+	console.log("populating from URL");
+	var url = new URL(window.location.href);
+	console.log(url);
+	var input = url.searchParams.get("in");
+	var inAlpha = url.searchParams.get("inAlpha");
+	var outAlpha = url.searchParams.get("outAlpha");
+	console.log(input, inAlpha, outAlpha);
+
+	if (input != "" && inAlpha != "" && outAlpha != "") {
+		document.getElementById("inputString").value = input;
+		document.getElementById("inputAlphabet").value = inAlpha;
+		document.getElementById("outputAlphabet").value = outAlpha;
+
+		Convert();
+	}
+}
+
+// Share
+function ShareURL() {
+
+	var input = document.getElementById("inputString").value;
+	var inAlpha = document.getElementById("inputAlphabet").value;
+	var outAlpha = document.getElementById("outputAlphabet").value;
+
+	var url = new URL(window.location.href);
+	url.searchParams.set("in", input);
+	url.searchParams.set("inAlpha", inAlpha);
+	url.searchParams.set("outAlpha", outAlpha);
+
+
+	console.log(url);
+
+
+	document.getElementById("ShareTextArea").value = url.href;
+}
+
+
 
 
 function ExampleConversion() {
@@ -212,5 +262,3 @@ function Example256to32() {
 	// Out should be MZXW6YTBOI======
 	Convert();
 }
-
-
