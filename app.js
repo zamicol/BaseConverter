@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	//////////////////
 	// Examples
 	//////////////////
-	document.querySelector("#ExampleButton").addEventListener('click', ExampleConversion);
+	//document.querySelector("#ExampleButton").addEventListener('click', ExampleConversion);
 	document.querySelector("#Example64To256Button").addEventListener('click', Example64To256);
 	document.querySelector("#Example256to32Button").addEventListener('click', Example256to32);
 
