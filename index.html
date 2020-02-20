@@ -25,108 +25,395 @@
 			</div>
 		</section>
 
-		<section class="section">
-			<div class="container">
-				<div class="columns">
-					<div class="column">
-						<article class="message is-primary">
-							<div class="message-header">
-								<p>In</p>
+		<div class="container">
+			<div class="columns">
+				<div class="column">
+					<article class="message is-primary">
+						<div class="message-header">
+							<p>In</p>
+						</div>
+						<div class="message-body">
+							<div class="field">
+								<label class="label">Alphabet</label>
+								<input class="input is-primary conversionTextArea" type="text" id="inputAlphabet" placeholder="In Alphabet">
+								<p class="help has-text-right">Base: <span class="lengthDisplay" id="inputAlphabetLength">0</span></p>
 							</div>
-							<div class="message-body">
-								<div class="field">
-									<label class="label">Alphabet</label>
-									<input class="input is-primary conversionTextArea" type="text" id="inputAlphabet" placeholder="In Alphabet">
-									<p class="help has-text-right">Base: <span class="lengthDisplay" id="inputAlphabetLength">0</span></p>
-								</div>
-								<div class="field">
-									<label class="label">String</label>
-									<textarea rows="20" class="textarea is-primary conversionTextArea" placeholder="In String" id="inputString"></textarea>
-									<p class="help has-text-right">Length: <span class="lengthDisplay" id="inputStringLength">0</span></p>
-								</div>
-								<div class="field">
-									<div class="control">
-										<button class="button is-info is-fullwidth" id="reverseInButton">
-											<span>Reverse String ⇄</span>
-										</button>
-									</div>
+							<div class="field">
+								<label class="label">String</label>
+								<textarea rows="20" class="textarea is-primary conversionTextArea" placeholder="In String" id="inputString"></textarea>
+								<p class="help has-text-right">Length: <span class="lengthDisplay" id="inputStringLength">0</span></p>
+							</div>
+							<div class="field">
+								<div class="control">
+									<button class="button is-info is-fullwidth" id="reverseInButton">
+										<span>Reverse String ⇄</span>
+									</button>
 								</div>
 							</div>
-						</article>
-					</div>
-					<div class="column">
-						<article class="message is-danger">
-							<div class="message-header">
-								<p>Out</p>
+						</div>
+					</article>
+				</div>
+				<div class="column">
+					<article class="message is-danger">
+						<div class="message-header">
+							<p>Out</p>
+						</div>
+						<div class="message-body">
+							<div class="field">
+								<label class="label">Alphabet</label>
+								<input class="input is-danger conversionTextArea" type="text" id="outputAlphabet" placeholder="Out Alphabet">
+								<p class="help has-text-right">Base: <span class="lengthDisplay" id="outputAlphabetLength">0</span></p>
 							</div>
-							<div class="message-body">
-								<div class="field">
-									<label class="label">Alphabet</label>
-									<input class="input is-danger conversionTextArea" type="text" id="outputAlphabet" placeholder="Out Alphabet">
-									<p class="help has-text-right">Base: <span class="lengthDisplay" id="outputAlphabetLength">0</span></p>
-								</div>
-								<div class="field">
-									<label class="label">String</label>
-									<textarea rows="20" class="textarea is-danger conversionTextArea" placeholder="Out Encoding" id="outputString"></textarea>
-									<p class="help has-text-right">Length: <span class="lengthDisplay" id="outputStringLength">0</span></p>
-								</div>
-								<div class="field">
-									<div class="control">
-										<button class="button is-info is-fullwidth" id="reverseOutButton">
-											<span>Reverse String ⇄</span>
-										</button>
-									</div>
+							<div class="field">
+								<label class="label">String</label>
+								<textarea rows="20" class="textarea is-danger conversionTextArea" placeholder="Out Encoding" id="outputString"></textarea>
+								<p class="help has-text-right">Length: <span class="lengthDisplay" id="outputStringLength">0</span></p>
+							</div>
+							<div class="field">
+								<div class="control">
+									<button class="button is-info is-fullwidth" id="reverseOutButton">
+										<span>Reverse String ⇄</span>
+									</button>
 								</div>
 							</div>
-						</article>
+						</div>
+					</article>
+				</div>
+			</div>
+
+			<div class="field">
+				<div class="control">
+					<button class="button is-large is-info is-focused is-fullwidth" id="ConvertBaseButton">
+						<span>Convert ⇒ </span>
+					</button>
+				</div>
+			</div>
+			<div class="field">
+				<div class="control">
+					<button class="button is-warning is-fullwidth" id="FlipButton">
+						<span>Flip In and Out ⇄</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="field">
+				<div class="control">
+					<button class="button is-fullwidth" id="ClearButton">
+						<span>Clear All ⎚</span>
+					</button>
+				</div>
+			</div>
+
+
+			<div class="field">
+				<div class="control">
+					<button class="button is-fullwidth" id="ShareButton">
+						<span>Share 🔗</span>
+					</button>
+				</div>
+			</div>
+
+
+
+			<div class="field">
+				<textarea rows="2" class="textarea is-primary conversionTextArea" placeholder="Share URL" id="ShareTextArea"></textarea>
+			</div>
+
+
+			<!-- <div class="field">
+				<div class="control">
+					<label class="checkbox">
+						<input type="checkbox" checked>
+						Even buckets
+					</label>
+				</div>
+			</div> -->
+
+		</div>
+
+&nbsp;
+
+		<div class="container has-text-centered">
+			<h1 class="title is-1">Useful Alphabets</h1>
+
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 2 (<a href="https://en.wikipedia.org/wiki/Binary_number">binary</a>)(<span class="has-text-success">1 bit</span>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="01" readonly id="base2">
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
+						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="field">
-					<div class="control">
-						<button class="button is-large is-info is-focused is-fullwidth" id="ConvertBaseButton">
-							<span>Convert ⇒ </span>
-						</button>
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 4 (<a href="https://en.wikipedia.org/wiki/Quaternary_numeral_system">quaternary</a>)(<span class="has-text-success">2 bits</span>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="0123" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
+						</div>
 					</div>
 				</div>
-				<div class="field">
-					<div class="control">
-						<button class="button is-warning is-fullwidth" id="FlipButton">
-							<span>Flip In and Out ⇄</span>
-						</button>
+			</div>
+
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 8 (<a href="https://en.wikipedia.org/wiki/Octal">octal</a>)(<span class="has-text-success">3 bits</span>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="01234567" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
+						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="field">
-					<div class="control">
-						<button class="button is-fullwidth" id="ClearButton">
-							<span>Clear All ⎚</span>
-						</button>
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 10 (<a href="https://en.wikipedia.org/wiki/Decimal">decimal</a>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="0123456789" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
+						</div>
 					</div>
 				</div>
+			</div>
 
-
-				<div class="field">
-					<div class="control">
-						<button class="button is-fullwidth" id="ShareButton">
-							<span>Share 🔗</span>
-						</button>
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 12 (<a href="https://en.wikipedia.org/wiki/Dozenal">dozenal</a>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="0123456789↊↋" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
+						</div>
 					</div>
 				</div>
+			</div>
 
-
-
-				<div class="field">
-					<textarea rows="2" class="textarea is-primary conversionTextArea" placeholder="Share URL" id="ShareTextArea"></textarea>
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 16 (<a href="https://en.wikipedia.org/wiki/Hexadecimal">hex</a>)(<span class="has-text-success">4 bits</span>)</label>
 				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="0123456789ABCDEF" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 16 (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates">lower hex</a>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="0123456789abcdef" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 32 (<a href="https://tools.ietf.org/html/rfc4648#section-6">RFC 4648</a>)(<span class="has-text-success">5 bits</span>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" id="base32" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 32 (<a href="https://philzimmermann.com/docs/human-oriented-base-32-encoding.txt">z-base-32</a>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="ybndrfg8ejkmcpqxot1uwisza345h769" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
-				<div class="field">
-					<div class="control">
-						<label class="checkbox">
-							<input type="checkbox" checked>
-							Even buckets
-						</label>
+
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 58 (<a href="https://en.wikipedia.org/wiki/Base58">bitcoin</a>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -134,625 +421,261 @@
 
 
 
-		</section>
 
-
-
-		<section class="section">
-			<div class="container has-text-centered">
-				<h1 class="title is-1">Useful Alphabets</h1>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 2 (<a href="https://en.wikipedia.org/wiki/Binary_number">binary</a>)(<span class="has-text-success">1 bit</span>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="01" readonly id="base2">
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 64 (<a href="https://tools.ietf.org/html/rfc4648#section-5">url safe</a>)(<span class="has-text-success">6 bits</span>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 4 (<a href="https://en.wikipedia.org/wiki/Quaternary_numeral_system">quaternary</a>)(<span class="has-text-success">2 bits</span>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="0123" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
+
+
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 64 (<a href="https://tools.ietf.org/html/rfc3548#section-3">url unsafe</a>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 8 (<a href="https://en.wikipedia.org/wiki/Octal">octal</a>)(<span class="has-text-success">3 bits</span>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="01234567" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base66 (<a href="https://tools.ietf.org/html/rfc3986#section-2.3">url</a>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_~." readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 10 (<a href="https://en.wikipedia.org/wiki/Decimal">decimal</a>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="0123456789" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
+
+
+
+
+
+
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 85 (<a href="https://tools.ietf.org/html/rfc1924#section-4.2">RFC 1924</a>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 12 (<a href="https://en.wikipedia.org/wiki/Dozenal">dozenal</a>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="0123456789↊↋" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
+
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 91 (<a href="http://base91.sourceforge.net">basE91</a>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~&quot;" readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
 						</div>
 					</div>
 				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 16 (<a href="https://en.wikipedia.org/wiki/Hexadecimal">hex</a>)(<span class="has-text-success">4 bits</span>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="0123456789ABCDEF" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 16 (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates">lower hex</a>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="0123456789abcdef" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 32 (<a href="https://tools.ietf.org/html/rfc4648#section-6">RFC 4648</a>)(<span class="has-text-success">5 bits</span>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" id="base32" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 32 (<a href="https://philzimmermann.com/docs/human-oriented-base-32-encoding.txt">z-base-32</a>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="ybndrfg8ejkmcpqxot1uwisza345h769" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base37 (<a href="https://zamicol.com">qr-url</a>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-
-								<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base38 (<a href="https://zamicol.com">qr-url</a>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-." readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 58 (<a href="https://en.wikipedia.org/wiki/Base58">bitcoin</a>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-
-
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 64 (<a href="https://tools.ietf.org/html/rfc4648#section-5">url safe</a>)(<span class="has-text-success">6 bits</span>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 64 (<a href="https://tools.ietf.org/html/rfc3548#section-3">url unsafe</a>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base66 (<a href="https://tools.ietf.org/html/rfc3986#section-2.3">url</a>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_~." readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
+			</div>
 
 
 
 
 
 
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 85 (<a href="https://tools.ietf.org/html/rfc1924#section-4.2">RFC 1924</a>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 91 (<a href="http://base91.sourceforge.net">basE91</a>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~&quot;" readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				
-
-
-
-
-				<!-- https://en.wikipedia.org/wiki/List_of_Unicode_characters used
+			<!-- https://en.wikipedia.org/wiki/List_of_Unicode_characters used
 				U+00A1 to fill in non-prinatable characters. A character for
 				non-printable characters.  U+00A1 is the first single character
 				printable character past the ASCII range.  
 			-->
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 128† (<a href="https://en.wikipedia.org/wiki/ASCII">Modified ASCII</a>)(<span class="has-text-success">7 bits</span>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" type="text" value='¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡' readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 128 (<a href="https://en.wikipedia.org/wiki/ASCII">Modified ASCII†</a>)(<span class="has-text-success">7 bits</span>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" type="text" value='¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡' readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<!-- TODO use printable UTF-8 characters past 127 -->
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label">Base 256† (<a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters">Modified Unicode</a>)(<span class="has-text-success">8 bits</span>)</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<div class="control is-expanded">
-								<input class="input" id="base256" type="text" value='¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡' readonly>
-							</div>
-							<div class="control">
-								<a class="button is-info copy">
-									Copy
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-primary source">
-									In
-								</a>
-							</div>
-							<div class="control">
-								<a class="button is-danger destination">
-									Out
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- TODO https://en.wikipedia.org/wiki/ISO/IEC_8859-1
-
+			<!--  https://en.wikipedia.org/wiki/ISO/IEC_8859-1
 				¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
 -->
-
-
+			<div class="field is-horizontal">
+				<div class="field-label">
+					<label class="label">Base 256† (<a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">Extended ASCII/ISO 8859-1/Latin-1††</a>)(<span class="has-text-success">8 bits</span>)</label>
+				</div>
+				<div class="field-body">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<!--ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ¡¢£¤¥¦§¨©ª«¬Ā®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ-->
+							<input class="input" id="base256" type="text" value='ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ¡¢£¤¥¦§¨©ª«¬Ā®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ' readonly>
+						</div>
+						<div class="control">
+							<a class="button is-info copy">
+								Copy
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-primary source">
+								In
+							</a>
+						</div>
+						<div class="control">
+							<a class="button is-danger destination">
+								Out
+							</a>
+						</div>
+					</div>
+				</div>
 			</div>
-		</section>
+
+
+
+			<div class="field">
+				<div class="control">
+					<button class="button is-large is-info is-fullwidth" id="Example64To256Button">
+						<span>Base 64 to Base 256 Example</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="field">
+				<div class="control">
+					<button class="button is-large is-info is-fullwidth" id="Example256to32Button">
+						<span>Base 256 to Base 32 Example</span>
+					</button>
+				</div>
+			</div>
+		</div>
+
+
 
 		<section class="section">
 			<div class="container has-text-centered">
-				<div class="field">
-					<div class="control">
-						<button class="button is-large is-info is-fullwidth" id="ExampleButton">
-							<span>Base 64 to Base 37 Example</span>
-						</button>
-					</div>
-				</div>
+				<p>†"Modified ASCII"? Only the printable characters and space. Will not work with
+					numbers requiring encoding to non-printable characters. "¡" is used to
+					represent non-printable characters. U+00A1 ("¡") is the first printable
+					character past the ASCII range.</p>
 
-				<div class="field">
-					<div class="control">
-						<button class="button is-large is-info is-fullwidth" id="Example64To256Button">
-							<span>Base 64 to Base 256 Example</span>
-						</button>
-					</div>
-				</div>
-
-
-
-				<div class="field">
-					<div class="control">
-						<button class="button is-large is-info is-fullwidth" id="Example256to32Button">
-							<span>Base 256 to Base 32 Example</span>
-						</button>
-					</div>
-				</div>
-
+				<p>††"Latin-1"? Only the printable characters and space. Will not work with
+					numbers requiring encoding to non-printable characters. "Ā" is used to
+					represent non-printable characters. U+0100 ("Ā") is the first printable
+					character past the extended ASCII range. (See https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_Extended-A)</p>
 			</div>
 		</section>
 
-
-		<section class="section">
-			<div class="container has-text-centered">
-				†"Modified ASCII"? Only the printable characters. Will not work with
-				numbers requiring encoding to non-printable characters. "¡" is used to
-				represent non-printable characters. U+00A1 ("¡") is the first printable
-				character past the ASCII range.
-			</div>
-		</section>
 
 
 
