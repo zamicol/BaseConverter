@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector("#ConvertBaseButton").addEventListener('click', Convert);
+	document.querySelector("#PadCheckbox").addEventListener('click', Convert);
 
 	document.querySelector("#FlipButton").addEventListener('click', Flip);
 	document.querySelector("#reverseInButton").addEventListener('click', ReverseIn);
@@ -95,6 +96,13 @@ function Convert() {
 	if (inputAlphabet == "" || inputString == "" || outputAlphabet == "") {
 		console.log("Empty input.");
 		return null;
+	}
+
+	// Set padding Setting
+	if(document.getElementById("PadCheckbox").checked == true){
+		Padding = true;
+	}else{
+		Padding = false;
 	}
 
 	let outputString = baseConvert(inputString, inputAlphabet, outputAlphabet);
@@ -205,15 +213,20 @@ function PopulateFromURL() {
 	var input = url.searchParams.get("in");
 	var inAlpha = url.searchParams.get("inAlpha");
 	var outAlpha = url.searchParams.get("outAlpha");
-	console.log(input, inAlpha, outAlpha);
+	var pad = url.searchParams.get("pad");
+	console.log(input, inAlpha, outAlpha, pad);
 
-	if (input != "" && inAlpha != "" && outAlpha != "") {
+	if (input != "" || inAlpha != "" || outAlpha != "") {
 		document.getElementById("inputString").value = input;
 		document.getElementById("inputAlphabet").value = inAlpha;
 		document.getElementById("outputAlphabet").value = outAlpha;
+		document.getElementById("PadCheckbox").checked = pad;
 
 		Convert();
 	}
+
+	//Recreate the share URL
+	ShareURL();
 }
 
 // Share
@@ -222,11 +235,14 @@ function ShareURL() {
 	var input = document.getElementById("inputString").value;
 	var inAlpha = document.getElementById("inputAlphabet").value;
 	var outAlpha = document.getElementById("outputAlphabet").value;
+	var pad = document.getElementById("PadCheckbox").checked;
+
 
 	var url = new URL(window.location.href);
 	url.searchParams.set("in", input);
 	url.searchParams.set("inAlpha", inAlpha);
 	url.searchParams.set("outAlpha", outAlpha);
+	url.searchParams.set("pad", pad);
 
 
 	console.log(url);

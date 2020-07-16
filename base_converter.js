@@ -5,6 +5,13 @@
 //
 // Base is assumed from alphabet sizes. 
 
+// Padding is for preceeding padding characters.  By default padding should be
+// ignored as it carries no meaning.  For example, for the base 7 alphabet of
+// "ABCDEFG", the padding character is "A". For the base 8 alphabet of
+// "01234567", the padding character is "0".  Padding characters are preserved
+// on a 1:1 character basis.  
+let Padding = false;
+
 
 /**
  * baseConvert converts a given string with a given encoding alphabet
@@ -37,7 +44,7 @@ function baseConvert(string, inputAlphabet, outputAlphabet) {
 
 	const multiplyByNumber = (num, power, base) => {
 		if (num < 0) return null;
-		if (num == 0) return [];
+		if (num === 0) return [];
 
 		let result = [];
 		while (true) {
@@ -50,8 +57,8 @@ function baseConvert(string, inputAlphabet, outputAlphabet) {
 		return result;
 	}
 
-	// decodeInput finds the position of each character in alphabet, thus
-	// decoding the input string into a useful array.  
+	// decodeInput finds the position of each character in alphabet, thus decoding
+	// the input string into a useful array.  
 	const decodeInput = (string) => {
 		const digits = string.split('');
 		let arr = [];
@@ -80,9 +87,23 @@ function baseConvert(string, inputAlphabet, outputAlphabet) {
 
 	// Finally, decode array into characters.  
 	let out = '';
+	// Preceding padding characters - Add back in preceeding padding characters. 
+	if(Padding){
+		let inPad = inputAlphabet.charAt(0);
+		let outPad = outputAlphabet.charAt(0);
+		let i=0;
+		while(i<string.length){
+			if (string.charAt(i) !== inPad) break;
+			out += outPad;
+			i++;
+		}
+	}
+
+
 	for (let i = outArray.length - 1; i >= 0; i--) {
 		out += outputAlphabet[outArray[i]];
 	}
+
 
 	return out;
 }
