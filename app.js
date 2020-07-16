@@ -213,7 +213,7 @@ function PopulateFromURL() {
 	var input = url.searchParams.get("in");
 	var inAlpha = url.searchParams.get("inAlpha");
 	var outAlpha = url.searchParams.get("outAlpha");
-	var pad = url.searchParams.get("pad");
+	var pad = url.searchParams.get("pad") == 'true';
 	console.log(input, inAlpha, outAlpha, pad);
 
 	if (input != "" || inAlpha != "" || outAlpha != "") {
