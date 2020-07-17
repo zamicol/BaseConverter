@@ -263,14 +263,17 @@ function Example64To256() {
 	document.getElementById("inputAlphabet").value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 	document.getElementById("outputAlphabet").value = document.getElementById("base256").value;
 	// Out should be {"alg":"ES512"}
+	// Taken from https://tools.ietf.org/html/rfc7515#appendix-A.4.1
 	Convert();
 }
 
 function Example256to32() {
-	document.getElementById("inputString").value = "foobar¡¡¡¡";
+	document.getElementById("inputString").value = "foobarĀĀĀĀ";
 	document.getElementById("inputAlphabet").value = document.getElementById("base256").value;
 	document.getElementById("outputAlphabet").value = document.getElementById("base32").value;
 	// Out should be MZXW6YTBOI======
+	// Or without replacing the padding characters: MZXW6YTBOIAAAAAA
+	// Example from https://tools.ietf.org/html/rfc4648#section-10
 	Convert();
 }
 
