@@ -36,17 +36,24 @@
 							<div class="field">
 								<label class="label">Alphabet</label>
 								<input class="input is-primary conversionTextArea" type="text" id="inputAlphabet" placeholder="In Alphabet">
-								<p class="help has-text-right">Base: <span class="lengthDisplay" id="inputAlphabetLength">0</span></p>
+								<div class="columns help">
+									<div class="column">
+										Bits: <span id="inputBitsNeeded">0</span>
+									</div>
+									<div class="column has-text-right">
+										Base: <span class="lengthDisplay" id="inputAlphabetLength">0</span>
+									</div>
+								</div>
 							</div>
 							<div class="field">
-								<label class="label">String</label>
+								<label class="label">Input</label>
 								<textarea rows="20" class="textarea is-primary conversionTextArea" placeholder="In String" id="inputString"></textarea>
 								<p class="help has-text-right">Length: <span class="lengthDisplay" id="inputStringLength">0</span></p>
 							</div>
 							<div class="field">
 								<div class="control">
 									<button class="button is-info is-fullwidth" id="reverseInButton">
-										<span>Reverse String ⇄</span>
+										<span>Reverse Input Characters ⇄</span>
 									</button>
 								</div>
 							</div>
@@ -62,17 +69,24 @@
 							<div class="field">
 								<label class="label">Alphabet</label>
 								<input class="input is-danger conversionTextArea" type="text" id="outputAlphabet" placeholder="Out Alphabet">
-								<p class="help has-text-right">Base: <span class="lengthDisplay" id="outputAlphabetLength">0</span></p>
+								<div class="columns help">
+									<div class="column">
+										Bits: <span id="outputBitsNeeded">0</span>
+									</div>
+									<div class="column has-text-right">
+										Base: <span class="lengthDisplay" id="outputAlphabetLength">0</span>
+									</div>
+								</div>
 							</div>
 							<div class="field">
-								<label class="label">String</label>
+								<label class="label">Output</label>
 								<textarea rows="20" class="textarea is-danger conversionTextArea" placeholder="Out Encoding" id="outputString"></textarea>
 								<p class="help has-text-right">Length: <span class="lengthDisplay" id="outputStringLength">0</span></p>
 							</div>
 							<div class="field">
 								<div class="control">
 									<button class="button is-info is-fullwidth" id="reverseOutButton">
-										<span>Reverse String ⇄</span>
+										<span>Reverse Output Characters ⇄</span>
 									</button>
 								</div>
 							</div>
@@ -127,11 +141,11 @@
 						Preserve preceeding padding (1:1)
 					</label>
 				</div>
-			</div> 
+			</div>
 
 		</div>
 
-&nbsp;
+		&nbsp;
 
 		<div class="container has-text-centered">
 			<h1 class="title is-1">Useful Alphabets</h1>

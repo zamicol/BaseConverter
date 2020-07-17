@@ -8,12 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector("#reverseInButton").addEventListener('click', ReverseIn);
 	document.querySelector("#reverseOutButton").addEventListener('click', ReverseOut);
 	document.querySelector("#ShareButton").addEventListener('click', ShareURL);
+	document.querySelector("#ClearButton").addEventListener('click', Clear);
 
-	
-	// TODO this seems wrong
-	document.querySelectorAll("#ClearButton").forEach(t => {
-		t.addEventListener('click', Clear);
-	});
+
+	// Buttons on "Useful Alphabets"
 	document.querySelectorAll(".copy").forEach(t => {
 		t.addEventListener('click', Copy);
 	});
@@ -23,9 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll(".destination").forEach(t => {
 		t.addEventListener('click', Desintation);
 	});
-
-
-	
 
 	//////////////////
 	// URL parameters
@@ -42,14 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector("#outputAlphabet").addEventListener('input', Convert);
 
 
-
 	//////////////////
 	// Examples
 	//////////////////
 	//document.querySelector("#ExampleButton").addEventListener('click', ExampleConversion);
 	document.querySelector("#Example64To256Button").addEventListener('click', Example64To256);
 	document.querySelector("#Example256to32Button").addEventListener('click', Example256to32);
-
 
 
 	//////////////////
@@ -65,48 +58,52 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 
-
-	console.log(reduce(6, 8));
+	// console.log(lcm_two_numbers(3, 15));
+	// console.log(lcm_two_numbers(10, 15));
+	// console.log(lcm_two_numbers(5, 8));
+	// console.log(lcm_two_numbers(6, 8));
 });
 
 
 function FullBuckets() {
 	var inputBase = document.getElementById("inputAlphabet").value.length;
 	var outputBase = document.getElementById("outputAlphabet").value.length;
-	console.log(inputBase);
-	console.log(outputBase);
+
 
 	inBits = bitPerBase(inputBase);
 	outBits = bitPerBase(outputBase);
 
+	document.getElementById("inputBitsNeeded") = inBits;
+	document.getElementById("outputBitsNeeded") = outBits;
 
+}
 
-	console.log(reduce(inBits, outBits));
+function BucketPad() {
+
 }
 
 
 
 
-function Convert() {
+async function Convert() {
 	let inputAlphabet = document.getElementById("inputAlphabet").value;
 	let inputString = document.getElementById("inputString").value;
 	let outputAlphabet = document.getElementById("outputAlphabet").value;
 
-
-	if (inputAlphabet == "" || inputString == "" || outputAlphabet == "") {
-		console.log("Empty input.");
-		return null;
-	}
-
 	// Set padding Setting
-	if(document.getElementById("PadCheckbox").checked == true){
+	if (document.getElementById("PadCheckbox").checked == true) {
 		Padding = true;
-	}else{
+	} else {
 		Padding = false;
 	}
 
-	let outputString = baseConvert(inputString, inputAlphabet, outputAlphabet);
-	console.log(outputString);
+	let outputString = "";
+	if (inputAlphabet == "" || inputString == "" || outputAlphabet == "") {
+		console.log("Empty input.");
+	}else{
+		outputString = baseConvert(inputString, inputAlphabet, outputAlphabet);
+	}
+
 	document.getElementById("outputString").value = outputString;
 	Update();
 }
@@ -143,11 +140,7 @@ function ReverseOut() {
 
 
 
-
-
-
 function Copy() {
-	//console.log("Triggered Copy");
 	// Alternative selector:
 	//console.log(this.parentNode.previousElementSibling.firstElementChild.value);
 
@@ -188,33 +181,42 @@ function Length() {
 }
 
 
-function LengthAll() {
-	//console.log("Triggered LengthAll");
-
-	document.getElementById("inputAlphabetLength").textContent = document.getElementById("inputAlphabet").value.length;
-	document.getElementById("inputStringLength").textContent = document.getElementById("inputString").value.length;
-	document.getElementById("outputAlphabetLength").textContent = document.getElementById("outputAlphabet").value.length;
-	document.getElementById("outputStringLength").textContent = document.getElementById("outputString").value.length;
-
-
-}
 
 // Update updates all information presented on the screen.  
+// Except share link, for the worry that could slow down things too much. 
 function Update() {
 	LengthAll();
 }
 
+// Updates the legth of all text on the screen. 
+function LengthAll() {
+	var inLength = document.getElementById("inputAlphabet").value.length;
+	var outLength = document.getElementById("outputAlphabet").value.length;
+
+	// Set input and output lengths.
+	document.getElementById("inputAlphabetLength").textContent = inLength;
+	document.getElementById("outputAlphabetLength").textContent = outLength;
+	document.getElementById("inputStringLength").textContent = document.getElementById("inputString").value.length;
+	document.getElementById("outputStringLength").textContent = document.getElementById("outputString").value.length;
+
+	// Bits needed to represent the base of each alphabet. 
+	document.getElementById("inputBitsNeeded").textContent = bitPerBase(inLength);
+	document.getElementById("outputBitsNeeded").textContent = bitPerBase(outLength);
+}
+
+
+
+
+
 
 // Populate fields from URL parameters. 
 function PopulateFromURL() {
-	console.log("populating from URL");
 	var url = new URL(window.location.href);
-	console.log(url);
 	var input = url.searchParams.get("in");
 	var inAlpha = url.searchParams.get("inAlpha");
 	var outAlpha = url.searchParams.get("outAlpha");
 	var pad = url.searchParams.get("pad") == 'true';
-	console.log(input, inAlpha, outAlpha, pad);
+
 
 	if (input != "" || inAlpha != "" || outAlpha != "") {
 		document.getElementById("inputString").value = input;
@@ -229,14 +231,11 @@ function PopulateFromURL() {
 	ShareURL();
 }
 
-// Share
 function ShareURL() {
-
 	var input = document.getElementById("inputString").value;
 	var inAlpha = document.getElementById("inputAlphabet").value;
 	var outAlpha = document.getElementById("outputAlphabet").value;
 	var pad = document.getElementById("PadCheckbox").checked;
-
 
 	var url = new URL(window.location.href);
 	url.searchParams.set("in", input);
@@ -244,16 +243,12 @@ function ShareURL() {
 	url.searchParams.set("outAlpha", outAlpha);
 	url.searchParams.set("pad", pad);
 
-
-	console.log(url);
-
-
 	document.getElementById("ShareTextArea").value = url.href;
 }
 
-
-
-
+///////////////////////
+// Examples
+///////////////////////
 function ExampleConversion() {
 	document.getElementById("inputString").value = "KNBrzb9SPxyILkIHg5XE-z7Lm8x8Y5UjS4kXY3StK14";
 	document.getElementById("inputAlphabet").value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
@@ -278,3 +273,31 @@ function Example256to32() {
 	// Out should be MZXW6YTBOI======
 	Convert();
 }
+
+
+
+
+
+///////////////////////
+// Helpers
+///////////////////////
+
+function lcm_two_numbers(x, y) {
+	if ((typeof x !== 'number') || (typeof y !== 'number')) 
+	 return false;
+ return (!x || !y) ? 0 : Math.abs((x * y) / gcd_two_numbers(x, y));
+}
+
+function gcd_two_numbers(x, y) {
+ x = Math.abs(x);
+ y = Math.abs(y);
+ while(y) {
+	 var t = y;
+	 y = x % y;
+	 x = t;
+ }
+ return x;
+}
+
+
+

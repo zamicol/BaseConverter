@@ -74,6 +74,8 @@ function baseConvert(string, inputAlphabet, outputAlphabet) {
 
 	const fromBase = inputAlphabet.length;
 	const toBase = outputAlphabet.length;
+	// TODO support Base 1 decoding.  
+	if (toBase == 1) return;
 	const digits = decodeInput(string);
 	if (digits === null) return null;
 
@@ -87,7 +89,7 @@ function baseConvert(string, inputAlphabet, outputAlphabet) {
 
 	// Finally, decode array into characters.  
 	let out = '';
-	// Preceding padding characters - Add back in preceeding padding characters. 
+	// Preceding padding characters - Add back in preceeding padding characters.
 	if(Padding){
 		let inPad = inputAlphabet.charAt(0);
 		let outPad = outputAlphabet.charAt(0);
@@ -109,7 +111,6 @@ function baseConvert(string, inputAlphabet, outputAlphabet) {
 }
 
 
-
 /**
  * Get how many bits are needed to represent a particular number base
  * @param  {Number} base The length of the characters of the alphabet (the base,
@@ -126,18 +127,4 @@ function bitPerBase(base) {
 	}
 
 	return bits;
-}
-
-/**
- * Reduce a fraction by finding the Greatest Common Divisor and dividing by it.
- * @param  {Number} numerator 
- * @param  {Number} denominator
- * @returns {number} Greatest Common Divisor
- */
-function reduce(numerator, denominator) {
-	var gcd = function gcd(a, b) {
-		return b ? gcd(b, a % b) : a;
-	};
-	gcd = gcd(numerator, denominator);
-	return [numerator / gcd, denominator / gcd];
 }
