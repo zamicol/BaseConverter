@@ -65,8 +65,9 @@ function baseConvert(string, inputAlphabet, outputAlphabet) {
 		for (let i = digits.length - 1; i >= 0; i--) {
 			const n = inputAlphabet.indexOf(digits[i])
 			// Continue even if character is not found (possibly a padding character.)
-			// if (n == -1) return null;
 			if (n == -1) continue;
+			// Alternatively, fail on bad character
+			// if (n == -1) return null;
 			arr.push(n);
 		}
 		return arr;
