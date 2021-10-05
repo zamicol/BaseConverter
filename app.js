@@ -73,8 +73,8 @@ function FullBuckets() {
 	inBits = bitPerBase(inputBase);
 	outBits = bitPerBase(outputBase);
 
-	document.getElementById("inputBitsNeeded") = inBits;
-	document.getElementById("outputBitsNeeded") = outBits;
+	document.getElementById("inputBitsNeeded").textContent = inBits;
+	document.getElementById("outputBitsNeeded").textContent = outBits;
 
 }
 
