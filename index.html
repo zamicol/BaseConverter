@@ -1,169 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Zamicol's Base Converter</title>
 
-	<!-- Favicon made with https://realfavicongenerator.net/ -->
-	<!-- icon from Bootstrap Icons.  https://icons.getbootstrap.com/icons/list-ol/ -->
-	<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-	<link rel="manifest" href="favicon/site.webmanifest">
-	<link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
-	<link rel="shortcut icon" href="favicon/favicon.ico">
-	<meta name="msapplication-TileColor" content="#da532c">
-	<meta name="msapplication-config" content="favicon/browserconfig.xml">
-	<meta name="theme-color" content="#ffffff">
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
 	<script defer src="base_converter.js"></script>
+	<script defer src="form.js"></script>
 	<script defer src="app.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+
+	<!-- SysCnv Main Styles.  Includes Bootstrap and Ubuntu fonts -->
+	<link rel="stylesheet" href="web/bootstrap.min.css" id="bootstrapCSS">
+	<link rel="stylesheet" href="web/bootstrap_icons/bootstrap-icons.css">
+	<script defer src="web/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="web/ribbon.css" />
+
+	<!-- Favicons -->
+	<link rel="shortcut icon" href="web/avicon/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="web/favicon/favicon.ico" type="image/x-icon">
+	<!-- other favicon.  
+	Great guide: https://css-tricks.com/favicon-quiz/ 
+	Created with: https://www.favicon-generator.org/
+	-->
+	<link rel="icon" type="image/png" sizes="32x32" href="web/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="web/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="web/favicon/favicon-16x16.png">
+	<link rel="manifest" href="web/favicon/site.webmanifest">
+	<meta name="theme-color" content="#ffffff">
+	<link rel="icon" type="image/png" sizes="192x192" href="web/favicon/android-icon-192x192.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="web/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="web/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="web/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="web/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="web/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="web/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="web/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="web/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="web/favicon/apple-icon-180x180.png">
+	<meta name="msapplication-TileImage" content="web/favicon/ms-icon-144x144.png">
+	<meta name="msapplication-TileColor" content="#ffffff">
+
+
+	<style>
+		body {
+			/*TODO delete whatever is in x*/
+			overflow-x: hidden;
+		}
+
+		.alphabets input {
+			min-width: 70%;
+		}
+	</style>
 </head>
 
 <body>
 	<a class="github-fork-ribbon" href="https://github.com/zamicol/BaseConverter" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
-	<div class="wrapper">
-		<section class="hero">
-			<div class="hero-body">
-				<div class="container">
-					<h1 class="title">
-						Zamicol's Base Converter
-					</h1>
-					<h2 class="subtitle">
-						Convert arbitrary bases of arbitrary alphabets of arbitrary lengths.
-					</h2>
-				</div>
-			</div>
-		</section>
+	<div class="container-xl">
 
-		<div class="container">
-			<div class="columns">
-				<div class="column">
-					<article class="message is-primary">
-						<div class="message-header">
-							<p>In</p>
+		<div class="text-start my-4 text-center">
+			<h1 class="fw-bold">Zamicol's Base Converter</h1>
+			<h4>Convert arbitrary bases with arbitrary alphabets.</h4>
+		</div>
+
+
+		<!-- Conversion Section -->
+		<div class="row align-items-center">
+
+			<!-- Input -->
+			<div class="card col-sm-5 p-0 text-start">
+				<div class="card-header fw-bold  text-white ps-3 m-0 bg-success">
+					In <i class="bi bi-box-arrow-in-right"></i>
+				</div>
+
+				<div class="card-body p-2" style="background-color: #F5FFFD;">
+					<label class="fw-bold mb-1">Alphabet</label>
+					<div class="input-group mb-1">
+						<input class="conversionTextArea form-control border-success fw-light" type="text" id="inputAlphabet" placeholder="In Alphabet">
+					</div>
+
+					<div class="row text-success">
+						<div class="col">
+							Bits: <span id="inputBitsNeeded">0</span>
 						</div>
-						<div class="message-body">
-							<div class="field">
-								<label class="label">Alphabet</label>
-								<input class="input is-primary conversionTextArea" type="text" id="inputAlphabet" placeholder="In Alphabet">
-								<div class="columns help">
-									<div class="column">
-										Bits: <span id="inputBitsNeeded">0</span>
-									</div>
-									<div class="column has-text-right">
-										Base: <span class="lengthDisplay" id="inputAlphabetLength">0</span>
-									</div>
-								</div>
-							</div>
-							<div class="field">
-								<label class="label">Input</label>
-								<textarea rows="20" class="textarea is-primary conversionTextArea" placeholder="In String" id="inputString"></textarea>
-								<p class="help has-text-right">Length: <span class="lengthDisplay" id="inputStringLength">0</span></p>
-							</div>
-							<div class="field">
-								<div class="control">
-									<button class="button is-info is-fullwidth" id="reverseInButton">
-										<span>Reverse Input Characters ⇄</span>
-									</button>
-								</div>
-							</div>
+						<div class="col text-end">
+							Base: <span class="lengthDisplay" id="inputAlphabetLength">0</span>
 						</div>
-					</article>
-				</div>
-				<div class="column">
-					<article class="message is-danger">
-						<div class="message-header">
-							<p>Out</p>
+					</div>
+
+					<label class="fw-bold mb-1">Input</label>
+					<textarea rows="5" class="border-success conversionTextArea form-control fw-light" placeholder="In String" id="inputString"></textarea>
+
+					<div class="row">
+						<div class="col">
+							<button class="btn btn-primary btn-sm py-0" id="reverseInBtn"> Reverse ⇄ </button>
 						</div>
-						<div class="message-body">
-							<div class="field">
-								<label class="label">Alphabet</label>
-								<input class="input is-danger conversionTextArea" type="text" id="outputAlphabet" placeholder="Out Alphabet">
-								<div class="columns help">
-									<div class="column">
-										Bits: <span id="outputBitsNeeded">0</span>
-									</div>
-									<div class="column has-text-right">
-										Base: <span class="lengthDisplay" id="outputAlphabetLength">0</span>
-									</div>
-								</div>
-							</div>
-							<div class="field">
-								<label class="label">Output</label>
-								<textarea rows="20" class="textarea is-danger conversionTextArea" placeholder="Out Encoding" id="outputString"></textarea>
-								<p class="help has-text-right">Length: <span class="lengthDisplay" id="outputStringLength">0</span></p>
-							</div>
-							<div class="field">
-								<div class="control">
-									<button class="button is-info is-fullwidth" id="reverseOutButton">
-										<span>Reverse Output Characters ⇄</span>
-									</button>
-								</div>
-							</div>
+						<div class="col">
+							<p class="help text-end mb-0">Length: <span class="lengthDisplay" id="inputStringLength">0</span></p>
 						</div>
-					</article>
+					</div>
+
+
+					<div class="text-center">
+
+					</div>
+				</div>
+			</div> <!-- End Input -->
+
+			<!-- Middle convert -->
+			<div class="card col-sm-2 p-0 mt-3 mb-3 align-middle aligns-items-center alert">
+				<button class="btn btn-primary btn-lg fw-bold mb-3" id="ConvertBaseBtn" type="button">
+					<span>Convert ⇒</span>
+				</button>
+
+				<div id="alertErrorDiv" class="alert alert-danger" role="alert" hidden>
+					<h4 class="alert-heading">Error</h4>
+					<p><span id="alertErrorMsg">Test Message</span></p>
+					<button id="alertErrorCloseBtn" type="button" class="btn-close"></button>
 				</div>
 			</div>
 
-			<div class="field">
-				<div class="control">
-					<button class="button is-large is-info is-focused is-fullwidth" id="ConvertBaseButton">
-						<span>Convert ⇒ </span>
-					</button>
+			<!-- Output -->
+			<div class="card col-sm-5 p-0 text-start">
+				<div class="card-header fw-bold text-white ps-3 m-0 bg-danger">
+					Out <i class="bi bi-box-arrow-right"></i>
 				</div>
-			</div>
-			<div class="field">
-				<div class="control">
-					<button class="button is-warning is-fullwidth" id="FlipButton">
-						<span>Flip In and Out ⇄</span>
-					</button>
+
+				<div class="card-body p-2" style="background-color: #FFF5F7;">
+					<label class="fw-bold mb-1">Alphabet</label>
+					<div class="input-group mb-1">
+						<input class="conversionTextArea form-control border-danger fw-light" type="text" id="outputAlphabet" placeholder="Out Alphabet">
+					</div>
+
+					<div class="row text-danger">
+						<div class="col">
+							Bits: <span id="outputBitsNeeded">0</span>
+						</div>
+						<div class="col text-end">
+							Base: <span class="lengthDisplay" id="outputAlphabetLength">0</span>
+						</div>
+					</div>
+
+					<label class="fw-bold mb-1">Output</label>
+					<textarea rows="5" class="border-danger conversionTextArea form-control fw-light" placeholder="Out Encoding" id="outputString"></textarea>
+
+
+					<div class="row">
+						<div class="col">
+							<button class="btn btn-primary btn-sm py-0" id="reverseOutBtn"> Reverse ⇄ </button>
+						</div>
+						<div class="col">
+							<p class="help text-end mb-0">Length: <span class="lengthDisplay" id="outputStringLength">0</span></p>
+						</div>
+					</div>
+
 				</div>
-			</div>
-
-			<div class="field">
-				<div class="control">
-					<button class="button is-fullwidth" id="ClearButton">
-						<span>Clear All ⎚</span>
-					</button>
-				</div>
-			</div>
+			</div> <!-- End Output -->
+		</div>
 
 
-			<div class="field">
-				<div class="control">
-					<button class="button is-fullwidth" id="ShareButton">
-						<span>Share 🔗</span>
-					</button>
-				</div>
-			</div>
+		<!-- Buttons -->
+		<div class="row mt-3 mb-2">
+			<div class="col-sm-6">
+				<button class="btn btn-warning m-1 w-100" id="FlipBtn">
+					<span>Flip In and Out ⇄</span>
+				</button>
+				<button class="btn btn-light border-dark m-1 w-100" id="ClearBtn">
+					<span>Clear All ⎚</span>
+				</button>
 
-
-
-			<div class="field">
-				<textarea rows="2" class="textarea is-primary conversionTextArea" placeholder="Share URL" id="ShareTextArea"></textarea>
-			</div>
-
-
-
-
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Left Pad</label>
-				</div>
-				<div class="field-body">
-					<div class="field">
-						<div class="control">
-							<label class="checkbox">
-								<input type="checkbox" id="PadCheckbox">
-								Preserve Left Padding (1:1). First character of input and output alphabet will be used as padding character.
-							</label>
+				<div class="row">
+					<div class="col-4">
+						<input type="checkbox" id="PadCheckbox" aria-describedby="paddingHelp">
+						<label class="label" for="PadCheckbox">Left Pad</label>
+					</div>
+					<div class="col-8">
+						<div id="paddingHelp" class="form-text">
+							First character of in/out alphabet used as padding character.
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- TODO
+
+				<!-- TODO
 			<div class="field is-horizontal">
 				<div class="field-label is-normal">
 					<label class="label">Right Pad</label>
@@ -181,540 +199,497 @@
 					</div>
 				</div>
 			</div>
--->
+			-->
+			</div>
 
-
-
-			<!-- end container-->
+			<div class="col-sm-6">
+				<button class="btn btn-light border-dark mt-1 w-100" id="ShareBtn">
+					<span>Share 🔗</span>
+				</button>
+				<div class="col-12 mb-2">
+					<textarea rows="4" class="card border-success conversionTextArea w-100" placeholder="Share URL" id="shareURL"></textarea>
+				</div>
+			</div>
 		</div>
 
 
-		&nbsp;
 
-		<div class="container has-text-centered">
-			<h1 class="title is-1">Useful Alphabets</h1>
+		<!-- Extras -->
+		<div class="card mb-3">
 
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 2 (<a href="https://en.wikipedia.org/wiki/Binary_number">binary</a>)(<span class="has-text-success">1 bit</span>)</label>
+
+
+
+			<div class="card-header bg-primary text-white">
+				<span class="fw-bold">Special Extras</span> <br>
+				Legend: text (string), Hex, hex, base64, b64ut b64up, ub64p, ub64t, DND:
+				(e.g. DND:20), Hash: (e.g. Hash:SHA-256), bytes, SysCnv
+			</div>
+
+
+			<div class="card-body px-4 py-0">
+				<!-- Hash -->
+				<div class="row rounded border border-primary align-items-center p-2">
+					<div class="col-md-4 dropwdown">
+						<select class="btn btn-danger" id="HashAlgoOptions">Hashing Algo
+							<option value="SHA-256" class="text-start">SHA-256</option>
+							<option value="SHA-384" class="text-start">SHA-384</option>
+							<option value="SHA-512" class="text-start">SHA-512</option>
+						</select>
+					</div>
+					<div class="col-md-8 text-start">
+						In: Any alphabet (Default: Text). Out: Digest in Hex.
+					</div>
 				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="01" readonly id="base2">
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+
+
+				<!-- SysCnv Convert -->
+				<div class="row rounded border border-primary align-items-center p-2">
+					<div class="col-md-4">
+						<a id="CyphrmeConvertBtn" type="button" class="btn btn-danger btn-md" href="#">SysCnv</a>
+					</div>
+					<div class="col-md-8 text-start">
+						In: Any alphabet (Default: Hex). Out: SysCnv - Hex, b64up, base 128, and Go Bytes.
+					</div>
+				</div>
+
+
+				<!-- DND -->
+				<div class="row rounded border border-primary align-items-center p-2">
+					<div class="col-md-4 btn-group align-items-center">
+						<a id="DNDConvertInBtn" type="button" class="btn btn-success btn-md" href="#"><i class="bi bi-dice-5-fill"></i> DND</a>
+						<a id="DNDConvertOutBtn" type="button" class="btn btn-danger btn-md" href="#"><i class="bi bi-dice-5-fill"></i> DND</a>
+					</div>
+					<div class="col-md-8 text-start align-items-center">
+						<label for="numberOfDiceSides">Dice Sides: </label>
+						<input type="number" value=20 id="numberOfDiceSides">
+						<br>
+						In: Formatted either with padding (0102030405), or
+						with spaces (1 2 3 4 5). Out: Any alphabet (Default: Hex).
+						<br> In: Any alphabet (Default: Hex). Out: Formatted either with padding (0102030405), or
+						with spaces (1 2 3 4 5).
+					</div>
+				</div>
+
+
+
+				<!-- base64 -->
+				<div class="row rounded border border-primary align-items-center p-2">
+					<div class="col-md-4 btn-group align-items-center">
+						<a id="base64InBtn" type="button" class="btn btn-success btn-md" href="#">base64</a>
+						<a id="b64utOutBtn" type="button" class="btn btn-danger btn-md" href="#">b64ut</a>
+						<a id="ub64pOutBtn" type="button" class="btn btn-danger btn-md" href="#">ub64p</a> <!-- default RFC 4348 base64 -->
+					</div>
+					<div class="col-md-8 text-start align-items-center">
+						In: RFC 4648 base64 (uri/unsafe; truncated/padded). Out: Any alphabet (Default: Hex).
+						<br> In: Any alphabet (Default: Hex). Out: RFC 4648 base64 URI truncated.
+						<br> In: Any alphabet (Default: Hex). Out: RFC 4648 unsafe base64 padded.
+					</div>
+				</div>
+
+				<!-- Majascule casing -->
+				<div class="row rounded border border-primary align-items-center p-2">
+					<div class="col-sm-4 btn-group">
+						<a id="majusculeBtn" type="button" class="btn btn-danger" href="#">Majuscule</a>
+						<a id="minisculeBtn" type="button" class="btn btn-danger" href="#">Miniscule</a>
+						<a id="ridiculeBtn" type="button" class="btn btn-danger" href="#">Ridicule</a>
+					</div>
+					<div class="col-sm-8 text-start">
+						In: text. Out: Majuscule, Miniscule, or Ridicule casing (e.g. "ffff" to "FFFF", "FFFF" to "ffff", or "FFFF" to "FfFf").
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+		<!-- Alphabet Section -->
+		<div class="row text-center align-items-center alphabets">
+			<h1 class="fw-bold mb-3">Useful Alphabets</h1>
+
+			<!-- Base 2 -->
+			<div class="col-sm-3">
+				<label class="label">Base 2</label>
+				<a href="https://en.wikipedia.org/wiki/Binary_number"> (binary)</a>
+				<span class="text-success"> (1 bit)</span>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="01" readonly id="base2">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 4 (<a href="https://en.wikipedia.org/wiki/Quaternary_numeral_system">quaternary</a>)(<span class="has-text-success">2 bits</span>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="0123" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<!-- Base 4 -->
+			<div class="col-sm-3">
+				<label class="label">Base 4 </label>
+				<a href="https://en.wikipedia.org/wiki/Quaternary_numeral_system"> (quaternary)</a>
+				<span class="text-success"> (2 bits)</span>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="0123" readonly id="base4">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 8 (<a href="https://en.wikipedia.org/wiki/Octal">octal</a>)(<span class="has-text-success">3 bits</span>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="01234567" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<!-- DNA -->
+			<div class="col-sm-3">
+				<!--<label class="label">DNA </label>-->
+				<a href="https://en.wikipedia.org/wiki/Nucleobase"> DNA</a>
+				<span class="text-success"> (2 bits)</span>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="ACGT" readonly id="ACGT">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 10 (<a href="https://en.wikipedia.org/wiki/Decimal">decimal</a>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="0123456789" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<!-- Base 8 -->
+			<div class="col-sm-3">
+				<label class="label">Base 8</label>
+				<a href="https://en.wikipedia.org/wiki/Octal"> (octal)</a>
+				<span class="text-success"> (3 bits)</span>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="01234567" readonly id="base8">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 12 (<a href="https://en.wikipedia.org/wiki/Dozenal">dozenal</a>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="0123456789AB" alt="0123456789↊↋" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<!-- Base 10 -->
+			<div class="col-sm-3">
+				<label class="label">Base 10</label>
+				<a href="https://en.wikipedia.org/wiki/Decimal"> (decimal)</a>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="0123456789" readonly id="base10">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 16 (<a href="https://en.wikipedia.org/wiki/Hexadecimal">hex</a>)(<span class="has-text-success">4 bits</span>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="0123456789ABCDEF" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<!-- Base 12 -->
+			<div class="col-sm-3">
+				<label class="label">Base 12</label>
+				<a href="https://en.wikipedia.org/wiki/Dozenal"> (dozenal)</a>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="0123456789AB" alt="0123456789↊↋" readonly id="base12">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 16 (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates">lower hex</a>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="0123456789abcdef" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<!-- Base 16 (Uppercase) -->
+			<div class="col-sm-3">
+				<label class="label">Base 16</label>
+				<a href="https://en.wikipedia.org/wiki/Hexadecimal"> (hex)</a>
+				<span class="text-success"> (4 bits)</span>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="0123456789ABCDEF" readonly id="base16">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 32 (<a href="https://tools.ietf.org/html/rfc4648#section-6">RFC 4648</a>)(<span class="has-text-success">5 bits</span>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" id="base32" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
-					</div>
-				</div>
+			<!-- Base 16 (Lowercase) -->
+			<div class="col-sm-3">
+				<label class="label">Base 16</label>
+				<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Numbers_and_dates"> (lower hex)</a>
 			</div>
-
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 32 (<a href="https://philzimmermann.com/docs/human-oriented-base-32-encoding.txt">z-base-32</a>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="ybndrfg8ejkmcpqxot1uwisza345h769" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="0123456789abcdef" readonly id="base16_lower">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
 
-
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 58 (<a href="https://en.wikipedia.org/wiki/Base58">bitcoin</a>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<!-- Base 20 -->
+			<div class="col-sm-3">
+				<label class="label">Base 20</label>
+				<a href="https://en.wikipedia.org/wiki/Vigesimal"> (Vigesimal)</a>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="0123456789ABCDEFGHIJ" readonly id="base20">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
-
-
-
-
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 64 (<a href="https://tools.ietf.org/html/rfc4648#section-5">url safe</a>)(<span class="has-text-success">6 bits</span>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<!-- Base 32 RFC 4648 -->
+			<div class="col-sm-3">
+				<label class="label">base32</label>
+				<a href="https://tools.ietf.org/html/rfc4648#section-6"> (RFC 4648)</a>
+				<span class="text-success"> (5 bits)</span>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" readonly id="base32">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
-
-
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 64 (<a href="https://tools.ietf.org/html/rfc3548#section-3">url unsafe</a>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<!-- Base 32 RFC z-base-32 -->
+			<div class="col-sm-3">
+				<label class="label">Base 32</label>
+				<a href="https://philzimmermann.com/docs/human-oriented-base-32-encoding.txt"> (z-base-32)</a>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="ybndrfg8ejkmcpqxot1uwisza345h769" readonly id="zbase32">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
-
-
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 85 (<a href="https://tools.ietf.org/html/rfc1924#section-4.2">RFC 1924</a>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<!-- Base 58 -->
+			<div class="col-sm-3">
+				<label class="label">Base 58</label>
+				<a href="https://en.wikipedia.org/wiki/Base58"> (bitcoin)</a>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" readonly id="base58">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
-
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 91 (<a href="http://base91.sourceforge.net">basE91</a>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~&quot;" readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<!-- Base 64 url safe -->
+			<div class="col-sm-3">
+				<label class="label">base64</label>
+				<a href="https://tools.ietf.org/html/rfc4648#section-5"> (uri safe)</a>
+				<span class="text-success"> (6 bits)</span>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_" readonly id="base64urlsafe">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
+			<!-- Base 64 url unsafe -->
+			<div class="col-sm-3">
+				<label class="label">base64</label>
+				<a href="https://tools.ietf.org/html/rfc3548#section-3"> (uri unsafe)</a>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" readonly id="base64urlunsafe">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
+					</div>
+				</div>
+			</div>
 
+			<!-- Base 85 -->
+			<div class="col-sm-3">
+				<label class="label">Base 85</label>
+				<a href="https://tools.ietf.org/html/rfc1924#section-4.2"> (RFC 1924)</a>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~" readonly id="base85">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
+					</div>
+				</div>
+			</div>
 
-
-
+			<!-- Base 91 -->
+			<div class="col-sm-3">
+				<label class="label">Base 91</label>
+				<a href="http://base91.sourceforge.net"> (basE91)</a>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~&quot;" readonly id="base91">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
+					</div>
+				</div>
+			</div>
 
 			<!-- https://en.wikipedia.org/wiki/List_of_Unicode_characters used
 				U+00A1 to fill in non-prinatable characters. A character for
 				non-printable characters.  U+00A1 is the first single character
 				printable character past the ASCII range.  
 			-->
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 128 (<a href="https://en.wikipedia.org/wiki/ASCII">Modified ASCII†</a>)(<span class="has-text-success">7 bits</span>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<input class="input" type="text" value='¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡' readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			<!-- Base 128 -->
+			<div class="col-sm-3">
+				<label class="label">Base 128</label>
+				<a href="https://en.wikipedia.org/wiki/ASCII"> (Modified ASCII†)</a>
+				<span class="text-success"> (7 bits)</span>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value='¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡' readonly id="base128">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
 			<!--  https://en.wikipedia.org/wiki/ISO/IEC_8859-1
 				¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
--->
-			<div class="field is-horizontal">
-				<div class="field-label">
-					<label class="label">Base 256† (<a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">Extended ASCII/ISO 8859-1/Latin-1††</a>)(<span class="has-text-success">8 bits</span>)</label>
-				</div>
-				<div class="field-body">
-					<div class="field has-addons">
-						<div class="control is-expanded">
-							<!--ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ¡¢£¤¥¦§¨©ª«¬Ā®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ-->
-							<input class="input" id="base256" type="text" value='ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ¡¢£¤¥¦§¨©ª«¬Ā®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ' readonly>
-						</div>
-						<div class="control">
-							<a class="button is-info copy">
-								Copy
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-primary source">
-								In
-							</a>
-						</div>
-						<div class="control">
-							<a class="button is-danger destination">
-								Out
-							</a>
-						</div>
+			-->
+			<!-- Base 256 -->
+			<div class="col-sm-3">
+				<label class="label">Base 256†</label>
+				<a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1"> (Extended ASCII/ISO 8859-1/Latin-1††)</a>
+				<span class="text-success"> (8 bits)</span>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<!--ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ¡¢£¤¥¦§¨©ª«¬Ā®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ-->
+					<input class="input-group-text text-start" type="text" value='ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ¡¢£¤¥¦§¨©ª«¬Ā®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ' readonly id="base256">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
 					</div>
 				</div>
 			</div>
 
+		</div><!-- End Alphabet Row -->
 
 
-			<div class="field">
-				<div class="control">
-					<button class="button is-large is-info is-fullwidth" id="Example64To256Button">
-						<span>Base 64 to Base 256 Example</span>
-					</button>
-				</div>
-			</div>
+		<!-- Examples -->
+		<div class="text-center mt-3">
+			<h1> Examples </h1>
+			<button class="btn btn-lg btn-info w-100 m-1" id="Example64To256Btn">
+				<span>base64 to Base 256 Example</span>
+			</button>
 
-			<div class="field">
-				<div class="control">
-					<button class="button is-large is-info is-fullwidth" id="Example256to32Button">
-						<span>Base 256 to Base 32 Example</span>
-					</button>
-				</div>
-			</div>
 
-			<p> Examples from <a href="https://tools.ietf.org/html/rfc7515#appendix-A.4.1">RFC 7515</a> and <a href="https://tools.ietf.org/html/rfc4648#section-10">RFC 4648</a></p>
-		</div>
+			<button class="btn btn-lg btn-info w-100 m-1" id="ExampleDNAToJSONBtn">
+				<span>DNA to JSON</span>
+			</button>
 
 
 
-		<section class="section">
-			<div class="container has-text-centered">
-				<p>†"Modified ASCII"? Only the printable characters and space. Will not work with
+
+			<div class="text-wrap mt-3">
+				<p>† "Modified ASCII"? Only the printable characters and space. Will not work with
 					numbers requiring encoding to non-printable characters. "¡" is used to
 					represent non-printable characters. U+00A1 ("¡") is the first printable
 					character past the ASCII range.
 				</p>
 
-				<p>††"Latin-1"? Only the printable characters and space. Will not work with
+				<p>†† "Latin-1"? Only the printable characters and space. Will not work with
 					numbers requiring encoding to non-printable characters. "Ā" is used to
 					represent non-printable characters. U+0100 ("Ā") is the first printable
-					character past the extended ASCII range. (See https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_Extended-A)
+					character past the extended ASCII range. (See
+					https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_Extended-A)
 				</p>
-
-				<br />
-				<br />
-				<h1 class="title is-2"> Other Projects </h1>
-				<ul>
-					<li>Protocol Labs' <a href="https://github.com/multiformats/multibase#multibase-table">multibase</a></li>
-					<li><a href="https://github.com/qntm/base65536">base65536</a></li>
-					<li><a href="https://en.bitcoin.it/wiki/Bech32">Bech32</a></li>
-					<li><a href="http://www.crockford.com/base32.html">Crockford's Base 32</a></li>
-					<li><a href="https://rfc.zeromq.org/spec/32/">Z85</a></li>
-				</ul>
-
 			</div>
-		</section>
-	</div>
+
+
+			<div class="card mt-3">
+				<h5 class="card-header">Related</h5>
+				<div class="card-body text-start">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Protocol Labs' <a href="https://github.com/multiformats/multibase#multibase-table">multibase</a></li>
+						<li class="list-group-item"><a href="https://github.com/qntm/base65536">base65536</a></li>
+						<li class="list-group-item"><a href="https://en.bitcoin.it/wiki/Bech32">Bech32</a></li>
+						<li class="list-group-item"><a href="http://www.crockford.com/base32.html">Crockford's Base 32</a>
+						</li>
+						<li class="list-group-item"><a href="https://rfc.zeromq.org/spec/32/">Z85</a></li>
+						<li class="list-group-item"><a href="http://www.yenc.org/">yEnc</a> (Usenet)(Uses a 252 character
+							single
+							byte alphabet, extra byte for escaped) Deprecates Uuencoding.</li>
+						<li class="list-group-item"><a href="https://en.wikipedia.org/wiki/Uuencoding">Uuencoding</a> uses a
+							base 64
+							alphabet (`!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_)</li>
+						<li class="list-group-item"><a href="https://datatracker.ietf.org/doc/html/rfc7235">Token68</a>
+							(ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~+/)</li>
+
+						<li class="list-group-item"><a href="http://blog.kevinalbs.com/base122">base-122</a> UTF-8 efficient encoding</li> 
+
+					</ul>
+				</div>
+			</div>
+
+
+
+
+		</div>
+
+
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
+	</div> <!-- End container -->
+
+</body>
