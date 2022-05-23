@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		outputAlphabetElement.value = "Hash:" + document.getElementById('HashAlgoOptions').value
 		Convert();
 	});
-	document.querySelector('#CyphrmeConvertBtn').addEventListener('click', () => {
+	document.querySelector('#SysCnvBtn').addEventListener('click', () => {
 		outputAlphabetElement.value = "SysCnv";
 		DefaultIn("hex");
 		Convert();
