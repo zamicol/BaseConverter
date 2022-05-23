@@ -129,33 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		Convert();
 	});
 
-
-	/** @type {FormParameter} */
-	let formParams = [{
-			"name": "inputString",
-			"valueName": inputStringElement.value,
-		},
-		//// Useful for debugging.
-		// {
-		// 	"name": "outputString",
-		// 	"valueName": outputStringElement.value,
-		// },
-		{
-			"name": "inputAlphabet",
-			"valueName": inputAlphabetElement.value
-		},
-		{
-			"name": "outputAlphabet",
-			"valueName": outputAlphabetElement.value,
-		},
-		{
-			"name": "numberOfDiceSides",
-			"valueName": numberOfDiceSidesElement.value,
-		},
-	];
-
-	document.querySelector("#ShareBtn").addEventListener('click', () => ShareURL(formParams));
-
 	// Buttons on "Useful Alphabets"
 	document.querySelectorAll(".copy").forEach(t => {
 		t.addEventListener('click', Copy);
@@ -166,21 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll(".destination").forEach(t => {
 		t.addEventListener('click', Destination);
 	});
-
-	//////////////////
-	// URL parameters
-	//////////////////
-	PopulateFromURL(formParams);
-	Update();
-
-	//////////////////
-	// Live Update Conversion
-	//////////////////
-	// "change" doesn't work. "input" doesn't seem to cover all cases of user interaction. 
-	inputStringElement.addEventListener('input', Convert);
-	inputAlphabetElement.addEventListener('input', Convert);
-	outputAlphabetElement.addEventListener('input', Convert);
-
 	//////////////////
 	// Examples
 	//////////////////
@@ -204,32 +162,48 @@ document.addEventListener('DOMContentLoaded', () => {
 	// });
 
 
-
-	// Sets inAlph if not set. 
-	function DefaultIn(input) {
-		if (isEmpty(inputAlphabetElement.value)) {
-			inputAlphabetElement.value = input;
+	//////////////////
+	// URI parameters
+	//////////////////
+	/** @type {FormParameter} */
+	let formParams = [{
+			"name": "inAlph",
+			"id": "inputAlphabet"
+		},
+		{
+			"name": "in",
+			"id": "inputString",
+		},
+		{
+			"name": "outAlph",
+			"id": "outputAlphabet",
+		},
+		{
+			"name": "lpad",
+			"id": "PadCheckbox",
+			"type": "bool",
 		}
-	}
-	// Sets outAlph if not set. 
-	function DefaultOut(output) {
-		if (isEmpty(outputAlphabetElement.value)) {
-			outputAlphabetElement.value = output;
-		}
-	}
+	];
 
+	document.querySelector("#ShareBtn").addEventListener('click', () => ShareURI(formParams));
+	PopulateFromURI(formParams);
 
+	//////////////////
+	// Live Update Conversion
+	//////////////////
+	// "change" doesn't work. "input" doesn't seem to cover all cases of user interaction. 
+	inputStringElement.addEventListener('input', Convert);
+	inputAlphabetElement.addEventListener('input', Convert);
+	outputAlphabetElement.addEventListener('input', Convert);
 
 	//////////////////
 	// Live Update Length
 	//////////////////
 	document.querySelectorAll(".conversionTextArea").forEach(t => {
 		t.addEventListener('input', Length);
-	});
-	// I don't know if change does anything, but input doesn't seem to cover all
-	// cases of user interaction. 
-	document.querySelectorAll(".conversionTextArea").forEach(t => {
-		t.addEventListener('change', Length);
+		// input doesn't seem to cover all
+		// cases of user interaction. 
+		t.addEventListener('change', Length); 
 	});
 
 	// Reset alert error message and hide div
@@ -238,11 +212,23 @@ document.addEventListener('DOMContentLoaded', () => {
 		alertMsgElement.textContent = "";
 	});
 
-	// console.log(lcm_two_numbers(3, 15));
-	// console.log(lcm_two_numbers(10, 15));
-	// console.log(lcm_two_numbers(5, 8));
-	// console.log(lcm_two_numbers(6, 8));
+	// Finally, convert.  
+	Convert();
 });
+
+
+// Sets inAlph if not set. 
+function DefaultIn(input) {
+	if (isEmpty(inputAlphabetElement.value)) {
+		inputAlphabetElement.value = input;
+	}
+}
+// Sets outAlph if not set. 
+function DefaultOut(output) {
+	if (isEmpty(outputAlphabetElement.value)) {
+		outputAlphabetElement.value = output;
+	}
+}
 
 // TODO
 function BucketPad() {}
@@ -334,10 +320,9 @@ async function Convert() {
 			switch (keyword) {
 				case "SysCnv":
 					outputString = "Hex: " + inputString +
-						"\nRFC base64 uri padded: " + HexToUb64p(inputString) 
-						+ "\nGo Bytes: " + hexToGoBytesString(inputString)
-						+ "\nbase 128: " + baseConvert(inputString, Base16, Base128)
-					;
+						"\nRFC base64 uri padded: " + HexToUb64p(inputString) +
+						"\nGo Bytes: " + hexToGoBytesString(inputString) +
+						"\nbase 128: " + baseConvert(inputString, Base16, Base128);
 					break;
 				case "Hash":
 					outputString = await hashHex(hashAlg, inputString);
@@ -527,7 +512,22 @@ function Length() {
 // Update updates all information presented on the screen.  
 // Except share link, for the worry that could slow down things too much. 
 function Update() {
-	metaAll();
+	if (isKeyword(inputAlphabetElement.value)) {
+		bitsBaseLengthGUI(inputAlphabetElement.value, inputStringElement.value, inputBitsNeededElement, inputAlphabetLengthElement, inputStringLengthElement);
+	} else {
+		var inLength = inputAlphabetElement.value.length;
+		inputAlphabetLengthElement.textContent = inLength;
+		inputStringLengthElement.textContent = inputStringElement.value.length;
+		inputBitsNeededElement.textContent = bitPerBase(inLength);
+	}
+
+	if (isKeyword(outputAlphabetElement.value)) {
+		return bitsBaseLengthGUI(outputAlphabetElement.value, outputStringElement.value, outputBitsNeededElement, outputAlphabetLengthElement, outputStringLengthElement);
+	}
+	var outLength = outputAlphabetElement.value.length;
+	outputAlphabetLengthElement.textContent = outLength;
+	outputStringLengthElement.textContent = outputStringElement.value.length;
+	outputBitsNeededElement.textContent = bitPerBase(outLength);
 }
 
 
@@ -725,26 +725,6 @@ function diceRollsToDecimal(diceSides, rolls) {
 ///////////////////////
 // App Helpers
 ///////////////////////
-
-// Updates the legth of all text on the screen.
-function metaAll() {
-	if (isKeyword(inputAlphabetElement.value)) {
-		bitsBaseLengthGUI(inputAlphabetElement.value, inputStringElement.value, inputBitsNeededElement, inputAlphabetLengthElement, inputStringLengthElement);
-	} else {
-		var inLength = inputAlphabetElement.value.length;
-		inputAlphabetLengthElement.textContent = inLength;
-		inputStringLengthElement.textContent = inputStringElement.value.length;
-		inputBitsNeededElement.textContent = bitPerBase(inLength);
-	}
-
-	if (isKeyword(outputAlphabetElement.value)) {
-		return bitsBaseLengthGUI(outputAlphabetElement.value, outputStringElement.value, outputBitsNeededElement, outputAlphabetLengthElement, outputStringLengthElement);
-	}
-	var outLength = outputAlphabetElement.value.length;
-	outputAlphabetLengthElement.textContent = outLength;
-	outputStringLengthElement.textContent = outputStringElement.value.length;
-	outputBitsNeededElement.textContent = bitPerBase(outLength);
-}
 
 // Returns true, if the string is a recognized keyword, or has a recognized
 // prefix (e.g. "Hash" from "Hash:SHA-256").

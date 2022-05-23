@@ -1,11 +1,6 @@
 "use strict";
 
-// export {
-// 	PopulateFromValues,
-// 	PopulateFromURL,
-// 	ShareURL,
-// 	Serialize,
-// };
+
 
 // Example FormParameter: 
 
@@ -14,9 +9,10 @@
 // },
 // {
 // 	"name": "timeout"
+//  "id":"timeoutInput"
 // },
 // {
-// 	"name": "urlInput"
+// 	"name": "uriInput"
 // },
 // {
 // 	"name": "generateQR",
@@ -29,18 +25,16 @@
  * FormParameter should be in this form: 
  * 
  * {
- * 	"name":       "Parameter name in the URL.  Is used as the default value for valueName and id.  "
+ * 	"name":       "Parameter name in the URI.  Is used as the default value for id.  "
+ *  "id":         "id of the html element if it differs from 'name'.  Example, URI parameter "retrieve" and html id "Retrieve."
  * 	"type":       "type of the parameter" // Bool, string
- * 	"valueName":  "Custom name of 'value' from the html element.  This should be set if value name differs from parameter name."
- * 	"id":         "id of the html element if it differs from 'name'.  Example, url parameter "retrieve" and html id "Retrieve."
  * 	"funcTrue":    ToggleVisible(document.querySelector("#advancedOptions"));
  * }
  * 
  * @typedef  {Object} FormParameter
- * @property {String} name             - Parameter name in the URL.  Is used as the default value for valueName and id.  
+ * @property {String} name             - Parameter name in the URI.  Is used as the default value for id.  
+ * @property {String} [id]             - Id of the html element if it differs from the name.  Example, URI parameter "retrieve" and html id "Retrieve"
  * @property {String} [type=string]    - Type of the parameter (bool/string). Defaults to string. 
- * @property {String} [valueName]      - Custom name of 'value' from the html element.  This should be set if value name differs from parameter name.
- * @property {String} [id]             - Id of the html element if it differs from the name.  Example, url parameter "retrieve" and html id "Retrieve"
  * @property {String} [funcTrue]       - Function to execute if param is true.  e.g. `"funcTrue": ToggleVisible(document.querySelector("#advancedOptions"));`
  * 
  */
@@ -62,22 +56,25 @@
 ///////////////////////////
 
 /**
- * PopulateFromURL
+ * PopulateFromURI
  * 
+ * 1. inits event listener and 
+ * 2. Performs creating the share URI. 
+ *
  * @param   {FormParameter}   params    FormParameters object. 
- * @returns {Object}          pairs     key:value pairs object from url search entries.            
+ * @returns {void}                      
  */
-function PopulateFromURL(params) {
-	// console.log("Running PopulateFromURL:", params);
+async function PopulateFromURI(params) {
+	//console.log("Running PopulateFromURI:", params);
 	const shareButton = document.querySelector("#shareURLBtn");
 	if (shareButton != null) {
-		shareButton.addEventListener('click', function () {
-			ShareURL(params);
+		shareButton.addEventListener('click', function() {
+			ShareURI(params)
 		});
 	}
 
 	if (isEmpty(params)) {
-		console.debug("params is empty, returning. ");
+		//console.debug("Form.PopulateFromURI params is empty, returning. ");
 		return;
 	}
 
@@ -115,15 +112,16 @@ function PopulateFromURL(params) {
 	if (isEmpty(pairs)) {
 		return;
 	}
-	// console.log("Pairs:", pairs);
+	//console.log("Pairs:", pairs);
 
 
 	// TODO perhaps flip iterating over pairs instead of params.  
 	for (const parameter in params) {
 		var name = params[parameter].name;
-		var type = params[parameter].type;
 		var id = params[parameter].id;
+		var type = params[parameter].type;
 		var value = pairs[name];
+		var funcTrue = params[parameter].funcTrue;
 		//console.log("name: ", name, "type: ", type, "id: ", id, "value: ", value);
 
 		// If ID is present, it overwrites Name.  
@@ -134,7 +132,7 @@ function PopulateFromURL(params) {
 		// Run funcTrue. Value may be "true", or empty "" if in the URL and with no
 		// value set, but not `undefined`.  Name only is considered a flag and is
 		// interpreted as true.  
-		if (type == "bool" && value !== undefined && (value === "" || value === "true")) {
+		if (type == "bool" && funcTrue !== undefined && value !== undefined && (value === "" || value === "true")) {
 			console.debug("Running funcTrue for: ", params[parameter]);
 			params[parameter].funcTrue();
 		}
@@ -155,8 +153,8 @@ function PopulateFromURL(params) {
 			}
 		}
 	}
-	ShareURL(params);
-	return pairs;
+
+	ShareURI(params);
 }
 
 
@@ -183,11 +181,11 @@ function PopulateFromValues(params, values, formOptions) {
 	for (const parameter in params) {
 		var name = params[parameter].name;
 		var type = params[parameter].type;
-		var valueName = params[parameter].valueName;
+		var id = params[parameter].id;
 		var value = values[name];
-		if (!isEmpty(valueName)) {
-			//console.debug("Cusom value name: " + valueName);
-			value = values[valueName];
+		if (!isEmpty(id)) {
+			//console.debug("Cusom value name: " + id);
+			value = values[id];
 		}
 
 
@@ -200,41 +198,42 @@ function PopulateFromValues(params, values, formOptions) {
 
 		if (!isEmpty(value)) {
 			if (type == "bool" && value == true) {
-				document.getElementById(name).checked = true;
+				document.getElementById(id).checked = true;
 				continue;
 			}
-			document.getElementById(name).value = value;
+			document.getElementById(id).value = value;
 		}
 	}
 };
 
 
 /**
- * ShareURL generates a share URL, populates the GUI with it, and returns the
+ * ShareURI generates a share URL, populates the GUI with it, and returns the
  * URL. 
  * 
- * @param {Element}form       Form element
+ * @param {FormParameter} params       Form parameters object.  
  * @returns {URL}             URL
  */
-function ShareURL(params) {
-	// console.log(params);
+function ShareURI(params) {
 	var url = new URL(window.location.href);
 
 	for (const parameter in params) {
 		var name = params[parameter].name;
+		var id = params[parameter].id;
 		var type = params[parameter].type;
-		// console.debug(name, type);
+		//console.log(name, id, type);
 
-		let thing = document.getElementById(name);
-		if (thing === null) {
-			continue;
+		// `name` is default id for html element.  `id` overrides `name` for html elements ids.
+		if (id !== undefined) {
+			var htmlElementID = id
+		} else {
+			var htmlElementID = name;
 		}
+		var value = document.getElementById(htmlElementID).value;
 
-		var value = thing.value;
-		//console.log(name, type, value);
 		// For bools
 		if (type == "bool") {
-			if (document.getElementById(name).checked) {
+			if (document.getElementById(htmlElementID).checked) {
 				value = "true";
 			} else {
 				value = "";
@@ -246,15 +245,18 @@ function ShareURL(params) {
 		}
 	}
 
+	// URI Link
 	let shareUrl = document.querySelector("#shareURL");
 	if (shareUrl != null) {
-		if (shareUrl instanceof HTMLTextAreaElement) {
-			shareUrl.value = url.href;
-		} else {
-			shareUrl.innerHTML = url.href.link(url.href);
-		}
+		shareUrl.innerHTML = url.href.link(url.href);
 	}
-	// console.debug(url);
+
+	// Text Area 
+	let shareArea = document.querySelector("#shareURIArea");
+	if (shareArea != null) {
+		shareArea.innerHTML = url.href;
+	}
+
 	return url;
 };
 
