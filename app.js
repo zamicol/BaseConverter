@@ -740,6 +740,20 @@ function isKeyword(s) {
 	return false;
 }
 
+// Returns string from input string, where any control/non-printable characters
+// are represented as a chiclet.
+function controlCharsToChiclets(input) {
+	let outString = "";
+	for (let char of input) {
+		if (ASCIICONTROL.includes(char)) {
+			outString += '';
+			continue;
+		}
+		outString += char;
+	}
+	return outString;
+}
+
 // String to ASCII (utf-8) binary HEX string
 function stringToHex(input) {
 	// console.debug(input);
@@ -801,13 +815,18 @@ function GoBytesToString(input) {
 
 /**
  * Convert from a Go Bytes representation, to Hex.
+ * Empty bytes will return "".
  * @param   {String}  input         String, Go Bytes representation as a string.
  * @returns {String}  outputString  String. Output string.
  * @throws  {error}   error         Error.  Syntax error.
  */
 function GoBytesToHex(input) {
-	let chunks = explodeBytes(input);
 	let hex = "";
+	let chunks = explodeBytes(input);
+	// Empty bytes check
+	if (chunks.length == 1 && isEmpty(chunks[0])) {
+		return hex;
+	}
 	for (let c of chunks) {
 		hex += parseInt(c).toString(16).toUpperCase().padStart(2, "0");
 	}
@@ -924,7 +943,6 @@ function isJson(str) {
 }
 
 
-//// Cyphrme funcs
 
 /**
  * arrayBufferToHex accepts an array buffer and returns a string of hex.
