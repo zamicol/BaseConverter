@@ -5,26 +5,34 @@
  //
  // Base is assumed from alphabet sizes. 
 
- // LeftPadding is for preceding padding characters.  By default padding should be
- // ignored as it carries no meaning.  For example, for the base 7 alphabet of
- // "ABCDEFG", the padding character is "A". For the base 8 alphabet of
+ // LeftPadding is for preceding padding characters.  By default padding should
+ // be ignored as it carries no meaning.  For example, for the base 7 alphabet
+ // of "ABCDEFG", the padding character is "A". For the base 8 alphabet of
  // "01234567", the padding character is "0".  Padding characters are preserved
  // on a 1:1 character basis.  
  let LeftPadding = false;
 
-
  /**
-  * baseConvert converts a given string with a given encoding alphabet
-  * into another base with another given encoding alphabet.  
+  * BaseConvert converts a given string with a given encoding alphabet into
+  * another base with another given encoding alphabet.  
   * Base is assumed from alphabet sizes. 
-  * @param  {string} string The string to be encoded into another base.  
-  * @param  {string} inputAlphabet The characters of the input alphabet (i.e. 0123456789ABCDEF)
-  * @param  {string} outputAlphabet The characters of the output alphabet (i.e. ABCDEFGHJKLMNPQRSTUVWXYZ234567)
+	*
+
+  * @param  {string} input     Input string.  
+  * @param  {string} inAlph    Input alphabet (i.e. 0123456789ABCDEF)
+  * @param  {string} outAlph   Output alphabet (i.e. ABCDEFGHJKLMNPQRSTUVWXYZ234567)
   */
- function baseConvert(string, inputAlphabet, outputAlphabet) {
- 	if (string == "" || inputAlphabet == "" || outputAlphabet == "") {
+ function BaseConvert(input, inAlph, outAlph) {
+ 	//console.log("baseConvert: ", input, inAlph, outAlph);
+ 	if (input === null || input == "" || inAlph == "" || outAlph == "") {
  		return null;
  	}
+
+ 	const fromBase = inAlph.length;
+ 	const toBase = outAlph.length;
+ 	const inAlphChars = inAlph.split('');
+ 	// TODO support Base 1 decoding.  
+ 	if (toBase == 1) return;
 
  	const add = (x, y, base) => {
  		let z = [];
@@ -44,7 +52,7 @@
 
  	const multiplyByNumber = (num, power, base) => {
  		if (num < 0) return null;
- 		if (num === 0) return [];
+ 		if (num === 0) return [0]; // Zero is legit. 
 
  		let result = [];
  		while (true) {
@@ -57,19 +65,18 @@
  		return result;
  	}
 
- 	const inputAlphabetChars = inputAlphabet.split('');
-
  	// decodeInput finds the position of each character in alphabet, thus decoding
- 	// the input string into a useful array.  
- 	const decodeInput = (string) => {
- 		const digits = string.split('');
+ 	// input into a useful array.  
+ 	const decodeInput = (input) => {
+ 		// console.log("decodeInput: ", string);
+ 		const digits = input.split('');
  		let arr = [];
  		for (let i = digits.length - 1; i >= 0; i--) {
  			// Check for character in alphabet
- 			if (!(inputAlphabetChars.includes(digits[i]))) {
+ 			if (!(inAlphChars.includes(digits[i]))) {
  				throw new Error('character not in alphabet: ' + digits[i]);
  			}
- 			const n = inputAlphabet.indexOf(digits[i])
+ 			const n = inAlph.indexOf(digits[i])
  			// Continue even if character is not found (possibly a padding character.)
  			if (n == -1) continue;
  			// Alternatively, fail on bad character
@@ -79,13 +86,8 @@
  		return arr;
  	}
 
- 	const fromBase = inputAlphabet.length;
- 	const toBase = outputAlphabet.length;
- 	// TODO support Base 1 decoding.  
- 	if (toBase == 1) return;
- 	const digits = decodeInput(string);
- 	if (digits === null) return null;
-
+ 	const digits = decodeInput(input);
+ 	if (digits === null) return null; // zero case is legit.  
  	// Get an array of what each position of character should be. 
  	let outArray = [];
  	let power = [1];
@@ -98,22 +100,39 @@
  	let out = '';
  	// Preceding padding characters - Add back in preceding padding characters.
  	if (LeftPadding) {
- 		let inPad = inputAlphabet.charAt(0);
- 		let outPad = outputAlphabet.charAt(0);
+ 		let inPad = inAlph.charAt(0);
+ 		let outPad = outAlph.charAt(0);
  		let i = 0;
- 		while (i < string.length) {
- 			if (string.charAt(i) !== inPad) break;
+ 		while (i < input.length) {
+ 			if (input.charAt(i) !== inPad) break;
  			out += outPad;
  			i++;
  		}
  	}
 
  	for (let i = outArray.length - 1; i >= 0; i--) {
- 		out += outputAlphabet[outArray[i]];
+ 		out += outAlph[outArray[i]];
  	}
 
  	return out;
  }
+
+
+ /** BaseToHex converts base to Hex.
+  * @param  {string} input          Input string.
+  * @param  {string} inAlph        Input alphabet (i.e. 0123456789ABCDEF)
+  * @param  {Hex}  
+  */
+ function BaseToHex(input, inAlph) {
+ 	if (input === null || input === "") {
+ 		return ""
+ 	}
+ 	if (inAlph !== Base16) {
+ 		input = BaseConvert(input, inAlph, Base16);
+ 	}
+ 	return input.padStart(2, "0"); // Hex is always padded. 
+ }
+
 
 
  /**
@@ -171,7 +190,7 @@
  	if (Hex.length == 0) {
  		return "";
  	}
- 	let bytes = Hex.match(/\w{2}/g).map(function (a) {
+ 	let bytes = Hex.match(/\w{2}/g).map(function(a) {
  		return String.fromCharCode(parseInt(a, 16));
  	}).join("");
  	return btoa(bytes);
@@ -265,7 +284,7 @@
   * @returns  {string}            Hex representation.
   */
  function B64ToHex(b64) {
-	//  console.debug(b64);
+ 	//  console.debug(b64);
  	let ub64 = URISafeToUnsafe(b64);
  	const raw = atob(ub64);
  	let result = '';

@@ -23,109 +23,102 @@ const base256 = document.getElementById('base256').value;
 
 // Application element variables that remain constant, but have inner
 // elements/values that will change or be modified.
-var inputStringElement;
-var inputAlphabetElement;
-var inputBitsNeededElement;
-var inputStringLengthElement;
-var inputAlphabetLengthElement;
+// In Elements
 
-var outputAlphabetElement;
-var outputStringElement;
-var outputBitsNeededElement;
-var outputAlphabetLengthElement;
-var outputStringLengthElement;
+var inAlphElem;
+var inAlphLenElem;
+var inBitsElem;
+var inElem;
+var inLenElem;
 
-var padCheckboxElement;
-var numberOfDiceSidesElement;
+// Out Elements
+var outAlphElem;
+var outAlphLenElem;
+var outBitsElem;
+var outElem;
+var outLenElem;
 
+// Other  elements
 var alertDivElement;
 var alertMsgElement;
-
-// Application variables that will change from user input
-var numberOfDiceSides;
+var lpadElem;
+var diceSidesElem;
 
 document.addEventListener('DOMContentLoaded', () => {
-	// Input Elements
-	inputStringElement = document.getElementById("inputString");
-	inputAlphabetElement = document.getElementById("inputAlphabet");
-	inputBitsNeededElement = document.getElementById("inputBitsNeeded");
-	inputStringLengthElement = document.getElementById("inputStringLength");
-	inputAlphabetLengthElement = document.getElementById("inputAlphabetLength");
-	// Ouput Elements
-	outputStringElement = document.getElementById("outputString");
-	outputAlphabetElement = document.getElementById("outputAlphabet");
-	outputBitsNeededElement = document.getElementById("outputBitsNeeded");
-	outputStringLengthElement = document.getElementById('outputStringLength');
-	outputAlphabetLengthElement = document.getElementById('outputAlphabetLength');
+	// In Elements
+	inElem = document.getElementById("inputString");
+	inAlphElem = document.getElementById("inputAlphabet");
+	inBitsElem = document.getElementById("inputBitsNeeded");
+	inLenElem = document.getElementById("inputStringLength");
+	inAlphLenElem = document.getElementById("inputAlphabetLength");
+	// Out Elements
+	outElem = document.getElementById("outputString");
+	outAlphElem = document.getElementById("outputAlphabet");
+	outBitsElem = document.getElementById("outputBitsNeeded");
+	outLenElem = document.getElementById('outputStringLength');
+	outAlphLenElem = document.getElementById('outputAlphabetLength');
 	// Other Elements
-	numberOfDiceSidesElement = document.getElementById('numberOfDiceSides');
-	padCheckboxElement = document.querySelector("#PadCheckbox");
-
+	diceSidesElem = document.getElementById('numberOfDiceSides');
+	lpadElem = document.querySelector("#PadCheckbox");
 	alertDivElement = document.getElementById('alertErrorDiv');
 	alertMsgElement = document.getElementById('alertErrorMsg');
 
-	padCheckboxElement.addEventListener('click', Convert);
-
+	document.querySelector("#ConvertBaseBtn").addEventListener('click', Convert);
+	document.getElementById('alertErrorCloseBtn').addEventListener('click', ClearErrAlert);
 	document.querySelector("#FlipBtn").addEventListener('click', Flip);
 	document.querySelector("#ClearBtn").addEventListener('click', Clear);
-	document.querySelector("#ConvertBaseBtn").addEventListener('click', Convert);
 	document.querySelector("#reverseInBtn").addEventListener('click', ReverseIn);
 	document.querySelector("#reverseOutBtn").addEventListener('click', ReverseOut);
-
-
+	lpadElem.addEventListener('click', Convert);
 
 	document.getElementById('HashAlgoOptions').addEventListener('click', () => {
 		DefaultIn("text");
-		outputAlphabetElement.value = "Hash:" + document.getElementById('HashAlgoOptions').value
+		outAlphElem.value = "Hash:" + document.getElementById('HashAlgoOptions').value
 		Convert();
 	});
 	document.querySelector('#SysCnvBtn').addEventListener('click', () => {
-		outputAlphabetElement.value = "SysCnv";
+		outAlphElem.value = "SysCnv";
 		DefaultIn("hex");
 		Convert();
 	});
-
 	document.querySelector('#DNDConvertInBtn').addEventListener('click', () => {
-		inputAlphabetElement.value = "DND:" + numberOfDiceSidesElement.value;
+		inAlphElem.value = "DND:" + diceSidesElem.value;
 		DefaultOut("Hex");
 		Convert();
 	});
 	document.querySelector('#DNDConvertOutBtn').addEventListener('click', () => {
-		outputAlphabetElement.value = "DND:" + numberOfDiceSidesElement.value;
+		outAlphElem.value = "DND:" + diceSidesElem.value;
 		DefaultIn("Hex")
 		Convert();
 	});
-
 	document.querySelector('#base64InBtn').addEventListener('click', () => {
 		DefaultOut("Hex");
-		inputAlphabetElement.value = "base64";
+		inAlphElem.value = "base64";
 		Convert();
 	});
-
 	document.querySelector('#b64utOutBtn').addEventListener('click', () => {
 		DefaultIn("Hex");
-		outputAlphabetElement.value = "ub64t";
+		outAlphElem.value = "ub64t";
 		Convert();
 	});
 	document.querySelector('#ub64pOutBtn').addEventListener('click', () => {
 		DefaultIn("Hex");
-		outputAlphabetElement.value = "ub64p";
+		outAlphElem.value = "ub64p";
 		Convert();
 	});
-
 	document.getElementById('majusculeBtn').addEventListener('click', () => {
 		DefaultIn("text");
-		outputAlphabetElement.value = "Majuscule";
+		outAlphElem.value = "Majuscule";
 		Convert();
 	});
 	document.getElementById('minisculeBtn').addEventListener('click', () => {
 		DefaultIn("text");
-		outputAlphabetElement.value = "Miniscule";
+		outAlphElem.value = "Miniscule";
 		Convert();
 	});
 	document.getElementById('ridiculeBtn').addEventListener('click', () => {
 		DefaultIn("text");
-		outputAlphabetElement.value = "Ridicule";
+		outAlphElem.value = "Ridicule";
 		Convert();
 	});
 
@@ -192,96 +185,98 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Live Update Conversion
 	//////////////////
 	// "change" doesn't work. "input" doesn't seem to cover all cases of user interaction. 
-	inputStringElement.addEventListener('input', Convert);
-	inputAlphabetElement.addEventListener('input', Convert);
-	outputAlphabetElement.addEventListener('input', Convert);
+	inElem.addEventListener('input', Convert);
+	inAlphElem.addEventListener('input', Convert);
+	outAlphElem.addEventListener('input', Convert);
 
-	//////////////////
-	// Live Update Length
-	//////////////////
-	document.querySelectorAll(".conversionTextArea").forEach(t => {
-		t.addEventListener('input', Length);
-		// input doesn't seem to cover all
-		// cases of user interaction. 
-		t.addEventListener('change', Length); 
-	});
-
-	// Reset alert error message and hide div
-	document.getElementById('alertErrorCloseBtn').addEventListener('click', () => {
-		alertDivElement.hidden = true;
-		alertMsgElement.textContent = "";
-	});
 
 	// Finally, convert.  
 	Convert();
 });
 
-
-// Sets inAlph if not set. 
+// Helper that sets inAlph if not set. 
 function DefaultIn(input) {
-	if (isEmpty(inputAlphabetElement.value)) {
-		inputAlphabetElement.value = input;
+	if (isEmpty(inAlphElem.value)) {
+		inAlphElem.value = input;
 	}
 }
-// Sets outAlph if not set. 
+// Helper that sets outAlph if not set. 
 function DefaultOut(output) {
-	if (isEmpty(outputAlphabetElement.value)) {
-		outputAlphabetElement.value = output;
+	if (isEmpty(outAlphElem.value)) {
+		outAlphElem.value = output;
 	}
 }
 
-// TODO
-function BucketPad() {}
+// Flips Input and Output's alphabet and text area.
+function Flip() {
+	let inputAlphabet = inAlphElem.value;
+	let inputString = inElem.value;
+	let outputAlphabet = outAlphElem.value;
+	let outputString = outElem.value;
 
-function FullBuckets() {
-	inBits = bitPerBase(inputAlphabetElement.value.length);
-	outBits = bitPerBase(outputAlphabetElement.value.length);
+	inAlphElem.value = outputAlphabet;
+	inElem.value = outputString;
+	outAlphElem.value = inputAlphabet;
+	outElem.value = inputString;
 
-	inputBitsNeededElement.textContent = inBits;
-	outputBitsNeededElement.textContent = outBits;
+	Update();
 }
 
+// Reverses the input area text
+function ReverseIn() {
+	reverse(inElem);
+}
+// Reverses the output area text
+function ReverseOut() {
+	reverse(outElem);
+}
+// Reverses the input or output area text.
+function reverse(element) {
+	let output = element.value;
+	if (isJson(output) && Array.isArray(JSON.parse(output))) {
+		element.value = "[" + JSON.parse(output).reverse() + "]";
+		return;
+	}
+	element.value = element.value.split("").reverse().join("");
+}
+
+// Clears out the Input and Output's alphabets and text areas.
+function Clear() {
+	inAlphElem.value = "";
+	inElem.value = "";
+	outAlphElem.value = "";
+	outElem.value = "";
+	Update();
+}
+
+
+// GUIConvert populates the GUI and calls Convert();
 async function GUIConvert(inAlph, input, outAlph) {
-	inputAlphabetElement.value = inAlph;
-	inputStringElement.value = input;
-	outputAlphabetElement.value = outAlph;
+	inAlphElem.value = inAlph;
+	inElem.value = input;
+	outAlphElem.value = outAlph;
 	Convert();
 }
-
-
-// async function GUIConvertDefault(inAlph,defInAlph, input, defInput, outAlph, defOutAlph) {
-// 	if (isEmpty(inputAlphabetElement.value) && !isEmpty(defInAlph)) {
-// 		inputAlphabetElement.value = defInAlph;
-// 	}
-
-// 	inputAlphabetElement.value = inAlph;
-// 	inputStringElement.value = input;
-// 	outputAlphabetElement.value = outAlph;
-// 	Convert();
-// }
-
 
 // Converts the input text area from the input alphabet to the output alphabet.
 async function Convert() {
 	try {
-		// Clear out error message
-		alertDivElement.hidden = true;
-		alertMsgElement.textContent = "";
+		ClearErrAlert();
 
-		let outputAlphabet = outputAlphabetElement.value;
-		let inputAlpha = inputAlphabetElement.value;
-		let inputString = inputStringElement.value;
+		let outputAlphabet = outAlphElem.value;
+		let inputAlpha = inAlphElem.value;
+		let inputString = inElem.value;
 
 		// Set padding Setting
-		if (padCheckboxElement.checked == true) {
+		if (lpadElem.checked == true) {
 			LeftPadding = true;
 		} else {
 			LeftPadding = false;
 		}
 
-		let outputString = "";
 		if (inputAlpha == "" || outputAlphabet == "") {
 			console.debug("Empty input alph or output alph.");
+			Update();
 			return;
 		}
 
@@ -293,20 +288,21 @@ async function Convert() {
 			inputString = KeywordToHex(inputAlpha, inputString);
 			inputAlpha = Base16;
 		}
-		// console.debug(inputString);
+		if (inputString === null || inputString === undefined) { // sanitize null/undefined, "0" is legit.  
+			inputString = "";
+		}
 
 		/////////////////////
 		// Output
 		/////////////////////
+		let out = "";
 		if (!isKeyword(outputAlphabet)) {
-			outputString = baseConvert(inputString, inputAlpha, outputAlphabet);
+			out = BaseConvert(inputString, inputAlpha, outputAlphabet);
 		} else {
 			// All keywords accept Hex.  If coming from keyword, input and inputAlpha
 			// are already Hex.  Otherwise, convert to Hex.
-			inputString = baseToHex(inputString, inputAlpha);
+			inputString = BaseToHex(inputString, inputAlpha);
 			inputAlpha = Base16;
-
-			// console.log(inputString);
 
 			let keyword = outputAlphabet;
 			if (outputAlphabet.substring(0, 5) == "Hash:") {
@@ -319,16 +315,16 @@ async function Convert() {
 			// console.debug(keyword);
 			switch (keyword) {
 				case "SysCnv":
-					outputString = "Hex: " + inputString +
+					out = "Hex: " + inputString +
 						"\nRFC base64 uri padded: " + HexToUb64p(inputString) +
 						"\nGo Bytes: " + hexToGoBytesString(inputString) +
-						"\nbase 128: " + baseConvert(inputString, Base16, Base128);
+						"\nbase 128: " + BaseConvert(inputString, Base16, Base128);
 					break;
 				case "Hash":
-					outputString = await hashHex(hashAlg, inputString);
+					out = await hashHex(hashAlg, inputString);
 					break;
 				case "bytes":
-					outputString = hexToGoBytesString(inputString);
+					out = hexToGoBytesString(inputString);
 					break;
 				case "base64":
 				case "b64":
@@ -336,48 +332,48 @@ async function Convert() {
 				case "ub64p":
 				case "base64up":
 				case "b64up":
-					outputString = HexToUb64p(inputString);
+					out = HexToUb64p(inputString);
 					break;
 				case "ubase64t":
 				case "ub64t":
 				case "base64ut":
 				case "b64ut":
-					outputString = await ArrayBufferTo64ut(await HexToArrayBuffer(inputString));
+					out = await ArrayBufferTo64ut(await HexToArrayBuffer(inputString));
 					break;
 				case "DND":
-					outputString = dndRollsFromInput(inputString, inputAlpha, diceSides);
+					out = baseToDND(inputString, inputAlpha, diceSides);
 					break;
 				case "string":
 				case "text":
-					outputString = await hexToString(inputString);
+					out = await hexToString(inputString);
 					break;
 				case "Hex":
-					outputString = inputString;
+					out = inputString;
 					break;
 				case "hex":
-					outputString = hexPadded(baseConvert(inputString, Base16, Base16Lower));
+					out = hexPadded(BaseConvert(inputString, Base16, Base16Lower));
 					break;
 				case "Majuscule":
-					outputString = inputStringElement.value.toUpperCase(); // Use original string, and not Hex representation.
+					out = inElem.value.toUpperCase(); // Use original string, and not Hex representation.
 					break;
 				case "Miniscule":
-					outputString = inputStringElement.value.toLowerCase();
+					out = inElem.value.toLowerCase();
 					break;
 				case "Ridicule":
-					outputString = RidiculeCasingGUI(inputStringElement.value);
+					out = RidiculeCasingGUI(inElem.value);
 					break;
 				default:
 					throw new Error("Keyword not supported for Output");
 			}
 		}
 
-		outputStringElement.value = outputString;
-		Update();
+		outElem.value = out;
 	} catch (error) {
-		console.error(error);
+		console.debug(error);
 		alertMsgElement.textContent = error;
 		alertDivElement.hidden = false;
 	}
+	Update(); // Update lengths even on error. 
 }
 
 /**
@@ -400,7 +396,7 @@ function KeywordToHex(inAlph, input) {
 
 	switch (inAlph) {
 		case "DND":
-			return baseToHex(dndToDecimalString(diceSides), Base10);
+			return BaseToHex(dndToDecimal(diceSides), Base10);
 		case "bytes":
 			return GoBytesToHex(input);
 		case "SysCnv":
@@ -417,7 +413,7 @@ function KeywordToHex(inAlph, input) {
 		case "ub64t":
 			return B64ToHex(input);
 		case "hex":
-			return baseConvert(input, inAlph, Base16);
+			return BaseConvert(input, inAlph, Base16);
 		case "Hex":
 			return input;
 		case "string":
@@ -428,42 +424,9 @@ function KeywordToHex(inAlph, input) {
 	}
 }
 
-
-// Flips Input and Output's alphabet and text area.
-function Flip() {
-	let inputAlphabet = inputAlphabetElement.value;
-	let inputString = inputStringElement.value;
-	let outputAlphabet = outputAlphabetElement.value;
-	let outputString = outputStringElement.value;
-
-	inputAlphabetElement.value = outputAlphabet;
-	inputStringElement.value = outputString;
-	outputAlphabetElement.value = inputAlphabet;
-	outputStringElement.value = inputString;
-
-	Update();
-}
-
-// Reverses the input area text
-function ReverseIn() {
-	reverse(inputStringElement);
-}
-
-// Reverses the output area text
-function ReverseOut() {
-	reverse(outputStringElement);
-}
-
-// Reverses the input or output area text.
-function reverse(element) {
-	let output = element.value;
-	if (isJson(output) && Array.isArray(JSON.parse(output))) {
-		element.value = "[" + JSON.parse(output).reverse() + "]";
-		return;
-	}
-	element.value = element.value.split("").reverse().join("");
-}
-
+////////////////////
+// Alphabet Buttons.  (copy, in, out)
+////////////////////
 // Copies the alphabet from the row.
 function Copy() {
 	let input = this.parentElement.parentElement.querySelector('input');
@@ -474,24 +437,13 @@ function Copy() {
 
 // Updates the Input/Source Alphabet with a given alphabet.
 function Source() {
-	// console.debug("Entered Source");
-	inputAlphabetElement.value = this.parentElement.parentElement.querySelector('input').value;
+	inAlphElem.value = this.parentElement.parentElement.querySelector('input').value;
 	Update();
 }
 
 // updates the Output Alphabet with a given alphabet.
 function Destination() {
-	outputAlphabetElement.value = this.parentElement.parentElement.querySelector('input').value;
-	Update();
-}
-
-// Clears out the Input and Output's alphabets and text areas.
-function Clear() {
-	//console.log("Triggered Clear");
-	inputAlphabetElement.value = "";
-	inputStringElement.value = "";
-	outputAlphabetElement.value = "";
-	outputStringElement.value = "";
+	outAlphElem.value = this.parentElement.parentElement.querySelector('input').value;
 	Update();
 }
 
@@ -501,33 +453,20 @@ function ClearErrAlert() {
 	alertMsgElement.textContent = "";
 }
 
-// Calculates the length of the text in the text area, and updates the GUI.
-function Length() {
-	let lengthDisplay = this.parentNode.querySelector(".lengthDisplay");
-	if (lengthDisplay != null) {
-		lengthDisplay.textContent = this.value.length;
-	}
-}
+
 
 // Update updates all information presented on the screen.  
 // Except share link, for the worry that could slow down things too much. 
 function Update() {
-	if (isKeyword(inputAlphabetElement.value)) {
-		bitsBaseLengthGUI(inputAlphabetElement.value, inputStringElement.value, inputBitsNeededElement, inputAlphabetLengthElement, inputStringLengthElement);
-	} else {
-		var inLength = inputAlphabetElement.value.length;
-		inputAlphabetLengthElement.textContent = inLength;
-		inputStringLengthElement.textContent = inputStringElement.value.length;
-		inputBitsNeededElement.textContent = bitPerBase(inLength);
-	}
+	let upObj = bitsBaseLengthGUI(inAlphElem.value, inElem.value);
+	inBitsElem.textContent = upObj.bits;
+	inAlphLenElem.textContent = upObj.base;
+	inLenElem.textContent = upObj.length;
 
-	if (isKeyword(outputAlphabetElement.value)) {
-		return bitsBaseLengthGUI(outputAlphabetElement.value, outputStringElement.value, outputBitsNeededElement, outputAlphabetLengthElement, outputStringLengthElement);
-	}
-	var outLength = outputAlphabetElement.value.length;
-	outputAlphabetLengthElement.textContent = outLength;
-	outputStringLengthElement.textContent = outputStringElement.value.length;
-	outputBitsNeededElement.textContent = bitPerBase(outLength);
+	upObj = bitsBaseLengthGUI(outAlphElem.value, outElem.value, outBitsElem, outAlphLenElem, outLenElem);
+	outBitsElem.textContent = upObj.bits;
+	outAlphLenElem.textContent = upObj.base;
+	outLenElem.textContent = upObj.length;
 }
 
 
@@ -549,10 +488,6 @@ async function hashHex(hashAlg, input) {
 	return arrayBufferToHex(await crypto.subtle.digest(hashAlg, await HexToArrayBuffer(input)));
 }
 
-
-
-//// Maj, Min, Rid Convert
-
 // Sets the output string to ridicule format of input string.
 function RidiculeCasingGUI(input) {
 	input = input.toLowerCase();
@@ -569,81 +504,32 @@ function RidiculeCasingGUI(input) {
 	return ridicule;
 }
 
+///////////////////////////////
 //// DND Convert
+///////////////////////////////
 
-// Returns a new array from the given array, that will be padded if there are
-// more than 9 dice sides.
-// If there is no padding, the given array will be returned unmodified.
+// Returns a new padded array (if needed) from given array.
 function rollsPadded(rolls, diceSides) {
-	let cols = diceSides.toString().length; // Call before parseInt() (length works on strings and not numbers).
-	diceSides = parseInt(diceSides); // Guaruntee number and not string.
+	let cols = parseInt(diceSides).toString().length;
+
 	// Padding
-	if (diceSides > 9) {
-		let paddedRolls = [];
-		for (let roll of rolls) {
-			if (roll.toString().length < cols) {
-				paddedRolls.push(roll.toString().padStart(cols, "0"));
-				continue;
-			}
-			paddedRolls.push(roll);
+	let paddedRolls = [];
+	for (let x of rolls) {
+		if (x.toString().length < cols) {
+			x = x.toString().padStart(cols, "0");
 		}
-		return paddedRolls;
+		paddedRolls.push(x);
 	}
-	console.log(rolls)
-	return rolls;
+	return paddedRolls;
 }
 
 /**
- * Returns an array of the dice rolls, from the input.
- * @param   {String}    input        String. Input string to be converted to DND rolls.
- * @param   {String}    inputAlpha   String. Alphabet/Base that input is in.
- * @param   {number}    diceSides    Number. Number of dice sides (determines base).
- * @returns {String}    output       String. Output based on input alphabet base.
- * @throws  {error}     error        Error. Fails when dice sides are not specified, and/or roll is higher than dice sides.
- */
-function dndRollsFromInput(input, inputAlpha, diceSides) {
-	// console.debug(input, inputAlpha, diceSides);
-	if (diceSides == 0 || isEmpty(diceSides)) { // "handle "undefined"
-		throw new Error("must specify number of dice sides. Given:" + diceSides);
-	}
-	let decimal = baseConvert(input, inputAlpha, Base10);
-	// console.debug(decimal);
-	let cols = [];
-	// Discovery for column (base power)
-	for (let i = 0; i < decimal.length; i++) {
-		let n = diceSides ** i;
-		if (n > decimal) {
-			break;
-		}
-		cols.push(n);
-	}
-	// console.log(cols);
-	let rolls = [];
-	let remainder = decimal;
-	let r = cols.reverse();
-	for (let i = 0; i < r.length; i++) {
-		let roll = ~~(remainder / r[i]); // bitwise XOR XOR to get decimal. 
-		remainder = remainder % r[i];
-		// console.log(roll, remainder);
-		if (roll == 1) {
-			roll--;
-		}
-		roll++;
-		if (roll > diceSides) {
-			throw new Error("cannot have a roll higher than dice sides: " + roll);
-		}
-		rolls.push(roll);
-	}
-	rolls = rollsPadded(rolls, diceSides).toString();
-	return rolls.toString().replaceAll(',', '', );
-}
-
-/**
- * Returns the decimal representation, as a string, from the DND input.
+ * Returns the decimal representation, as a string, from the DND input.  Returns
+ * string because number can't represent nil, string can with empty quotes, "".
  * @param   {number}   diceSides   Number. Number of dice sides (determines base).
- * @returns {String}   output      String. Decimal representation of DND rolls.
+ * @returns {string}                Decimal representation of DND rolls. 
  */
-function dndToDecimalString(diceSides) {
+function dndToDecimal(diceSides) {
 	let cols = diceSides.length;
 	diceSides = parseInt(diceSides); // Guarantee number and not string.
 	// console.debug(diceSides);
@@ -662,65 +548,95 @@ function dndToDecimalString(diceSides) {
 		}
 	};
 
+	if (isEmpty(inElem.value)) {
+		return "";
+	}
+
 	let rolls = new Array();
 	// Support space as delimiter.
-	if (inputStringElement.value.includes(' ')) {
-		rolls = rollsPadded(inputStringElement.value.split(' ', inputStringElement.value.length), diceSides)
+	if (inElem.value.includes(' ')) {
+		rolls = rollsPadded(inElem.value.split(' ', inElem.value.length), diceSides)
 	} else {
-		rolls = inputStringElement.value.match(new RegExp('.{1,' + cols + '}', 'g'));
+		rolls = inElem.value.match(new RegExp('.{1,' + cols + '}', 'g'));
 	}
 	for (let roll of rolls) {
-		// console.debug(roll);
 		rollErrCheck(roll); // throws
 	}
 
-	let dec = diceRollsToDecimal(diceSides, rolls);
-	// console.debug(dec);
-	return dec.toString();
+	return diceRollsToDecimal(diceSides, rolls);
 }
 
 
 /**
  * Returns the decimal representation from the number of dice sides, and the
- * given rolls.
+ * given rolls. Returns String because, unlike number, it handles null, e.g. "",
+ * gracefully.
  * @param   {number}         diceSides   Number. Number of dice sides (determines base).
  * @param   {Array<number>}  rolls       Array.  Dice rolls.
- * @returns {number}         decimal     Number. Decimal representation of DND rolls.
+ * @returns {string}         String. Decimal representation of DND rolls. 
  * @throws  {error}          error       Error.  Error when roll is higher than dice side.
  */
 function diceRollsToDecimal(diceSides, rolls) {
-	if (outputAlphabetElement.value.length == 0) {
-		outputAlphabetElement.value = Base16;
-	}
-
 	let nu = 0;
-	// console.log(rolls);
-	let dci = parseInt(diceSides); // In case it is interpreted as string
-	let r = rolls.reverse();
-	for (let i = 0; i < r.length; i++) {
-		let roll = parseInt(rolls[i]) - 1;
-		// Corrects dice roll for 1 being interpreted as 0.
-		if (roll == 0) {
-			roll = 1;
-		}
-		if (roll > dci) {
+	let x = 0;
+	for (let i = rolls.length - 1; i >= 0; i--) {
+		// Shift dice roles from "human numbers" to computer science numbers (minus one)
+		let roll = parseInt(rolls[x] - 1);
+		x++;
+		if (roll > diceSides) {
 			throw new Error("cannot have a roll higher than the dice sides: " + roll);
 		}
-		let power;
-		// console.log(i)
-		if (i == 0) {
-			power = 1;
-		} else if (i == 1) {
-			power = dci;
-		} else {
-			power = dci ** i;
-		}
+		let power = diceSides ** i;
 		let dec = roll * power;
 		nu = nu + dec;
-		// console.log(nu, power, dec, roll);
 	}
-	return nu;
+	return nu.toString();
 }
+
+
+/**
+ * Returns an array of the dice rolls, from the input.
+ * FIXME since this function uses javascript's number, it's limited in size.  
+ * @param   {String}    input        String. Input string to be converted to DND rolls.
+ * @param   {String}    inputAlpha   String. Alphabet/Base that input is in.
+ * @param   {number}    diceSides    Number. Number of dice sides (determines base).
+ * @returns {String}    output       String. Output based on input alphabet base.
+ * @throws  {error}     error        Error. Fails when dice sides are not specified, and/or roll is higher than dice sides.
+ */
+ function baseToDND(input, inputAlpha, diceSides) {
+	//console.debug("baseToDND: ", input, inputAlpha, diceSides);
+	if (diceSides == 0 || isEmpty(diceSides)) { // "handle "undefined"
+		throw new Error("must specify number of dice sides. Given:" + diceSides);
+	}
+	let decimal = BaseConvert(input, inputAlpha, Base10);
+	let rolls = [];
+
+	// Discovery for column (radix column power)
+	for (var power = 1; true; power++) {
+		let n = diceSides ** power;
+		if (n > decimal) {
+			power--;
+			break;
+		}
+	}
+	// console.log("Power:", power);
+
+	for (let i = power; i >= 0; i--) {
+		let roll = ~~(decimal / (diceSides ** power)); // bitwise XOR XOR to get decimal. 
+		decimal = decimal % (diceSides ** power);
+		power--;
+
+
+		if (roll > diceSides) {
+			throw new Error("cannot have a roll higher than dice sides: " + roll);
+		}
+		rolls.push(roll+1); // convert from computer science numbers to human numbers
+	}
+	// console.log("Rolls:", rolls);
+	rolls = rollsPadded(rolls, diceSides).toString();
+	return rolls.toString().replaceAll(',', '', );
+}
+
 
 ///////////////////////
 // App Helpers
@@ -738,6 +654,23 @@ function isKeyword(s) {
 		return true;
 	}
 	return false;
+}
+
+// RemovePad is a helper function removes pad but not the single zero case.
+function RemovePad(input, inAlph){
+	console.log("RemovePad", input, inAlph);
+	if (input.length == 1) {
+		return input;
+	}
+	// Remove padding characters
+	let inPad = inAlph.charAt(0);
+	let out = "";
+	for (var i = 0; i < input.length; i++) {
+		if (input.charAt(i) !== inPad){
+			break;
+		} 
+	}
+	return input.substring(i);
 }
 
 // Returns string from input string, where any control/non-printable characters
@@ -775,18 +708,6 @@ function hexToString(input) {
 }
 
 
-// Converts from arbitrary base, to Hex.
-// Does not support keywords
-function baseToHex(input, inputAlpha) {
-	if (inputAlpha !== Base16) {
-		input = baseConvert(input, inputAlpha, Base16);
-	}
-	if (input.length % 2 == 1) {
-		input = input.padStart(input.length + 1, "0");
-	}
-	return input;
-}
-
 // Returns the exploded byte array from ",".
 function explodeBytes(input) {
 	if (input.charAt(0) != "[" && input.charAt(0) != "{") {
@@ -801,9 +722,9 @@ function explodeBytes(input) {
 
 /**
  * Convert from a Go Bytes representation, to string.
- * @param   {String}  input         String, Go Bytes representation as a string.
- * @returns {String}  outputString  String. Output string.
- * @throws  {error}   error         Error.  Syntax error.
+ * @param   {String}  input      String, Go Bytes representation as a string.
+ * @returns {String}             String. 
+ * @throws  {error}   error      Error.  Syntax error.
  */
 function GoBytesToString(input) {
 	let unicode = "";
@@ -817,7 +738,7 @@ function GoBytesToString(input) {
  * Convert from a Go Bytes representation, to Hex.
  * Empty bytes will return "".
  * @param   {String}  input         String, Go Bytes representation as a string.
- * @returns {String}  outputString  String. Output string.
+ * @returns {Hex}                   String. 
  * @throws  {error}   error         Error.  Syntax error.
  */
 function GoBytesToHex(input) {
@@ -833,73 +754,104 @@ function GoBytesToHex(input) {
 	return hex;
 }
 
-// updates the Bits, Base, and Length components of the GUI, based on keyword.
-function bitsBaseLengthGUI(keyword, text, bits, base, length) {
+/**
+ * @typedef  {Object} GuiMeta
+ * @property {string} bits   - Bits in alphabet. 
+ * @property {string} base   - Alphabet base.
+ * @property {string} length - length of string.  
+ */
+
+
+/**
+ * Calculates Bits, Base, and Length based on alphabet, including keywords.
+ * @param    {String}    alph         String, Go Bytes representation as a string.
+ * @param    {String}    text         String. 
+ * @returns  {GuiMeta}                GuiMeta         
+ */
+function bitsBaseLengthGUI(alph, text) {
 	// console.debug(keyword);
-	if (keyword.substring(0, 4) == "DND:") {
-		keyword = "DND";
+	if (alph.substring(0, 4) == "DND:") {
+		var sides = alph.substring(4);
+		alph = "DND";
 	}
-	bits.textContent = "n/a";
-	base.textContent = "n/a";
-	length.textContent = text.length;
-	switch (keyword) {
+
+	var bits = "n/a";
+	var base = "n/a";
+	var length = text.length;
+
+	switch (alph) {
 		case "bytes":
-			bits.textContent = 8;
-			base.textContent = 2;
-			length.textContent = text.length + "\n(Chunks: " + text.split(",").length + ")";
-			return;
+			bits = 8;
+			base = 2;
+			length = text.length + "\n(Chunks: " + text.split(",").length + ")";
+			break;
 		case "Hash:SHA-256":
 		case "Hash:SHA-384":
 		case "Hash:SHA-512":
-			bits.textContent = 4; // Output is Hex, which is 4 bits.
-			base.textContent = keyword.substring(5);
-			return;
+			bits = 4; // Output is Hex, which is 4 bits.
+			base = alph.substring(5);
+			break;
 		case "base64":
 		case "b64":
 		case "ubase64p":
 		case "ub64p":
-			bits.textContent = 6;
-			base.textContent = "u64p";
-			return;
+			bits = 6;
+			base = "u64p";
+			break;
 		case "base64up":
 		case "b64up":
-			bits.textContent = 6;
-			base.textContent = "b64up";
-			return;
+			bits = 6;
+			base = "b64up";
+			break;
 		case "base64ut":
 		case "b64ut":
-			bits.textContent = 6;
-			base.textContent = "b64ut";
-			return;
+			bits = 6;
+			base = "b64ut";
+			break;
 		case "ubase64t":
 		case "ub64t":
-			bits.textContent = 6;
-			base.textContent = "ub64t";
-			return;
+			bits = 6;
+			base = "ub64t";
+			break;
 			// Currently only works in to out.
 		case "Ridicule":
 		case "Majuscule":
 		case "Miniscule":
-			inputBitsNeededElement.textContent = "n/a";
-			inputAlphabetLengthElement.textContent = "n/a";
-			return;
+			break;
 		case "text":
 		case "string":
-			base.textContent = "Unicode";
-			return;
+			base = "Unicode";
+			break;
 		case "SysCnv":
-			return; // Do nothing.
+			break; // Do nothing.
 		case "DND":
-			base.textContent = "Dice " + numberOfDiceSidesElement.value;
-			bits.textContent = bitPerBase(numberOfDiceSidesElement.value);
-			return;
-		default:
-			bits.textContent = "n/a";
-			base.textContent = "n/a";
-			// console.debug('keyword not recognized');
-			return;
+			base = "Dice " + sides;
+			bits = bitPerBase(sides);
+			break;
+		default: // Not a keyword
+			length = text.length;
+			base = alph.length;
+			bits = bitPerBase(alph.length);
+
+			break;
 	}
+
+	return {
+		"bits": bits,
+		"base": base,
+		"length": length
+	};
 }
+
+
+// TODO
+// function BucketPad() {}
+// function FullBuckets() {
+// 	inBits = bitPerBase(inAlphElem.value.length);
+// 	outBits = bitPerBase(outAlphElem.value.length);
+// 	inBitsElem.textContent = inBits;
+// 	outBitsElem.textContent = outBits;
+// }
 
 
 

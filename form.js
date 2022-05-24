@@ -215,6 +215,7 @@ function PopulateFromValues(params, values, formOptions) {
  * @returns {URL}             URL
  */
 function ShareURI(params) {
+	//console.log("ShareURI called");
 	var url = new URL(window.location.href);
 
 	for (const parameter in params) {
@@ -223,7 +224,8 @@ function ShareURI(params) {
 		var type = params[parameter].type;
 		//console.log(name, id, type);
 
-		// `name` is default id for html element.  `id` overrides `name` for html elements ids.
+		// `name` is default id for html element.  `id` overrides `name` for html
+		// elements ids.
 		if (id !== undefined) {
 			var htmlElementID = id
 		} else {
@@ -242,8 +244,18 @@ function ShareURI(params) {
 
 		if (!isEmpty(value)) {
 			url.searchParams.set(name, value);
+		} else {
+			// Cleans out value from string in case it is set in the URI already.
+			// (e.g. bools on false will not be cleared)
+			url.searchParams.delete(name);
 		}
 	}
+	
+	//Remove hash if there's nothing in it."#" character is pos [0]
+	if (isEmpty(url.hash.substring(1))) {
+		url.hash = "";
+	}
+	//console.log("Share URI Link: ", url.href);
 
 	// URI Link
 	let shareUrl = document.querySelector("#shareURL");
