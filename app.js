@@ -741,7 +741,7 @@ function isKeyword(s) {
 }
 
 // Returns string from input string, where any control/non-printable characters
-// are represented as a chiclet.
+// are represented as a chiclet. See also Mojibake (https://en.wikipedia.org/wiki/Mojibake)
 function controlCharsToChiclets(input) {
 	let outString = "";
 	for (let char of input) {
