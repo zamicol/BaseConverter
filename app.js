@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 	document.querySelector('#SysCnvBtn').addEventListener('click', () => {
 		outAlphElem.value = "SysCnv";
-		DefaultIn("hex");
+		DefaultIn("Hex");
 		Convert();
 	});
 	document.querySelector('#DNDConvertInBtn').addEventListener('click', () => {
@@ -275,7 +275,7 @@ async function Convert() {
 		}
 
 		if (inputAlpha == "" || outputAlphabet == "") {
-			console.debug("Empty input alph or output alph.");
+			// console.debug("Empty input alph or output alph.");
 			Update();
 			return;
 		}
@@ -288,9 +288,12 @@ async function Convert() {
 			inputString = KeywordToHex(inputAlpha, inputString);
 			inputAlpha = Base16;
 		}
+
 		if (inputString === null || inputString === undefined) { // sanitize null/undefined, "0" is legit.  
 			inputString = "";
 		}
+
+		// console.debug(inputString, inputString.length);
 
 		/////////////////////
 		// Output
@@ -304,13 +307,15 @@ async function Convert() {
 			inputString = BaseToHex(inputString, inputAlpha);
 			inputAlpha = Base16;
 
+			// console.debug(inputString);
+
 			let keyword = outputAlphabet;
 			if (outputAlphabet.substring(0, 5) == "Hash:") {
 				keyword = "Hash";
 				var hashAlg = outputAlphabet.substring(5);
 			} else if (outputAlphabet.substring(0, 4) == "DND:") {
 				keyword = "DND";
-				var diceSides = outputAlphabet.substring(4);
+				var diceSides = parseInt(outputAlphabet.substring(4));
 			}
 			// console.debug(keyword);
 			switch (keyword) {
@@ -318,7 +323,7 @@ async function Convert() {
 					out = "Hex: " + inputString +
 						"\nRFC base64 uri padded: " + HexToUb64p(inputString) +
 						"\nGo Bytes: " + hexToGoBytesString(inputString) +
-						"\nbase 128: " + BaseConvert(inputString, Base16, Base128);
+						"\nASCII: " + BaseConvert(inputString, Base16, base128);
 					break;
 				case "Hash":
 					out = await hashHex(hashAlg, inputString);
@@ -351,7 +356,7 @@ async function Convert() {
 					out = inputString;
 					break;
 				case "hex":
-					out = hexPadded(BaseConvert(inputString, Base16, Base16Lower));
+					out = inputString.toLowerCase();
 					break;
 				case "Majuscule":
 					out = inElem.value.toUpperCase(); // Use original string, and not Hex representation.
@@ -400,7 +405,7 @@ function KeywordToHex(inAlph, input) {
 		case "bytes":
 			return GoBytesToHex(input);
 		case "SysCnv":
-			return cyphrmeToHex(input);
+			return SysCnvToHex(input);
 		case "base64":
 		case "b64":
 		case "base64up":
@@ -453,8 +458,6 @@ function ClearErrAlert() {
 	alertMsgElement.textContent = "";
 }
 
-
-
 // Update updates all information presented on the screen.  
 // Except share link, for the worry that could slow down things too much. 
 function Update() {
@@ -467,25 +470,6 @@ function Update() {
 	outBitsElem.textContent = upObj.bits;
 	outAlphLenElem.textContent = upObj.base;
 	outLenElem.textContent = upObj.length;
-}
-
-
-// Returns the Hex string in the Hex line from a correctly formatted SysCnv conversion.
-function cyphrmeToHex(input) {
-	let hexLine = input.split("\n", 1)[0];
-	if (hexLine.substring(0, 4) != "Hex:") {
-		throw new Error('Not in the correct SysCnv format.');
-	}
-	return hexLine.split(' ', 2)[1];
-}
-
-// Returns the digest (in Hex) from the given Hex input and hash alg. Throws.
-async function hashHex(hashAlg, input) {
-	// console.debug(hashAlg, input);
-	if (isEmpty(hashAlg)) {
-		throw new Error("No hash algorithm specified");
-	}
-	return arrayBufferToHex(await crypto.subtle.digest(hashAlg, await HexToArrayBuffer(input)));
 }
 
 // Sets the output string to ridicule format of input string.
@@ -573,11 +557,11 @@ function dndToDecimal(diceSides) {
  * gracefully.
  * @param   {number}         diceSides   Number. Number of dice sides (determines base).
  * @param   {Array<number>}  rolls       Array.  Dice rolls.
- * @returns {string}         String. Decimal representation of DND rolls. 
+ * @returns {string}         String.     Decimal representation of DND rolls.
  * @throws  {error}          error       Error.  Error when roll is higher than dice side.
  */
 function diceRollsToDecimal(diceSides, rolls) {
-	let nu = 0;
+	let sum = 0;
 	let x = 0;
 	for (let i = rolls.length - 1; i >= 0; i--) {
 		// Shift dice roles from "human numbers" to computer science numbers (minus one)
@@ -586,11 +570,11 @@ function diceRollsToDecimal(diceSides, rolls) {
 		if (roll > diceSides) {
 			throw new Error("cannot have a roll higher than the dice sides: " + roll);
 		}
-		let power = diceSides ** i;
-		let dec = roll * power;
-		nu = nu + dec;
+		// For each column, the column is calculated by the value in the column
+		// times dice sides raised to the column number.
+		sum = sum + (roll * (diceSides ** i));
 	}
-	return nu.toString();
+	return sum.toString();
 }
 
 
@@ -603,13 +587,24 @@ function diceRollsToDecimal(diceSides, rolls) {
  * @returns {String}    output       String. Output based on input alphabet base.
  * @throws  {error}     error        Error. Fails when dice sides are not specified, and/or roll is higher than dice sides.
  */
- function baseToDND(input, inputAlpha, diceSides) {
-	//console.debug("baseToDND: ", input, inputAlpha, diceSides);
-	if (diceSides == 0 || isEmpty(diceSides)) { // "handle "undefined"
+function baseToDND(input, inputAlpha, diceSides) {
+	// console.debug("baseToDND: ", input, inputAlpha, diceSides);
+	if (diceSides == 0 || isEmpty(diceSides)) { // handle "undefined"
 		throw new Error("must specify number of dice sides. Given:" + diceSides);
+	}
+	// Handles the zero case
+	if (isEmpty(input)) {
+		return "";
 	}
 	let decimal = BaseConvert(input, inputAlpha, Base10);
 	let rolls = [];
+
+	// console.debug(decimal);
+
+	// Handle unary
+	if (diceSides === 1) {
+		return "1".repeat(parseInt(decimal)); // TODO possibly add to BaseConvert
+	}
 
 	// Discovery for column (radix column power)
 	for (var power = 1; true; power++) {
@@ -619,24 +614,20 @@ function diceRollsToDecimal(diceSides, rolls) {
 			break;
 		}
 	}
-	// console.log("Power:", power);
 
 	for (let i = power; i >= 0; i--) {
-		let roll = ~~(decimal / (diceSides ** power)); // bitwise XOR XOR to get decimal. 
-		decimal = decimal % (diceSides ** power);
-		power--;
-
+		let roll = ~~(decimal / (diceSides ** i)); // bitwise XOR XOR to get decimal. 
+		decimal = decimal % (diceSides ** i);
 
 		if (roll > diceSides) {
 			throw new Error("cannot have a roll higher than dice sides: " + roll);
 		}
-		rolls.push(roll+1); // convert from computer science numbers to human numbers
+		rolls.push(roll + 1); // convert from computer science numbers to human numbers
 	}
-	// console.log("Rolls:", rolls);
-	rolls = rollsPadded(rolls, diceSides).toString();
-	return rolls.toString().replaceAll(',', '', );
-}
 
+	// console.debug("Rolls:", rolls);
+	return rollsPadded(rolls, diceSides).toString().replaceAll(',', '', );
+}
 
 ///////////////////////
 // App Helpers
@@ -656,117 +647,19 @@ function isKeyword(s) {
 	return false;
 }
 
-// RemovePad is a helper function removes pad but not the single zero case.
-function RemovePad(input, inAlph){
-	console.log("RemovePad", input, inAlph);
-	if (input.length == 1) {
-		return input;
-	}
-	// Remove padding characters
-	let inPad = inAlph.charAt(0);
-	let out = "";
-	for (var i = 0; i < input.length; i++) {
-		if (input.charAt(i) !== inPad){
-			break;
-		} 
-	}
-	return input.substring(i);
-}
-
-// Returns string from input string, where any control/non-printable characters
-// are represented as a chiclet. See also Mojibake (https://en.wikipedia.org/wiki/Mojibake)
-function controlCharsToChiclets(input) {
-	let outString = "";
-	for (let char of input) {
-		if (ASCIICONTROL.includes(char)) {
-			outString += '';
-			continue;
-		}
-		outString += char;
-	}
-	return outString;
-}
-
-// String to ASCII (utf-8) binary HEX string
-function stringToHex(input) {
-	// console.debug(input);
-	if (typeof input != 'string') {
-		throw new TypeError('Input is not a string. Given type: ' + typeof input);
-	}
-	return input.split("").reduce((hex, c) => hex += c.charCodeAt(0).toString(16).toUpperCase().padStart(2, "0"), "");
-}
-
-// ASCII (utf-8) binary HEX string to string
-function hexToString(input) {
-	if (typeof input != 'string') {
-		throw new TypeError('input is not a string');
-	}
-	if (isEmpty(input)) {
-		return ""; // empty is a valid input.
-	}
-	return input.match(/.{1,2}/g).reduce((acc, char) => acc + String.fromCharCode(parseInt(char, 16)), "");
-}
-
-
-// Returns the exploded byte array from ",".
-function explodeBytes(input) {
-	if (input.charAt(0) != "[" && input.charAt(0) != "{") {
-		throw new SyntaxError("not in correct byte format: [255, ...]");
-	}
-	// Supports trailing comma (but returns it removed).
-	if (input.charAt(input.length - 2) == ",") {
-		return input.substring(1, input.length - 2).split(",");
-	}
-	return input.substring(1, input.length - 1).split(",");
-}
-
 /**
- * Convert from a Go Bytes representation, to string.
- * @param   {String}  input      String, Go Bytes representation as a string.
- * @returns {String}             String. 
- * @throws  {error}   error      Error.  Syntax error.
- */
-function GoBytesToString(input) {
-	let unicode = "";
-	for (let c of explodeBytes(input)) {
-		unicode += String.fromCodePoint(c);
-	}
-	return unicode;
-}
-
-/**
- * Convert from a Go Bytes representation, to Hex.
- * Empty bytes will return "".
- * @param   {String}  input         String, Go Bytes representation as a string.
- * @returns {Hex}                   String. 
- * @throws  {error}   error         Error.  Syntax error.
- */
-function GoBytesToHex(input) {
-	let hex = "";
-	let chunks = explodeBytes(input);
-	// Empty bytes check
-	if (chunks.length == 1 && isEmpty(chunks[0])) {
-		return hex;
-	}
-	for (let c of chunks) {
-		hex += parseInt(c).toString(16).toUpperCase().padStart(2, "0");
-	}
-	return hex;
-}
-
-/**
+ * GuiMeta holds meta data for updating the bits, base, and length elements on
+ * the GUI.
  * @typedef  {Object} GuiMeta
- * @property {string} bits   - Bits in alphabet. 
+ * @property {string} bits   - Bits in alphabet.
  * @property {string} base   - Alphabet base.
- * @property {string} length - length of string.  
- */
-
-
-/**
+ * @property {string} length - length of string.
+ *
+ *
  * Calculates Bits, Base, and Length based on alphabet, including keywords.
- * @param    {String}    alph         String, Go Bytes representation as a string.
- * @param    {String}    text         String. 
- * @returns  {GuiMeta}                GuiMeta         
+ * @param    {String}    alph         String. Go Bytes representation as a string.
+ * @param    {String}    text         String.
+ * @returns  {GuiMeta}                GuiMeta
  */
 function bitsBaseLengthGUI(alph, text) {
 	// console.debug(keyword);
@@ -814,28 +707,27 @@ function bitsBaseLengthGUI(alph, text) {
 			base = "ub64t";
 			break;
 			// Currently only works in to out.
-		case "Ridicule":
-		case "Majuscule":
-		case "Miniscule":
-			break;
 		case "text":
 		case "string":
 			base = "Unicode";
 			break;
-		case "SysCnv":
-			break; // Do nothing.
 		case "DND":
 			base = "Dice " + sides;
 			bits = bitPerBase(sides);
 			break;
+		case "Ridicule":
+		case "Majuscule":
+		case "Miniscule":
+		case "SysCnv":
+			break; // Do nothing.
 		default: // Not a keyword
 			length = text.length;
 			base = alph.length;
 			bits = bitPerBase(alph.length);
-
 			break;
 	}
 
+	/**@type {GuiMeta} */
 	return {
 		"bits": bits,
 		"base": base,
@@ -876,15 +768,6 @@ function gcd_two_numbers(x, y) {
 	return x;
 }
 
-function range(start, stop, step) {
-	var a = [start],
-		b = start;
-	while (b < stop) {
-		a.push(b += step || 1);
-	}
-	return a;
-}
-
 function isJson(str) {
 	try {
 		JSON.parse(str);
@@ -893,18 +776,6 @@ function isJson(str) {
 	}
 	return true;
 }
-
-
-
-/**
- * arrayBufferToHex accepts an array buffer and returns a string of hex.
- * Taken from https://stackoverflow.com/a/50767210/1923095
- * @param {ArrayBuffer} buffer       str that is being converted to UTF8
- * @returns {string} hex             String with hex.  
- */
-async function arrayBufferToHex(buffer) {
-	return [...new Uint8Array(buffer)].map(x => x.toString(16).padStart(2, "0")).join('').toUpperCase();
-};
 
 /**
  * isEmpty is a helper function to determine if thing is empty. 
