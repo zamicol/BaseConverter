@@ -17,7 +17,6 @@
   * another base with another given encoding alphabet.  
   * Base is assumed from alphabet sizes. 
   *
-
   * @param  {string} input     Input string.  
   * @param  {string} inAlph    Input alphabet (i.e. 0123456789ABCDEF)
   * @param  {string} outAlph   Output alphabet (i.e. ABCDEFGHJKLMNPQRSTUVWXYZ234567)

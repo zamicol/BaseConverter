@@ -1,7 +1,18 @@
 "use strict";
 
+// TODO use when modules implemented
+// const Base10 = "0123456789";
+// const Base16 = "0123456789ABCDEF";
+// const Base16Lower = "0123456789abcdef";
 
-// ZAMI Review
+// ///////////////////////
+// // RFC 4648 base64s
+// ///////////////////////
+// // RFCBase64Unsafe is a URI unsafe base 64 alphabet, the "default" for RFC 4648. 
+// const RFCBase64Unsafe = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+// // RFCBase64Uri is RFC 4648 URI safe base 64 alphabet.  
+// const RFCBase64Uri = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+
 // ASCII Extended control and non printable characters.
 const ASCIIExtCTRLNPChars = String.fromCharCode(
 	// First two rows and space

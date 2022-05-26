@@ -15,14 +15,13 @@ function BaseToHex(input, inAlph) {
 	if (input.length % 2 === 1) {
 		input = input.padStart(input.length + 1, "0");
 	}
-	return input; // Hex is always padded. 
+	return input; // Hex is always padded.
 }
 
 /**
  * Taken from https://github.com/LinusU/hex-to-array-buffer  MIT license
- * 
- * @param {string} Hex         String. Hexrepresentation
- * @returns {ArrayBuffer}      ArrayBuffer. 
+ * @param   {string} Hex         String. Hexrepresentation
+ * @returns {ArrayBuffer}        ArrayBuffer. 
  */
 async function HexToArrayBuffer(hex) {
 	if (typeof hex !== 'string') {
@@ -43,17 +42,22 @@ async function HexToArrayBuffer(hex) {
 };
 
 /**
- * arrayBufferToHex accepts an array buffer and returns a string of hex.
+ * ArrayBufferToHex accepts an array buffer and returns a string of hex.
  * Taken from https://stackoverflow.com/a/50767210/1923095
+ * 
  * @param {ArrayBuffer} buffer       str that is being converted to UTF8
  * @returns {string} hex             String with hex.  
  */
-async function arrayBufferToHex(buffer) {
+async function ArrayBufferToHex(buffer) {
 	return [...new Uint8Array(buffer)].map(x => x.toString(16).padStart(2, "0")).join('').toUpperCase();
+
+	// Alternatively:
+	// let hashArray = Array.from(new Uint8Array(digest)); // convert buffer to byte array
+	// let hexHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 };
 
 // String to ASCII (utf-8) binary HEX string
-function stringToHex(input) {
+function SToHex(input) {
 	// console.debug(input);
 	if (typeof input != 'string') {
 		throw new TypeError('Input is not a string. Given type: ' + typeof input);
@@ -62,7 +66,7 @@ function stringToHex(input) {
 }
 
 // ASCII (utf-8) binary HEX string to string
-function hexToString(input) {
+function HexToS(input) {
 	if (typeof input != 'string') {
 		throw new TypeError('input is not a string');
 	}
@@ -72,81 +76,49 @@ function hexToString(input) {
 	return input.match(/.{1,2}/g).reduce((acc, char) => acc + String.fromCharCode(parseInt(char, 16)), "");
 }
 
-
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////  Base 64  /////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
 /**
- * HexToUb64p is Hex to RFC ub64p.  
- * 
- * @param   {string} Hex    String. Hex representation.
- * @returns {string}        String. ub64 RFC 4648 URI unsafe base 64 padded.
+ * HexPadded accepts input, input alphabet, and alg and returns Hex.  Alg is
+ * used to enforce padding. 
+ * @param    {String} input       String. Number being converted.
+ * @param    {String} inputBase   String. Input alphabet for input.
+ * @param    {String} alg         String. Alg for specifying length of pad.
+ * @returns  {String}             Base16 padded to alg's specified length.
+ * @throws   {error}              Returns error on unsupported algs.
  */
-function HexToUb64p(Hex) {
-	// console.debug(Hex);
-	if (Hex.length == 0) {
-		return "";
+function HexPadded(input, inputBase, alg) {
+	let hex = BaseConvert(input, inputBase, AB.Base16);
+	switch (alg) {
+		case 'ES256':
+			return hex.padStart(64, "0");
+		case "ES384":
+			return hex.padStart(96, "0");
+		case "ES512":
+			return hex.padStart(128, "0");
+		default:
+			throw new Error("base_convert.HexPadded: unsupported alg");
 	}
-	let bytes = Hex.match(/\w{2}/g).map(function (a) {
-		return String.fromCharCode(parseInt(a, 16));
-	}).join("");
-	return btoa(bytes);
-}
-
-/**
- * HexTob64ut is hex to "RFC 4648 URI Safe Truncated".  
- * 
- * @param {string} hex    String. Hex representation.
- * @returns {string}      String. b64ut RFC 4648 URI safe truncated.
- */
-async function HexTob64ut(hex) {
-	let ab = await HexToArrayBuffer(hex);
-	return await ArrayBufferTo64ut(ab);
 };
 
-/**
- * base64t removes base64 padding if applicable.   
- * 
- * @param   {string} base64 
- * @returns {string} base64t
- */
-function base64t(base64) {
-	return base64.replace(/=/g, '');
-}
 
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+// RFC 4648 "base64"s
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
 
 /**
  * ArrayBufferTo64ut Array buffer to b64ut.
  * 
- * @param   {ArrayBuffer} buffer 
- * @returns {string}      String. base64ut.
+ * @param   {ArrayBuffer}  buffer 
+ * @returns {string}       String. base64ut.
  */
 function ArrayBufferTo64ut(buffer) {
 	var string = String.fromCharCode.apply(null, new Uint8Array(buffer));
 	return base64t(URIUnsafeToSafe(btoa(string)));
-};
-
-
-/**
- * SToB64ut encodes a string as base64 URI truncated string.
- * "String to base64 uri truncated"
- * 
- * @param   {string} string 
- * @returns {string}
- */
-function SToB64ut(string) {
-	return btoa(string).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
-};
-
-/**
- * URIUnsafeToSafe converts any URI unsafe string to URI safe.  
- * 
- * @param   {string} ub64t 
- * @returns {string} b64ut 
- */
-function URIUnsafeToSafe(ub64) {
-	return ub64.replace(/\+/g, '-').replace(/\//g, '_');
 };
 
 /**
@@ -168,6 +140,89 @@ function B64ToHex(b64) {
 };
 
 /**
+ * HexToUb64p is Hex to RFC ub64p.  
+ * 
+ * @param   {string} Hex    String. Hex representation.
+ * @returns {string}        String. ub64 RFC 4648 URI unsafe base 64 padded.
+ */
+function HexToUb64p(Hex) {
+	// console.debug(Hex);
+	if (Hex.length == 0) {
+		return "";
+	}
+	let bytes = Hex.match(/\w{2}/g).map(function (a) {
+		return String.fromCharCode(parseInt(a, 16));
+	}).join("");
+	return btoa(bytes);
+}
+
+/**
+ * HexTob64ut is hex to "RFC 4648 URI Safe Truncated".  
+ * 
+ * @param   {string} hex    String. Hex representation.
+ * @returns {string}        String. b64ut RFC 4648 URI safe truncated.
+ */
+async function HexTob64ut(hex) {
+	let ab = await HexToArrayBuffer(hex);
+	return await ArrayBufferTo64ut(ab);
+};
+
+/**
+ * SToB64ut encodes a string as base64 URI truncated string.
+ * "String to base64 uri truncated"
+ * 
+ * @param   {string} string 
+ * @returns {string}
+ */
+function SToB64ut(string) {
+	return btoa(string).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+};
+
+/**
+ * B64utToS takes a b64ut string and decodes it back into a string.
+ * "base64 uri truncated to string"
+ * 
+ * @param   {string} string 
+ * @returns {string}
+ */
+function B64utToS(string) {
+	// atob doesn't care about the padding character '='
+	return atob(string.replace(/-/g, '+').replace(/_/g, '/'));
+};
+
+/**
+ * SToUB64p takes a string and encodes it into a unsafe Base64 string.
+ * "String to Unsafe Base64"
+ * 
+ * @param   {string}  string string
+ * @returns {string}  Unsafe Base64 string
+ */
+function SToUB64p(string) {
+	return btoa(string);
+};
+
+/**
+ * UB64pToS takes an unsafe base64 string and decodes it back into a string.
+ * "Unsafe base64 padded to String"
+ * 
+ * @param   {string} string Unsafe base64 padded string
+ * @returns {string}
+ */
+function UB64pToS(string) {
+	return atob(string);
+};
+
+/**
+ * URIUnsafeToSafe converts any URI unsafe string to URI safe.  
+ * 
+ * @param   {string} ub64t 
+ * @returns {string} b64ut 
+ */
+function URIUnsafeToSafe(ub64) {
+	return ub64.replace(/\+/g, '-').replace(/\//g, '_');
+};
+
+/**
  * URISafeToUnsafe converts any URI safe string to URI unsafe.  
  * 
  * @param   {string} b64ut 
@@ -178,30 +233,33 @@ function URISafeToUnsafe(ub64) {
 };
 
 /**
- * Ub64pToString will convert RFC base64 to arbitrary strings.
- *
- * @param   {Element} string     Input or Output string Element.
- * @param   {Element} alpha      Input or Output alphabet Element.
- * @returns {string}             String. ub64 RFC 4648 URI unsafe base 64 padded.
+ * base64t removes base64 padding if applicable.
+ * @param   {string} base64 
+ * @returns {string} base64t
  */
-function Ub64pToString(string, alpha) {
-	return baseConvert(B64ToHex(string.value), Base16, alpha.value);
+function base64t(base64) {
+	return base64.replace(/=/g, '');
 }
 
 /**
- * SToUB64p is any string to RFC ub64p.  
- *
- * @param   {String} hex    String. Hex from Input or Output.
- * @param   {String} alpha  String. Input or Output alphabet Element.
- * @returns {string}        String. ub64 RFC 4648 URI unsafe base 64 padded.
+ * TToP (truncated to padded) takes any base64 truncated string and adds padding
+ * if appropriate.  
+ * 
+ * @param   {string} base64t 
+ * @returns {string} base64p
  */
-function SToUB64p(hex, alpha) {
-	// console.log(hex, alpha);
-	if (alpha.value != base16) {
-		hex = baseConvert(hex, alpha, Base16);
+function TToP(base64) {
+	var padding = base64.length % 4;
+	switch (padding) {
+		case 0:
+			return base64;
+		case 1:
+			// malformed input, can only 0, 2, 3, or 4 characters, never 1.  
+			console.error("input is invalid base64.");
+			return;
+		case 2:
+			return base64 + "==";
+		case 3:
+			return base64 + "=";
 	}
-	if (isOdd(hex)) {
-		hex = hex.padStart(hex.length + 1, "0");
-	}
-	return HexToUb64p(hex);
 }

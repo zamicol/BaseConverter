@@ -13,8 +13,15 @@ const base20 = document.getElementById('base20').value;
 const base32 = document.getElementById('base32').value;
 const zBase32 = document.getElementById('zbase32').value;
 const base58 = document.getElementById('base58').value;
-const base64 = document.getElementById('base64UriSafe').value;
-const base64UriUnsafe = document.getElementById('base64UriUnsafe').value;
+
+///////////////////////
+// RFC 4648 base64s
+///////////////////////
+// RFCBase64Unsafe is a URI unsafe base 64 alphabet, the "default" for RFC 4648. 
+const RFCBase64Unsafe = document.getElementById('base64UriUnsafe').value;
+// RFCBase64Uri is RFC 4648 URI safe base 64 alphabet.  
+const RFCBase64Uri = document.getElementById('base64UriSafe').value;
+
 const base85 = document.getElementById('base85').value;
 const base91 = document.getElementById('base91').value;
 const base128 = document.getElementById('base128').value;
@@ -137,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	//////////////////
 	document.querySelector("#Example64To256Btn").addEventListener('click', () => {
 		// Out is "Hello World!"
-		GUIConvert(base64, "SGVsbG8gV29ybGQh", base256);
+		GUIConvert(RFCBase64Uri, "SGVsbG8gV29ybGQh", base256);
 	});
 
 	document.querySelector("#ExampleDNAToJSONBtn").addEventListener('click', () => {
@@ -322,14 +329,14 @@ async function Convert() {
 				case "SysCnv":
 					out = "Hex: " + inputString +
 						"\nRFC base64 uri padded: " + HexToUb64p(inputString) +
-						"\nGo Bytes: " + hexToGoBytesString(inputString) +
+						"\nGo Bytes: " + HexToGoBytesString(inputString) +
 						"\nASCII: " + BaseConvert(inputString, Base16, base128);
 					break;
 				case "Hash":
-					out = await hashHex(hashAlg, inputString);
+					out = await HashHex(hashAlg, inputString);
 					break;
 				case "bytes":
-					out = hexToGoBytesString(inputString);
+					out = HexToGoBytesString(inputString);
 					break;
 				case "base64":
 				case "b64":
@@ -350,7 +357,7 @@ async function Convert() {
 					break;
 				case "string":
 				case "text":
-					out = await hexToString(inputString);
+					out = await HexToS(inputString);
 					break;
 				case "Hex":
 					out = inputString;
@@ -423,7 +430,7 @@ function KeywordToHex(inAlph, input) {
 			return input;
 		case "string":
 		case "text":
-			return stringToHex(input);
+			return SToHex(input);
 		default:
 			throw new Error('Keyword unsupported.');
 	}
@@ -713,7 +720,7 @@ function bitsBaseLengthGUI(alph, text) {
 			break;
 		case "DND":
 			base = "Dice " + sides;
-			bits = bitPerBase(sides);
+			bits = BitPerBase(sides);
 			break;
 		case "Ridicule":
 		case "Majuscule":
@@ -723,7 +730,7 @@ function bitsBaseLengthGUI(alph, text) {
 		default: // Not a keyword
 			length = text.length;
 			base = alph.length;
-			bits = bitPerBase(alph.length);
+			bits = BitPerBase(alph.length);
 			break;
 	}
 
@@ -739,8 +746,8 @@ function bitsBaseLengthGUI(alph, text) {
 // TODO
 // function BucketPad() {}
 // function FullBuckets() {
-// 	inBits = bitPerBase(inAlphElem.value.length);
-// 	outBits = bitPerBase(outAlphElem.value.length);
+// 	inBits = BitPerBase(inAlphElem.value.length);
+// 	outBits = BitPerBase(outAlphElem.value.length);
 // 	inBitsElem.textContent = inBits;
 // 	outBitsElem.textContent = outBits;
 // }
