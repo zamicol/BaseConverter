@@ -425,7 +425,6 @@ function KeywordToHex(inAlph, input) {
 		case "ub64t":
 			return B64ToHex(input);
 		case "hex":
-			console.log("Joe");
 			return input.toUpperCase();
 		case "Hex":
 			return input;
