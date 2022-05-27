@@ -328,8 +328,8 @@ async function Convert() {
 			switch (keyword) {
 				case "SysCnv":
 					out = "Hex: " + inputString +
-						"\nRFC base64 uri padded: " + HexToUb64p(inputString) +
-						"\nGo Bytes: " + HexToGoBytesString(inputString) +
+						"\nub64p: " + HexToUb64p(inputString) +
+						"\nBytes: " + HexToGoBytesString(inputString) +
 						"\nASCII: " + BaseConvert(inputString, Base16, base128);
 					break;
 				case "Hash":
@@ -664,7 +664,7 @@ function isKeyword(s) {
  *
  *
  * Calculates Bits, Base, and Length based on alphabet, including keywords.
- * @param    {String}    alph         String. Go Bytes representation as a string.
+ * @param    {String}    alph         String. Bytes as a string.
  * @param    {String}    text         String.
  * @returns  {GuiMeta}                GuiMeta
  */
