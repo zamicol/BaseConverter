@@ -484,14 +484,18 @@ function RidiculeCasingGUI(input) {
 	input = input.toLowerCase();
 	let ridicule = "";
 	for (let i = 0; i < input.length; i++) {
-		var rid = input[i];
-		if (i % 2 != 0) { // Every other character
-			if (rid.toUpperCase() != undefined) { // returns undefined on non-printable, and possibly other chars (i.e. space)
-				rid = rid.toUpperCase();
-			}
+		if (input[i].toUpperCase() == undefined) { // returns undefined on non-printable, and possibly other chars (i.e. space)
+			ridicule += input[i];
+			continue;
 		}
-		ridicule += rid;
+
+		if (Math.random() < 0.5){
+			ridicule += input[i].toUpperCase();
+		}else{
+			ridicule += input[i].toLowerCase();
+		}
 	}
+
 	return ridicule;
 }
 
