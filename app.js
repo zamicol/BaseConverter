@@ -328,8 +328,8 @@ async function Convert() {
 			switch (keyword) {
 				case "SysCnv":
 					out = "Hex: " + inputString +
-						"\nRFC base64 uri padded: " + HexToUb64p(inputString) +
-						"\nGo Bytes: " + HexToGoBytesString(inputString) +
+						"\nub64p: " + HexToUb64p(inputString) +
+						"\nBytes: " + HexToGoBytesString(inputString) +
 						"\nASCII: " + BaseConvert(inputString, Base16, base128);
 					break;
 				case "Hash":
@@ -425,7 +425,7 @@ function KeywordToHex(inAlph, input) {
 		case "ub64t":
 			return B64ToHex(input);
 		case "hex":
-			return BaseConvert(input, inAlph, Base16);
+			return input.toUpperCase();
 		case "Hex":
 			return input;
 		case "string":
@@ -484,14 +484,18 @@ function RidiculeCasingGUI(input) {
 	input = input.toLowerCase();
 	let ridicule = "";
 	for (let i = 0; i < input.length; i++) {
-		var rid = input[i];
-		if (i % 2 != 0) { // Every other character
-			if (rid.toUpperCase() != undefined) { // returns undefined on non-printable, and possibly other chars (i.e. space)
-				rid = rid.toUpperCase();
-			}
+		if (input[i].toUpperCase() == undefined) { // returns undefined on non-printable, and possibly other chars (i.e. space)
+			ridicule += input[i];
+			continue;
 		}
-		ridicule += rid;
+
+		if (Math.random() < 0.5){
+			ridicule += input[i].toUpperCase();
+		}else{
+			ridicule += input[i].toLowerCase();
+		}
 	}
+
 	return ridicule;
 }
 
@@ -664,7 +668,7 @@ function isKeyword(s) {
  *
  *
  * Calculates Bits, Base, and Length based on alphabet, including keywords.
- * @param    {String}    alph         String. Go Bytes representation as a string.
+ * @param    {String}    alph         String. Bytes as a string.
  * @param    {String}    text         String.
  * @returns  {GuiMeta}                GuiMeta
  */

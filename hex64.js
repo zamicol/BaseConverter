@@ -19,26 +19,26 @@ function BaseToHex(input, inAlph) {
 }
 
 /**
- * Taken from https://github.com/LinusU/hex-to-array-buffer  MIT license
- * @param   {string} Hex         String. Hexrepresentation
+ * HexToArrayBuffer converts string Hex to ArrayBuffer. 
+ * 
+ * @param   {Hex}          Hex   String Hex. 
  * @returns {ArrayBuffer}        ArrayBuffer. 
  */
-async function HexToArrayBuffer(hex) {
-	if (typeof hex !== 'string') {
-		throw new TypeError('base_convert.HexToArrayBuffer: Expected input to be a string')
+ async function HexToArrayBuffer(hex) {
+	if (hex === undefined) { // undefined is different from 0 since 0 == "AA"
+		return new Uint8Array().buffer;
 	}
 
 	if ((hex.length % 2) !== 0) {
-		throw new RangeError('base_convert.HexToArrayBuffer: Expected string to be an even number of characters')
+		throw new RangeError('HexToArrayBuffer: Hex is not even.')
 	}
 
-	var view = new Uint8Array(hex.length / 2)
-
+	var a = new Uint8Array(hex.length / 2)
 	for (var i = 0; i < hex.length; i += 2) {
-		view[i / 2] = parseInt(hex.substring(i, i + 2), 16)
+		a[i / 2] = parseInt(hex.substring(i, i + 2), 16)
 	}
 
-	return view.buffer
+	return a.buffer
 };
 
 /**
