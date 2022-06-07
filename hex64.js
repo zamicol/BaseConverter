@@ -86,7 +86,7 @@ function HexToS(input) {
  * @throws   {error}              Returns error on unsupported algs.
  */
 function HexPadded(input, inputBase, alg) {
-	let hex = BaseConvert(input, inputBase, AB.Base16);
+	let hex = BaseConvert(input, inputBase, Base16);
 	switch (alg) {
 		case 'ES256':
 			return hex.padStart(64, "0");

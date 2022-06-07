@@ -284,7 +284,20 @@
 					</div>
 				</div>
 
-
+				<!-- Hex -->
+				<div class="row rounded border border-primary align-items-center p-2">
+					<div class="col-md-4 btn-group align-items-center">
+						<a id="HexInBtn" type="button" class="btn btn-success btn-md" href="#">base64</a>
+						<a id="HexOutBtn" type="button" class="btn btn-danger btn-md" href="#">b64ut</a>
+						<a id="HexOutBtn" type="button" class="btn btn-danger btn-md" href="#">ub64p</a>
+						<!-- default RFC 4348 base64 -->
+					</div>
+					<div class="col-md-8 text-start align-items-center">
+						In: RFC 4648 base64 (uri/unsafe; truncated/padded). Out: Any alphabet (Default: Hex).
+						<br> In: Any alphabet (Default: Hex). Out: RFC 4648 base64 URI truncated.
+						<br> In: Any alphabet (Default: Hex). Out: RFC 4648 unsafe base64 padded.
+					</div>
+				</div>
 
 				<!-- base64 -->
 				<div class="row rounded border border-primary align-items-center p-2">
@@ -716,20 +729,377 @@
 				</div>
 			</div>
 
-
-
-
 		</div>
 
 
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
+		<br><br><br>
+
+		<div id="ASCIIChart">
+			<h1>Unicode ASCII Extended Chart</h1>
+
+			<table class="table table-bordered border-primary table-hover">
+				<thead>
+					<tr>
+						<th></th>
+						<th>0</th>
+						<th>1</th>
+						<th>2</th>
+						<th>3</th>
+						<th>4</th>
+						<th>5</th>
+						<th>6</th>
+						<th>7</th>
+						<th>8</th>
+						<th>9</th>
+						<th>A</th>
+						<th>B</th>
+						<th>C</th>
+						<th>D</th>
+						<th>E</th>
+						<th>F</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<!-- Row 1 (0) -->
+					<tr>
+						<th>0</th>
+						<td><button class="btn btn-primary">NUL</button></td>
+						<td><button class="btn btn-primary">SOH</button></td>
+						<td><button class="btn btn-primary">STX</button></td>
+						<td><button class="btn btn-primary">ETX</button></td>
+						<td><button class="btn btn-primary">EOT</button></td>
+						<td><button class="btn btn-primary">ENQ</button></td>
+						<td><button class="btn btn-primary">ACK</button></td>
+						<td><button class="btn btn-primary">BEL</button></td>
+						<td><button class="btn btn-primary">BS</button></td>
+						<td><button class="btn btn-primary">HT</button></td>
+						<td><button class="btn btn-primary">LF</button></td>
+						<td><button class="btn btn-primary">YT</button></td>
+						<td><button class="btn btn-primary">FF</button></td>
+						<td><button class="btn btn-primary">CR</button></td>
+						<td><button class="btn btn-primary">SO</button></td>
+						<td><button class="btn btn-primary">SI</button></td>
+					</tr>
+					<!-- Row 2 (1) -->
+					<tr>
+						<th>1</th>
+						<td>DLE</td>
+						<td>DC1</td>
+						<td>DC2</td>
+						<td>DC3</td>
+						<td>DC4</td>
+						<td>NAK</td>
+						<td>SYN</td>
+						<td>ETB</td>
+						<td>CAN</td>
+						<td>EM</td>
+						<td>SUB</td>
+						<td>ESC</td>
+						<td>FS</td>
+						<td>GS</td>
+						<td>RS</td>
+						<td>US</td>
+					</tr>
+					<!-- Row 3 (2) -->
+					<tr>
+						<th>2</th>
+						<td>SPACE</td>
+						<td>!</td>
+						<td>"</td>
+						<td>#</td>
+						<td>$</td>
+						<td>%</td>
+						<td>&</td>
+						<td>'</td>
+						<td>(</td>
+						<td>)</td>
+						<td>*</td>
+						<td>+</td>
+						<td>,</td>
+						<td>-</td>
+						<td>.</td>
+						<td>/</td>
+					</tr>
+					<!-- Row 4 (3) -->
+					<tr>
+						<th>3</th>
+						<td>0</td>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+						<td>7</td>
+						<td>8</td>
+						<td>9</td>
+						<td>:</td>
+						<td>;</td>
+						<td>
+							<</td> <td>=
+						</td>
+						<td>></td>
+						<td>?</td>
+					</tr>
+					<!-- Row 5 (4) -->
+					<tr>
+						<th>4</th>
+						<td>@</td>
+						<td>A</td>
+						<td>B</td>
+						<td>C</td>
+						<td>D</td>
+						<td>E</td>
+						<td>F</td>
+						<td>G</td>
+						<td>H</td>
+						<td>I</td>
+						<td>J</td>
+						<td>K</td>
+						<td>L</td>
+						<td>M</td>
+						<td>N</td>
+						<td>O</td>
+					</tr>
+					<!-- Row 6 (5) -->
+					<tr>
+						<th>5</th>
+						<td>P</td>
+						<td>Q</td>
+						<td>R</td>
+						<td>S</td>
+						<td>T</td>
+						<td>U</td>
+						<td>V</td>
+						<td>W</td>
+						<td>X</td>
+						<td>Y</td>
+						<td>Z</td>
+						<td>[</td>
+						<td>\</td>
+						<td>]</td>
+						<td>^</td>
+						<td>_</td>
+					</tr>
+					<!-- Row 7 (6) -->
+					<tr>
+						<th>6</th>
+						<td>`</td>
+						<td>a</td>
+						<td>b</td>
+						<td>c</td>
+						<td>d</td>
+						<td>e</td>
+						<td>f</td>
+						<td>g</td>
+						<td>h</td>
+						<td>i</td>
+						<td>j</td>
+						<td>k</td>
+						<td>l</td>
+						<td>m</td>
+						<td>n</td>
+						<td>o</td>
+					</tr>
+					<!-- Row 8 (7) -->
+					<tr>
+						<th>7</th>
+						<td>p</td>
+						<td>q</td>
+						<td>r</td>
+						<td>s</td>
+						<td>t</td>
+						<td>u</td>
+						<td>v</td>
+						<td>w</td>
+						<td>x</td>
+						<td>y</td>
+						<td>z</td>
+						<td>{</td>
+						<td>|</td>
+						<td>}</td>
+						<td>~</td>
+						<td>DEL</td>
+					</tr>
+					<!-- Row 9 (8) -->
+					<tr>
+						<th>8</th>
+						<td>PAD</td>
+						<td>HOP</td>
+						<td>BPH</td>
+						<td>NBH</td>
+						<td>IND</td>
+						<td>NEL</td>
+						<td>SSA</td>
+						<td>ESA</td>
+						<td>HTS</td>
+						<td>HTJ</td>
+						<td>VTS</td>
+						<td>PLD</td>
+						<td>PLU</td>
+						<td>RI</td>
+						<td>SS2</td>
+						<td>SS3</td>
+					</tr>
+					<!-- Row 10 (9) -->
+					<tr>
+						<th>9</th>
+						<td>DCS</td>
+						<td>PU1</td>
+						<td>PU2</td>
+						<td>STS</td>
+						<td>CCH</td>
+						<td>MW</td>
+						<td>SPA</td>
+						<td>EPA</td>
+						<td>SOS</td>
+						<td>SGC</td>
+						<td>SCI</td>
+						<td>CSI</td>
+						<td>ST</td>
+						<td>OSC</td>
+						<td>PM</td>
+						<td>APC</td>
+					</tr>
+					<!-- Row 11 (A) -->
+					<tr>
+						<th>A</th>
+						<td>NBSP</td>
+						<td>¡</td>
+						<td>¢</td>
+						<td>£</td>
+						<td>¤</td>
+						<td>¥</td>
+						<td>¦</td>
+						<td>§</td>
+						<td>¨</td>
+						<td>©</td>
+						<td>ª</td>
+						<td>«</td>
+						<td>¬</td>
+						<td>SH</td>
+						<td>®</td>
+						<td>¯</td>
+					</tr>
+					<!-- Row 12 (B) -->
+					<tr>
+						<th>B</th>
+						<td>°</td>
+						<td>±</td>
+						<td>²</td>
+						<td>³</td>
+						<td>´</td>
+						<td>µ</td>
+						<td>¶</td>
+						<td>·</td>
+						<td>¸</td>
+						<td>¹</td>
+						<td>º</td>
+						<td>»</td>
+						<td>¼</td>
+						<td>½</td>
+						<td>¾</td>
+						<td>¿</td>
+					</tr>
+					<!-- Row 13 (C) -->
+					<tr>
+						<th>C</th>
+						<td>À</td>
+						<td>Á</td>
+						<td>Â</td>
+						<td>Ã</td>
+						<td>Ä</td>
+						<td>Å</td>
+						<td>Æ</td>
+						<td>Ç</td>
+						<td>È</td>
+						<td>É</td>
+						<td>Ê</td>
+						<td>Ë</td>
+						<td>Ì</td>
+						<td>Í</td>
+						<td>Î</td>
+						<td>Ï</td>
+					</tr>
+					<!-- Row 14 (D) -->
+					<tr>
+						<th>D</th>
+						<td>Ð</td>
+						<td>Ñ</td>
+						<td>Ò</td>
+						<td>Ó</td>
+						<td>Ô</td>
+						<td>Õ</td>
+						<td>Ö</td>
+						<td>×</td>
+						<td>Ø</td>
+						<td>Ù</td>
+						<td>Ú</td>
+						<td>Û</td>
+						<td>Ü</td>
+						<td>Ý</td>
+						<td>Þ</td>
+						<td>ß</td>
+					</tr>
+					<!-- Row 15 (D) -->
+					<tr>
+						<th>E</th>
+						<td>à</td>
+						<td>á</td>
+						<td>â</td>
+						<td>ã</td>
+						<td>ä</td>
+						<td>å</td>
+						<td>æ</td>
+						<td>ç</td>
+						<td>è</td>
+						<td>é</td>
+						<td>ê</td>
+						<td>ë</td>
+						<td>ì</td>
+						<td>í</td>
+						<td>î</td>
+						<td>ï</td>
+					</tr>
+					<!-- Row 16 (F) -->
+					<tr>
+						<th>F</th>
+						<td>ð</td>
+						<td>ñ</td>
+						<td>ò</td>
+						<td>ó</td>
+						<td>ô</td>
+						<td>õ</td>
+						<td>ö</td>
+						<td>÷</td>
+						<td>ø</td>
+						<td>ù</td>
+						<td>ú</td>
+						<td>û</td>
+						<td>ü</td>
+						<td>ý</td>
+						<td>þ</td>
+						<td>ÿ</td>
+					</tr>
+
+				</tbody>
+
+			</table>
+
+		</div>
 
 	</div> <!-- End container -->
 
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+
 </body>
+
+</html>
