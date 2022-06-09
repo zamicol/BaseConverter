@@ -11,7 +11,9 @@
 	<script defer src="app.js"></script>
 	<script defer src="hex64.js"></script>
 	<script defer src="base_func.js"></script>
+	<script defer src="hash_func.js"></script>
 	<script defer src="enum.js"></script>
+	<script defer src="noble-hashes.js"></script>
 
 
 	<!-- SysCnv Main Styles.  Includes Bootstrap and Ubuntu fonts -->
@@ -102,6 +104,8 @@
 					<div class="row">
 						<div class="col">
 							<button class="btn btn-primary btn-sm py-0" id="reverseInBtn"> Reverse ⇄ </button>
+							<button class="btn btn-primary btn-sm py-0" id="removeSpaceBtn"> Remove Spaces <i
+									class="bi bi-arrows-angle-contract"></i></button>
 						</div>
 						<div class="col">
 							<p class="help text-end mb-0">Length: <span class="lengthDisplay" id="inputStringLength">0</span></p>
@@ -225,27 +229,42 @@
 
 
 
+
 		<!-- Extras -->
 		<div class="card mb-3">
 
-
-
-
-			<div class="card-header bg-primary text-white">
-				<span class="fw-bold">Special Extras</span> <br>
-				Legend: text (string), Hex, hex, base64, b64ut b64up, ub64p, ub64t, DND:
-				(e.g. DND:20), Hash: (e.g. Hash:SHA-256), bytes, SysCnv
+			<div class="card-header text-center bg-primary text-white row m-0">
+				<span class="fw-bold col-sm-12">Special Extras<i class="bi ms-5 bi-plus-square" id="toggleSquare"></i></span>
+				<span>Legend: text (string), Hex, hex, base64, b64ut b64up, ub64p, ub64t, DND:
+					(e.g. DND:20), Hash: (e.g. Hash:SHA-256), bytes, SysCnv</span>
 			</div>
 
+			<div class="card-body px-4 py-0" id="card-hide" hidden>
 
-			<div class="card-body px-4 py-0">
 				<!-- Hash -->
 				<div class="row rounded border border-primary align-items-center p-2">
 					<div class="col-md-4 dropwdown">
 						<select class="btn btn-danger" id="HashAlgoOptions">Hashing Algo
 							<option value="SHA-256" class="text-start">SHA-256</option>
+							<option value="MD5" class="text-start">MD5</option>
+							<option value="SHA-1" class="text-start">SHA-1</option>
 							<option value="SHA-384" class="text-start">SHA-384</option>
 							<option value="SHA-512" class="text-start">SHA-512</option>
+							<!-- SHA 3 -->
+							<option value="SHA3-224" class="text-start">SHA3-224</option>
+							<option value="SHA3-256" class="text-start">SHA3-256</option>
+							<option value="SHA3-384" class="text-start">SHA3-384</option>
+							<option value="SHA3-512" class="text-start">SHA3-512</option>
+							<option value="Keccak-224" class="text-start">Keccak-224</option>
+							<option value="Keccak-256" class="text-start">Keccak-256</option>
+							<option value="Keccak-384" class="text-start">Keccak-384</option>
+							<option value="Keccak-512" class="text-start">Keccak-512</option>
+							<option value="SHAKE128" class="text-start">SHAKE128</option>
+							<option value="SHAKE256" class="text-start">SHAKE256</option>
+							<!-- BLAKE -->
+							<option value="BLAKE2b" class="text-start">BLAKE2b</option>
+							<option value="BLAKE2s" class="text-start">BLAKE2s</option>
+							<option value="BLAKE3" class="text-start">BLAKE3</option>
 						</select>
 					</div>
 					<div class="col-md-8 text-start">
@@ -263,7 +282,6 @@
 						In: Any alphabet (Default: Hex). Out: SysCnv - Hex, b64up, ASCII†, and Bytes.
 					</div>
 				</div>
-
 
 				<!-- DND -->
 				<div class="row rounded border border-primary align-items-center p-2">
@@ -287,15 +305,12 @@
 				<!-- Hex -->
 				<div class="row rounded border border-primary align-items-center p-2">
 					<div class="col-md-4 btn-group align-items-center">
-						<a id="HexInBtn" type="button" class="btn btn-success btn-md" href="#">base64</a>
-						<a id="HexOutBtn" type="button" class="btn btn-danger btn-md" href="#">b64ut</a>
-						<a id="HexOutBtn" type="button" class="btn btn-danger btn-md" href="#">ub64p</a>
-						<!-- default RFC 4348 base64 -->
+						<a id="HexInBtn" type="button" class="btn btn-success btn-md" href="#">Hex</a>
+						<a id="HexOutBtn" type="button" class="btn btn-danger btn-md" href="#">Hex</a>
 					</div>
 					<div class="col-md-8 text-start align-items-center">
-						In: RFC 4648 base64 (uri/unsafe; truncated/padded). Out: Any alphabet (Default: Hex).
-						<br> In: Any alphabet (Default: Hex). Out: RFC 4648 base64 URI truncated.
-						<br> In: Any alphabet (Default: Hex). Out: RFC 4648 unsafe base64 padded.
+						In: Hex. Out: Any alphabet (Default: Text).
+						<br> In: Any alphabet (Default: Text). Out: Hex.
 					</div>
 				</div>
 
@@ -314,6 +329,18 @@
 					</div>
 				</div>
 
+				<!-- Text -->
+				<div class="row rounded border border-primary align-items-center p-2">
+					<div class="col-md-4 btn-group align-items-center">
+						<a id="TextInBtn" type="button" class="btn btn-success btn-md" href="#">Text</a>
+						<a id="TextOutBtn" type="button" class="btn btn-danger btn-md" href="#">Text</a>
+					</div>
+					<div class="col-md-8 text-start align-items-center">
+						In: Text. Out: Any alphabet (Default: Hex).
+						<br> In: Any alphabet (Default: Hex). Out: Text.
+					</div>
+				</div>
+
 				<!-- Majascule casing -->
 				<div class="row rounded border border-primary align-items-center p-2">
 					<div class="col-md-4">
@@ -322,15 +349,13 @@
 						<a id="ridiculeBtn" type="button" class="btn btn-danger" href="#">rIdiCuLE</a>
 					</div>
 					<div class="col-md-8 text-start">
-						In: text. Out: Majuscule, Miniscule, or Ridicule casing (e.g. "ffff" to "FFFF", "FFFF" to "ffff", or "FFFF"
+						In: text. Out: Majuscule, Miniscule, or Ridicule casing (e.g. "ffff" to "FFFF", "FFFF" to "ffff", or
+						"FFFF"
 						to "FfFf").
 					</div>
 				</div>
 			</div>
 		</div>
-
-
-
 
 
 
@@ -625,8 +650,11 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
+					<!-- JavaScript string for running through the chiclet func:
+					'                                 !"#$%&' + "'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ "
+					-->
 					<input class="input-group-text text-start" type="text"
-						value='¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡'
+						value='!"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
 						readonly id="base128">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
@@ -648,8 +676,11 @@
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
 					<!--ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ¡¢£¤¥¦§¨©ª«¬Ā®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ-->
+					<!-- JavaScript string for running through the chiclet func:
+					'                                 !"' + "#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~                                  ¡¢£¤¥¦§¨©ª«¬ ®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ"
+				-->
 					<input class="input-group-text text-start" type="text"
-						value='ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ !"#$%&amp;&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀĀ¡¢£¤¥¦§¨©ª«¬Ā®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ'
+						value='!"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ'
 						readonly id="base256">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
@@ -673,19 +704,16 @@
 			<button class="btn btn-lg btn-info w-100 m-1" id="ExampleDNAToJSONBtn">
 				<span>DNA to JSON</span>
 			</button>
-			ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~+/)
-
-
 
 			<div class="text-wrap mt-3">
 				<p>† "Modified ASCII"? Only the printable characters and space. Will not work with
-					numbers requiring encoding to non-printable characters. "¡" is used to
+					numbers requiring encoding to non-printable characters. Chiclet () is used to
 					represent non-printable characters. U+00A1 ("¡") is the first printable
 					character past the ASCII range.
 				</p>
 
 				<p>†† "Latin-1"? Only the printable characters and space. Will not work with
-					numbers requiring encoding to non-printable characters. "Ā" is used to
+					numbers requiring encoding to non-printable characters. Chiclet () is used to
 					represent non-printable characters. U+0100 ("Ā") is the first printable
 					character past the extended ASCII range. (See
 					https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_Extended-A)
@@ -697,6 +725,7 @@
 				<h5 class="card-header">Related</h5>
 				<div class="card-body text-start">
 					<ul class="list-group list-group-flush">
+						<li class="list-group-item"><a href="https://cyphr.me/ed25519_applet/ed.html">Ed25519 Tool</a></li>
 						<li class="list-group-item">Protocol Labs' <a
 								href="https://github.com/multiformats/multibase#multibase-table">multibase</a></li>
 						<li class="list-group-item"><a href="https://github.com/qntm/base65536">tweet base65536</a> Efficient
@@ -716,7 +745,8 @@
 
 						<li class="list-group-item"><a href="http://blog.kevinalbs.com/base122">base-122</a> UTF-8 efficient
 							encoding</li>
-						<li class="list-group-item"><a href="https://github.com/sveljko/base41">base41</a> ~50% efficient. Alphabet:
+						<li class="list-group-item"><a href="https://github.com/sveljko/base41">base41</a> ~50% efficient.
+							Alphabet:
 							<code>)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ</code></li>
 						<li class="list-group-item">Keybase's <a href="https://github.com/keybase/saltpack">saltpack base62
 								("Basex")</a> Less efficient than base64 with no special characters. Alphabet:
@@ -737,10 +767,15 @@
 		<div id="ASCIIChart">
 			<h1>Unicode ASCII Extended Chart</h1>
 
-			<table class="table table-bordered border-primary table-hover">
+			<p>Copy/Pastable ASCII - Rows 2-7 (SPACE and ! are flipped to avoid unwanted space stripping), excluding DEL,
+				Rows
+				A-F, excluding NBSP and SH</p>
+			<pre
+				class="text-wrap">!&#32;"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ</pre>
+
+			<table class="table table-bordered border-primary table-hover p-0">
 				<thead>
 					<tr>
-						<th></th>
 						<th>0</th>
 						<th>1</th>
 						<th>2</th>
@@ -762,28 +797,26 @@
 
 				<tbody>
 					<!-- Row 1 (0) -->
-					<tr>
-						<th>0</th>
-						<td><button class="btn btn-primary">NUL</button></td>
-						<td><button class="btn btn-primary">SOH</button></td>
-						<td><button class="btn btn-primary">STX</button></td>
-						<td><button class="btn btn-primary">ETX</button></td>
-						<td><button class="btn btn-primary">EOT</button></td>
-						<td><button class="btn btn-primary">ENQ</button></td>
-						<td><button class="btn btn-primary">ACK</button></td>
-						<td><button class="btn btn-primary">BEL</button></td>
-						<td><button class="btn btn-primary">BS</button></td>
-						<td><button class="btn btn-primary">HT</button></td>
-						<td><button class="btn btn-primary">LF</button></td>
-						<td><button class="btn btn-primary">YT</button></td>
-						<td><button class="btn btn-primary">FF</button></td>
-						<td><button class="btn btn-primary">CR</button></td>
-						<td><button class="btn btn-primary">SO</button></td>
-						<td><button class="btn btn-primary">SI</button></td>
+					<tr title="Row 0">
+						<td>NUL</td>
+						<td>SOH</td>
+						<td>STX</td>
+						<td>ETX</td>
+						<td>EOT</td>
+						<td>ENQ</td>
+						<td>ACK</td>
+						<td>BEL</td>
+						<td>BS</td>
+						<td>HT</td>
+						<td>LF</td>
+						<td>YT</td>
+						<td>FF</td>
+						<td>CR</td>
+						<td>SO</td>
+						<td>SI</td>
 					</tr>
 					<!-- Row 2 (1) -->
-					<tr>
-						<th>1</th>
+					<tr title="Row 1">
 						<td>DLE</td>
 						<td>DC1</td>
 						<td>DC2</td>
@@ -802,9 +835,8 @@
 						<td>US</td>
 					</tr>
 					<!-- Row 3 (2) -->
-					<tr>
-						<th>2</th>
-						<td>SPACE</td>
+					<tr title="Row 2">
+						<td> </td> <!-- SPACE -->
 						<td>!</td>
 						<td>"</td>
 						<td>#</td>
@@ -822,8 +854,7 @@
 						<td>/</td>
 					</tr>
 					<!-- Row 4 (3) -->
-					<tr>
-						<th>3</th>
+					<tr title="Row 3">
 						<td>0</td>
 						<td>1</td>
 						<td>2</td>
@@ -843,8 +874,7 @@
 						<td>?</td>
 					</tr>
 					<!-- Row 5 (4) -->
-					<tr>
-						<th>4</th>
+					<tr title="Row 4">
 						<td>@</td>
 						<td>A</td>
 						<td>B</td>
@@ -863,8 +893,7 @@
 						<td>O</td>
 					</tr>
 					<!-- Row 6 (5) -->
-					<tr>
-						<th>5</th>
+					<tr title="Row 5">
 						<td>P</td>
 						<td>Q</td>
 						<td>R</td>
@@ -883,8 +912,7 @@
 						<td>_</td>
 					</tr>
 					<!-- Row 7 (6) -->
-					<tr>
-						<th>6</th>
+					<tr title="Row 6">
 						<td>`</td>
 						<td>a</td>
 						<td>b</td>
@@ -903,8 +931,7 @@
 						<td>o</td>
 					</tr>
 					<!-- Row 8 (7) -->
-					<tr>
-						<th>7</th>
+					<tr title="Row 7">
 						<td>p</td>
 						<td>q</td>
 						<td>r</td>
@@ -923,8 +950,7 @@
 						<td>DEL</td>
 					</tr>
 					<!-- Row 9 (8) -->
-					<tr>
-						<th>8</th>
+					<tr title="Row 8">
 						<td>PAD</td>
 						<td>HOP</td>
 						<td>BPH</td>
@@ -943,8 +969,7 @@
 						<td>SS3</td>
 					</tr>
 					<!-- Row 10 (9) -->
-					<tr>
-						<th>9</th>
+					<tr title="Row 9">
 						<td>DCS</td>
 						<td>PU1</td>
 						<td>PU2</td>
@@ -963,8 +988,7 @@
 						<td>APC</td>
 					</tr>
 					<!-- Row 11 (A) -->
-					<tr>
-						<th>A</th>
+					<tr title="Row A">
 						<td>NBSP</td>
 						<td>¡</td>
 						<td>¢</td>
@@ -983,8 +1007,7 @@
 						<td>¯</td>
 					</tr>
 					<!-- Row 12 (B) -->
-					<tr>
-						<th>B</th>
+					<tr title="Row B">
 						<td>°</td>
 						<td>±</td>
 						<td>²</td>
@@ -1003,8 +1026,7 @@
 						<td>¿</td>
 					</tr>
 					<!-- Row 13 (C) -->
-					<tr>
-						<th>C</th>
+					<tr title="Row C">
 						<td>À</td>
 						<td>Á</td>
 						<td>Â</td>
@@ -1023,8 +1045,7 @@
 						<td>Ï</td>
 					</tr>
 					<!-- Row 14 (D) -->
-					<tr>
-						<th>D</th>
+					<tr title="Row D">
 						<td>Ð</td>
 						<td>Ñ</td>
 						<td>Ò</td>
@@ -1042,9 +1063,8 @@
 						<td>Þ</td>
 						<td>ß</td>
 					</tr>
-					<!-- Row 15 (D) -->
-					<tr>
-						<th>E</th>
+					<!-- Row 15 (E) -->
+					<tr title="Row E">
 						<td>à</td>
 						<td>á</td>
 						<td>â</td>
@@ -1063,8 +1083,7 @@
 						<td>ï</td>
 					</tr>
 					<!-- Row 16 (F) -->
-					<tr>
-						<th>F</th>
+					<tr title="Row F">
 						<td>ð</td>
 						<td>ñ</td>
 						<td>ò</td>

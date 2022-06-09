@@ -1,6 +1,6 @@
 "use strict";
 
-// Many of these are not in use.  
+// Many of these are not in use.
 const Base2 = document.getElementById('base2').value;
 const Base4 = document.getElementById('base4').value;
 const Base4DNA = document.getElementById('base4').value;
@@ -30,8 +30,8 @@ const base256 = document.getElementById('base256').value;
 
 // Application element variables that remain constant, but have inner
 // elements/values that will change or be modified.
-// In Elements
 
+// In Elements
 var inAlphElem;
 var inAlphLenElem;
 var inBitsElem;
@@ -45,13 +45,15 @@ var outBitsElem;
 var outElem;
 var outLenElem;
 
-// Other  elements
+// Other elements
 var alertDivElement;
 var alertMsgElement;
 var lpadElem;
 var diceSidesElem;
 
 document.addEventListener('DOMContentLoaded', () => {
+	// console.debug(window.nobleHashes);
+
 	// In Elements
 	inElem = document.getElementById("inputString");
 	inAlphElem = document.getElementById("inputAlphabet");
@@ -78,6 +80,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector("#reverseOutBtn").addEventListener('click', ReverseOut);
 	lpadElem.addEventListener('click', Convert);
 
+	Collapse(document.querySelector("#toggleSquare"), document.querySelector("#card-hide"));
+
+	// Remove spaces
+	// https://stackoverflow.com/a/5964427/15147681
+	document.getElementById('removeSpaceBtn').addEventListener('click', () => {
+		inElem.value = inElem.value.replace(/\s+/g, '');
+		Convert();
+	});
+
 	document.getElementById('HashAlgoOptions').addEventListener('click', () => {
 		DefaultIn("text");
 		outAlphElem.value = "Hash:" + document.getElementById('HashAlgoOptions').value
@@ -98,6 +109,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		DefaultIn("Hex")
 		Convert();
 	});
+	document.querySelector('#HexInBtn').addEventListener('click', () => {
+		DefaultOut("text");
+		inAlphElem.value = "Hex";
+		Convert();
+	});
+	document.querySelector('#HexOutBtn').addEventListener('click', () => {
+		DefaultIn("text");
+		outAlphElem.value = "Hex";
+		Convert();
+	});
 	document.querySelector('#base64InBtn').addEventListener('click', () => {
 		DefaultOut("Hex");
 		inAlphElem.value = "base64";
@@ -111,6 +132,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector('#ub64pOutBtn').addEventListener('click', () => {
 		DefaultIn("Hex");
 		outAlphElem.value = "ub64p";
+		Convert();
+	});
+	document.querySelector('#TextInBtn').addEventListener('click', () => {
+		DefaultOut("Hex");
+		inAlphElem.value = "Text";
+		Convert();
+	});
+	document.querySelector('#TextOutBtn').addEventListener('click', () => {
+		DefaultIn("Hex");
+		outAlphElem.value = "Text";
 		Convert();
 	});
 	document.getElementById('majusculeBtn').addEventListener('click', () => {
@@ -139,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll(".destination").forEach(t => {
 		t.addEventListener('click', Destination);
 	});
+
 	//////////////////
 	// Examples
 	//////////////////
@@ -195,9 +227,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	inElem.addEventListener('input', Convert);
 	inAlphElem.addEventListener('input', Convert);
 	outAlphElem.addEventListener('input', Convert);
+	// Change on output should only update length.
+	outElem.addEventListener('input', Update);
 
-
-	// Finally, convert.  
+	// Finally, convert.
 	Convert();
 });
 
@@ -255,7 +288,6 @@ function Clear() {
 	outElem.value = "";
 	Update();
 }
-
 
 // GUIConvert populates the GUI and calls Convert();
 async function GUIConvert(inAlph, input, outAlph) {
@@ -316,24 +348,24 @@ async function Convert() {
 
 			// console.debug(inputString);
 
-			let keyword = outputAlphabet;
+			let keyword = caseInsensitive(outputAlphabet);
 			if (outputAlphabet.substring(0, 5) == "Hash:") {
-				keyword = "Hash";
+				keyword = "hash";
 				var hashAlg = outputAlphabet.substring(5);
 			} else if (outputAlphabet.substring(0, 4) == "DND:") {
-				keyword = "DND";
+				keyword = "dnd";
 				var diceSides = parseInt(outputAlphabet.substring(4));
 			}
 			// console.debug(keyword);
 			switch (keyword) {
-				case "SysCnv":
+				case "syscnv":
 					out = "Hex: " + inputString +
 						"\nub64p: " + HexToUb64p(inputString) +
 						"\nBytes: " + HexToGoBytesString(inputString) +
 						"\nASCII: " + BaseConvert(inputString, Base16, base128);
 					break;
-				case "Hash":
-					out = await HashHex(hashAlg, inputString);
+				case "hash":
+					out = await HashExtrasHex(hashAlg, inputString);
 					break;
 				case "bytes":
 					out = HexToGoBytesString(inputString);
@@ -352,7 +384,7 @@ async function Convert() {
 				case "b64ut":
 					out = await ArrayBufferTo64ut(await HexToArrayBuffer(inputString));
 					break;
-				case "DND":
+				case "dnd":
 					out = baseToDND(inputString, inputAlpha, diceSides);
 					break;
 				case "string":
@@ -365,13 +397,13 @@ async function Convert() {
 				case "hex":
 					out = inputString.toLowerCase();
 					break;
-				case "Majuscule":
+				case "majuscule":
 					out = inElem.value.toUpperCase(); // Use original string, and not Hex representation.
 					break;
-				case "Miniscule":
+				case "miniscule":
 					out = inElem.value.toLowerCase();
 					break;
-				case "Ridicule":
+				case "ridicule":
 					out = RidiculeCasingGUI(inElem.value);
 					break;
 				default:
@@ -398,20 +430,22 @@ async function Convert() {
  * @throws  {Error}                  Error.  Error when no dice sides specified.
  */
 function KeywordToHex(inAlph, input) {
+	inAlph = caseInsensitive(inAlph);
+
 	if (inAlph.substring(0, 4) == "DND:") {
 		var diceSides = inAlph.substring(4);
 		if (isEmpty(diceSides)) {
 			throw new Error("Must specify number of dice sides. Given: " + diceSides);
 		}
-		inAlph = "DND";
+		inAlph = "dnd";
 	}
 
 	switch (inAlph) {
-		case "DND":
+		case "dnd":
 			return BaseToHex(dndToDecimal(diceSides), Base10);
 		case "bytes":
 			return GoBytesToHex(input);
-		case "SysCnv":
+		case "syscnv":
 			return SysCnvToHex(input);
 		case "base64":
 		case "b64":
@@ -489,9 +523,9 @@ function RidiculeCasingGUI(input) {
 			continue;
 		}
 
-		if (Math.random() < 0.5){
+		if (Math.random() < 0.5) {
 			ridicule += input[i].toUpperCase();
-		}else{
+		} else {
 			ridicule += input[i].toLowerCase();
 		}
 	}
@@ -572,6 +606,7 @@ function dndToDecimal(diceSides) {
  * @throws  {error}          error       Error.  Error when roll is higher than dice side.
  */
 function diceRollsToDecimal(diceSides, rolls) {
+	// console.debug(diceSides, rolls);
 	let sum = 0;
 	let x = 0;
 	for (let i = rolls.length - 1; i >= 0; i--) {
@@ -583,7 +618,7 @@ function diceRollsToDecimal(diceSides, rolls) {
 		}
 		// For each column, the column is calculated by the value in the column
 		// times dice sides raised to the column number.
-		sum = sum + (roll * (diceSides ** i));
+		sum = (sum + (roll * (diceSides ** i)));
 	}
 	return sum.toString();
 }
@@ -646,16 +681,45 @@ function baseToDND(input, inputAlpha, diceSides) {
 
 // Returns true, if the string is a recognized keyword, or has a recognized
 // prefix (e.g. "Hash" from "Hash:SHA-256").
-function isKeyword(s) {
-	let reservedList = [
-		"bytes", "SysCnv", "hex", "Hex", "b64", "b64ut", "ub64p", "ub64t", "b64up",
-		"base64", "base64ut", "ubase64p", "ubase64t", "base64up", "Ridicule", "Majuscule",
-		"Miniscule", "text", "string"
+function isKeyword(string) {
+	// Lowercase Copy. see docs on caseInsensitive() for more.
+	let l = (' ' + string).slice(1).toLowerCase();
+
+	let insensitive = [
+		"bytes", "syscnv", "hex", "b64", "b64ut", "ub64p", "ub64t", "b64up",
+		"base64", "base64ut", "ubase64p", "ubase64t", "base64up", "ridicule", "majuscule",
+		"miniscule", "text", "string"
 	];
-	if (reservedList.includes(s) || s.substring(0, 4) == "DND:" || s.substring(0, 5) == "Hash:") {
+
+	if (insensitive.includes(l) || l.substring(0, 4) == "dnd:" || l.substring(0, 5) == "hash:") {
 		return true;
 	}
 	return false;
+}
+
+// Returns the a given string as lower case, if the given string is not case
+// sensitive. If it is case sensitive, the original string is returned.
+function caseInsensitive(string) {
+	// console.debug(string);
+
+	// JavaScript's implementation of ECMAScript can vary from browser to browser,
+	// however for Chrome, many string operations (substr, slice, regex, etc.)
+	// simply retain references to the original string rather than making copies
+	// of the string. This is a known issue in Chrome (Bug #2869). To force a copy
+	// of the string, the following code works:
+	// https://stackoverflow.com/a/31733628/15147681
+	//
+	// Makes a lowercase copy of the input string for checking without modification.
+	let l = (' ' + string).slice(1).toLowerCase();
+
+	let sensitive = ["hex"];
+
+	// Return unmodified
+	if (sensitive.includes(l) || l.substring(0, 4) == "dnd:" || l.substring(0, 5) == "hash:") {
+		return string;
+	}
+
+	return string.toLowerCase();
 }
 
 /**
@@ -666,34 +730,42 @@ function isKeyword(s) {
  * @property {string} base   - Alphabet base.
  * @property {string} length - length of string.
  *
- *
  * Calculates Bits, Base, and Length based on alphabet, including keywords.
  * @param    {String}    alph         String. Bytes as a string.
  * @param    {String}    text         String.
  * @returns  {GuiMeta}                GuiMeta
  */
 function bitsBaseLengthGUI(alph, text) {
-	// console.debug(keyword);
-	if (alph.substring(0, 4) == "DND:") {
-		var sides = alph.substring(4);
-		alph = "DND";
-	}
-
 	var bits = "n/a";
 	var base = "n/a";
 	var length = text.length;
 
+	alph = caseInsensitive(alph);
+	if (alph.substring(0, 4) == "DND:") {
+		let sides = alph.substring(4);
+		bits = BitPerBase(sides);
+		base = "Dice " + sides;
+		alph = "dnd";
+	}
+	if (alph.substring(0, 5) == "Hash:") {
+		base = alph.substring(5);
+		bits = 4; // Output is Hex, which is 4 bits.
+		alph = "hash";
+	}
+
 	switch (alph) {
+		case "dnd":
+		case "hash":
+		case "ridicule":
+		case "majuscule":
+		case "miniscule":
+		case "syscnv":
+			// Make sure base and bits are manually set before.
+			break; // Do nothing.
 		case "bytes":
 			bits = 8;
 			base = 2;
 			length = text.length + "\n(Chunks: " + text.split(",").length + ")";
-			break;
-		case "Hash:SHA-256":
-		case "Hash:SHA-384":
-		case "Hash:SHA-512":
-			bits = 4; // Output is Hex, which is 4 bits.
-			base = alph.substring(5);
 			break;
 		case "base64":
 		case "b64":
@@ -717,22 +789,11 @@ function bitsBaseLengthGUI(alph, text) {
 			bits = 6;
 			base = "ub64t";
 			break;
-			// Currently only works in to out.
 		case "text":
 		case "string":
 			base = "Unicode";
 			break;
-		case "DND":
-			base = "Dice " + sides;
-			bits = BitPerBase(sides);
-			break;
-		case "Ridicule":
-		case "Majuscule":
-		case "Miniscule":
-		case "SysCnv":
-			break; // Do nothing.
 		default: // Not a keyword
-			length = text.length;
 			base = alph.length;
 			bits = BitPerBase(alph.length);
 			break;
@@ -746,7 +807,6 @@ function bitsBaseLengthGUI(alph, text) {
 	};
 }
 
-
 // TODO
 // function BucketPad() {}
 // function FullBuckets() {
@@ -755,8 +815,6 @@ function bitsBaseLengthGUI(alph, text) {
 // 	inBitsElem.textContent = inBits;
 // 	outBitsElem.textContent = outBits;
 // }
-
-
 
 ///////////////////////
 // Helpers
@@ -852,5 +910,52 @@ function isBool(bool) {
 	) {
 		return false;
 	}
+	return true;
+};
+
+/**
+ * Collapse marks an element as not disabled.
+ * @param {string|element} id     string id of element or element.
+ */
+function Collapse(toggleElement, visibleElement) {
+	if (typeof toggleElement == "string") {
+		var toggleElement = document.getElementById(toggleElement);
+	}
+	if (typeof visibleElement == "string") {
+		var visibleElement = document.getElementById(visibleElement);
+	}
+
+	// console.debug(toggleElement, visibleElement);
+	toggleElement.addEventListener('click', function () {
+		let hidden = ToggleVisible(visibleElement);
+
+		// Icon
+		if (hidden) {
+			toggleElement.classList.remove("bi-dash-square");
+			toggleElement.classList.add("bi-plus-square");
+		} else {
+			toggleElement.classList.remove("bi-plus-square");
+			toggleElement.classList.add("bi-dash-square");
+		}
+	});
+
+};
+
+/**
+ * ToggleVisible toggles an element's visibility
+ * @param {string|element} id       String id of element or element.
+ * @returns {boolean}               Boolean. If the element was hidden.
+ */
+function ToggleVisible(element) {
+	if (typeof element == "string") {
+		element = document.getElementById(element);
+	}
+
+	// console.log("Hidden: " + element.hidden);
+	if (isBool(element.hidden)) {
+		element.hidden = false;
+		return false;
+	}
+	element.hidden = true;
 	return true;
 };

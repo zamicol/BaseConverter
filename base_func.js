@@ -1,6 +1,12 @@
 "use strict";
 
-// Returns the exploded byte array from ",".
+/**
+ * Returns the exploded byte array from ",".
+ * Example: input = "[255,64,32]" : return = ["255", "64", "32"]
+ * @param   {String}    input     String,   Go Bytes representation as a string.
+ * @returns {String[]}  bytes     String[]. Array of numbers, as string type.
+ * @throws  {error}     error     Error.    Syntax error.
+ */
 function ExplodeBytes(input) {
 	if (input.charAt(0) != "[" && input.charAt(0) != "{") {
 		throw new SyntaxError("not in correct byte format: [255, ...]");
@@ -53,15 +59,6 @@ function SysCnvToHex(inputText) {
 		throw new SyntaxError('Not in the correct SysCnv format.');
 	}
 	return hexLine.split(' ', 2)[1];
-}
-
-// Returns the digest (in Hex) from the given Hex input and hash alg. Throws.
-async function HashHex(hashAlg, input) {
-	// console.debug(hashAlg, input, input.length);
-	if (isEmpty(hashAlg)) {
-		throw new Error("No hash algorithm specified");
-	}
-	return ArrayBufferToHex(await crypto.subtle.digest(hashAlg, await HexToArrayBuffer(input)));
 }
 
 /**
