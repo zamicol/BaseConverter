@@ -62,8 +62,7 @@
 </head>
 
 <body>
-	<a class="github-fork-ribbon" href="https://github.com/zamicol/BaseConverter" data-ribbon="Fork me on GitHub"
-		title="Fork me on GitHub">Fork me on GitHub</a>
+	<a class="github-fork-ribbon" href="https://github.com/zamicol/BaseConverter" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
 	<div class="container-xl">
 
 		<div class="text-start my-4 text-center">
@@ -84,8 +83,7 @@
 				<div class="card-body p-2" style="background-color: #F5FFFD;">
 					<label class="fw-bold mb-1">Alphabet</label>
 					<div class="input-group mb-1">
-						<input class="conversionTextArea form-control border-success fw-light" type="text" id="inputAlphabet"
-							placeholder="In Alphabet">
+						<input class="conversionTextArea form-control border-success fw-light" type="text" id="inputAlphabet" placeholder="In Alphabet">
 					</div>
 
 					<div class="row text-success">
@@ -98,16 +96,14 @@
 					</div>
 
 					<label class="fw-bold mb-1">Input</label>
-					<textarea rows="5" class="border-success conversionTextArea form-control fw-light" placeholder="In String"
-						id="inputString"></textarea>
+					<textarea rows="5" class="border-success conversionTextArea form-control fw-light" placeholder="In String" id="inputString"></textarea>
 
 					<div class="row">
-						<div class="col">
+						<div class="col-8">
 							<button class="btn btn-primary btn-sm py-0" id="reverseInBtn"> Reverse ⇄ </button>
-							<button class="btn btn-primary btn-sm py-0" id="removeSpaceBtn"> Remove Spaces <i
-									class="bi bi-arrows-angle-contract"></i></button>
+							<button class="btn btn-primary btn-sm py-0" id="removeSpaceBtn"> Remove Spaces <i class="bi bi-arrows-angle-contract"></i></button>
 						</div>
-						<div class="col">
+						<div class="col-4">
 							<p class="help text-end mb-0">Length: <span class="lengthDisplay" id="inputStringLength">0</span></p>
 						</div>
 					</div>
@@ -141,8 +137,7 @@
 				<div class="card-body p-2" style="background-color: #FFF5F7;">
 					<label class="fw-bold mb-1">Alphabet</label>
 					<div class="input-group mb-1">
-						<input class="conversionTextArea form-control border-danger fw-light" type="text" id="outputAlphabet"
-							placeholder="Out Alphabet">
+						<input class="conversionTextArea form-control border-danger fw-light" type="text" id="outputAlphabet" placeholder="Out Alphabet">
 					</div>
 
 					<div class="row text-danger">
@@ -155,8 +150,7 @@
 					</div>
 
 					<label class="fw-bold mb-1">Output</label>
-					<textarea rows="5" class="border-danger conversionTextArea form-control fw-light" placeholder="Out Encoding"
-						id="outputString"></textarea>
+					<textarea rows="5" class="border-danger conversionTextArea form-control fw-light" placeholder="Out Encoding" id="outputString"></textarea>
 
 
 					<div class="row">
@@ -221,8 +215,7 @@
 					<span>Share 🔗</span>
 				</button>
 				<div class="col-12 mb-2">
-					<textarea rows="4" class="card border-success conversionTextArea w-100" placeholder="Share URL"
-						id="shareURIArea"></textarea>
+					<textarea rows="4" class="card border-success conversionTextArea w-100" placeholder="Share URL" id="shareURIArea"></textarea>
 				</div>
 			</div>
 		</div>
@@ -234,12 +227,61 @@
 		<div class="card mb-3">
 
 			<div class="card-header text-center bg-primary text-white row m-0">
-				<span class="fw-bold col-sm-12">Special Extras<i class="bi ms-5 bi-plus-square" id="toggleSquare"></i></span>
-				<span>Legend: text (string), Hex, hex, base64, b64ut b64up, ub64p, ub64t, DND:
-					(e.g. DND:20), Hash: (e.g. Hash:SHA-256), bytes, SysCnv</span>
+				<span class="fw-bold col-sm-12">Extras<i class="bi ms-5 bi-plus-square" id="toggleSquare"></i></span>
 			</div>
 
 			<div class="card-body px-4 py-0" id="card-hide" hidden>
+
+				<!-- Hex -->
+				<div class="row rounded border border-primary align-items-center p-2">
+					<div class="col-md-4 btn-group align-items-center">
+						<button id="HexInBtn" type="button" class="btn btn-success btn-md">Hex</button>
+						<a id="HexOutBtn" type="button" class="btn btn-danger btn-md">Hex</a>
+					</div>
+					<div class="col-md-8 text-start align-items-center">
+						In: Hex. Out: Any alphabet (Default: Text).
+						<br> In: Any alphabet (Default: Text). Out: Hex.
+					</div>
+				</div>
+
+				<!-- base64 -->
+				<div class="row rounded border border-primary align-items-center p-2">
+					<div class="col-md-4 btn-group align-items-center">
+						<a id="base64InBtn" type="button" class="btn btn-success btn-md" >base64</a>
+						<a id="b64utOutBtn" type="button" class="btn btn-danger btn-md">b64ut</a>
+						<a id="ub64pOutBtn" type="button" class="btn btn-danger btn-md">ub64p</a>
+						<!-- default RFC 4348 base64 -->
+					</div>
+					<div class="col-md-8 text-start align-items-center">
+						In: RFC 4648 base64 (uri/unsafe; truncated/padded). Out: Any alphabet (Default: Hex).
+						<br> In: Any alphabet (Default: Hex). Out: RFC 4648 base64 URI truncated.
+						<br> In: Any alphabet (Default: Hex). Out: RFC 4648 unsafe base64 padded.
+					</div>
+				</div>
+
+				<!-- Text -->
+				<div class="row rounded border border-primary align-items-center p-2">
+					<div class="col-md-4 btn-group align-items-center">
+						<a id="TextInBtn" type="button" class="btn btn-success btn-md" >Text</a>
+						<a id="TextOutBtn" type="button" class="btn btn-danger btn-md" >Text</a>
+					</div>
+					<div class="col-md-8 text-start align-items-center">
+						In: Text. Out: Any alphabet (Default: Hex).
+						<br> In: Any alphabet (Default: Hex). Out: Text.
+					</div>
+				</div>
+
+				<!-- Bytes -->
+				<div class="row rounded border border-primary align-items-center p-2">
+					<div class="col-md-4 btn-group align-items-center">
+						<a id="BytesInBtn" type="button" class="btn btn-success btn-md">Bytes</a>
+						<a id="BytesOutBtn" type="button" class="btn btn-danger btn-md">Bytes</a>
+					</div>
+					<div class="col-md-8 text-start align-items-center">
+						In: Bytes. Out: Any alphabet (Default: Hex).
+						<br> In: Any alphabet (Default: Hex). Out: Bytes.
+					</div>
+				</div>
 
 				<!-- Hash -->
 				<div class="row rounded border border-primary align-items-center p-2">
@@ -276,7 +318,7 @@
 				<!-- SysCnv Convert -->
 				<div class="row rounded border border-primary align-items-center p-2">
 					<div class="col-md-4">
-						<a id="SysCnvBtn" type="button" class="btn btn-danger btn-md" href="#">SysCnv</a>
+						<a id="SysCnvBtn" type="button" class="btn btn-danger btn-md">SysCnv</a>
 					</div>
 					<div class="col-md-8 text-start">
 						In: Any alphabet (Default: Hex). Out: SysCnv - Hex, b64up, ASCII†, and Bytes.
@@ -286,10 +328,8 @@
 				<!-- DND -->
 				<div class="row rounded border border-primary align-items-center p-2">
 					<div class="col-md-4 btn-group align-items-center">
-						<a id="DNDConvertInBtn" type="button" class="btn btn-success btn-md" href="#"><i
-								class="bi bi-dice-5-fill"></i> DND</a>
-						<a id="DNDConvertOutBtn" type="button" class="btn btn-danger btn-md" href="#"><i
-								class="bi bi-dice-5-fill"></i> DND</a>
+						<a id="DNDConvertInBtn" type="button" class="btn btn-success btn-md"><i class="bi bi-dice-5-fill"></i> DND</a>
+						<a id="DNDConvertOutBtn" type="button" class="btn btn-danger btn-md"><i class="bi bi-dice-5-fill"></i> DND</a>
 					</div>
 					<div class="col-md-8 text-start align-items-center">
 						<label for="numberOfDiceSides">Dice Sides: </label>
@@ -302,51 +342,14 @@
 					</div>
 				</div>
 
-				<!-- Hex -->
-				<div class="row rounded border border-primary align-items-center p-2">
-					<div class="col-md-4 btn-group align-items-center">
-						<a id="HexInBtn" type="button" class="btn btn-success btn-md" href="#">Hex</a>
-						<a id="HexOutBtn" type="button" class="btn btn-danger btn-md" href="#">Hex</a>
-					</div>
-					<div class="col-md-8 text-start align-items-center">
-						In: Hex. Out: Any alphabet (Default: Text).
-						<br> In: Any alphabet (Default: Text). Out: Hex.
-					</div>
-				</div>
 
-				<!-- base64 -->
-				<div class="row rounded border border-primary align-items-center p-2">
-					<div class="col-md-4 btn-group align-items-center">
-						<a id="base64InBtn" type="button" class="btn btn-success btn-md" href="#">base64</a>
-						<a id="b64utOutBtn" type="button" class="btn btn-danger btn-md" href="#">b64ut</a>
-						<a id="ub64pOutBtn" type="button" class="btn btn-danger btn-md" href="#">ub64p</a>
-						<!-- default RFC 4348 base64 -->
-					</div>
-					<div class="col-md-8 text-start align-items-center">
-						In: RFC 4648 base64 (uri/unsafe; truncated/padded). Out: Any alphabet (Default: Hex).
-						<br> In: Any alphabet (Default: Hex). Out: RFC 4648 base64 URI truncated.
-						<br> In: Any alphabet (Default: Hex). Out: RFC 4648 unsafe base64 padded.
-					</div>
-				</div>
-
-				<!-- Text -->
-				<div class="row rounded border border-primary align-items-center p-2">
-					<div class="col-md-4 btn-group align-items-center">
-						<a id="TextInBtn" type="button" class="btn btn-success btn-md" href="#">Text</a>
-						<a id="TextOutBtn" type="button" class="btn btn-danger btn-md" href="#">Text</a>
-					</div>
-					<div class="col-md-8 text-start align-items-center">
-						In: Text. Out: Any alphabet (Default: Hex).
-						<br> In: Any alphabet (Default: Hex). Out: Text.
-					</div>
-				</div>
 
 				<!-- Majascule casing -->
 				<div class="row rounded border border-primary align-items-center p-2">
 					<div class="col-md-4">
-						<a id="majusculeBtn" type="button" class="btn btn-danger" href="#">MAJUSCULE</a>
-						<a id="minisculeBtn" type="button" class="btn btn-danger" href="#">miniscule</a>
-						<a id="ridiculeBtn" type="button" class="btn btn-danger" href="#">rIdiCuLE</a>
+						<a id="majusculeBtn" type="button" class="btn btn-danger">MAJUSCULE</a>
+						<a id="minisculeBtn" type="button" class="btn btn-danger">miniscule</a>
+						<a id="ridiculeBtn" type="button" class="btn btn-danger">rIdiCuLE</a>
 					</div>
 					<div class="col-md-8 text-start">
 						In: text. Out: Majuscule, Miniscule, or Ridicule casing (e.g. "ffff" to "FFFF", "FFFF" to "ffff", or
@@ -454,8 +457,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="0123456789AB" alt="0123456789↊↋" readonly
-						id="base12">
+					<input class="input-group-text text-start" type="text" value="0123456789AB" alt="0123456789↊↋" readonly id="base12">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -522,8 +524,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" readonly
-						id="base32">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" readonly id="base32">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -539,8 +540,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="ybndrfg8ejkmcpqxot1uwisza345h769" readonly
-						id="zbase32">
+					<input class="input-group-text text-start" type="text" value="ybndrfg8ejkmcpqxot1uwisza345h769" readonly id="zbase32">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -556,8 +556,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text"
-						value="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" readonly id="base58">
+					<input class="input-group-text text-start" type="text" value="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" readonly id="base58">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -574,8 +573,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text"
-						value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_" readonly id="base64UriSafe">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_" readonly id="base64UriSafe">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -591,8 +589,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text"
-						value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" readonly id="base64UriUnsafe">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" readonly id="base64UriUnsafe">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -608,9 +605,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text"
-						value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~" readonly
-						id="base85">
+					<input class="input-group-text text-start" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~" readonly id="base85">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -626,9 +621,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text"
-						value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~&quot;"
-						readonly id="base91">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~&quot;" readonly id="base91">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -653,9 +646,7 @@
 					<!-- JavaScript string for running through the chiclet func:
 					'                                 !"#$%&' + "'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ "
 					-->
-					<input class="input-group-text text-start" type="text"
-						value='!"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
-						readonly id="base128">
+					<input class="input-group-text text-start" type="text" value='!"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~' readonly id="base128">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -679,9 +670,7 @@
 					<!-- JavaScript string for running through the chiclet func:
 					'                                 !"' + "#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~                                  ¡¢£¤¥¦§¨©ª«¬ ®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ"
 				-->
-					<input class="input-group-text text-start" type="text"
-						value='!"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ'
-						readonly id="base256">
+					<input class="input-group-text text-start" type="text" value='!"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ' readonly id="base256">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -726,8 +715,7 @@
 				<div class="card-body text-start">
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item"><a href="https://cyphr.me/ed25519_applet/ed.html">Ed25519 Tool</a></li>
-						<li class="list-group-item">Protocol Labs' <a
-								href="https://github.com/multiformats/multibase#multibase-table">multibase</a></li>
+						<li class="list-group-item">Protocol Labs' <a href="https://github.com/multiformats/multibase#multibase-table">multibase</a></li>
 						<li class="list-group-item"><a href="https://github.com/qntm/base65536">tweet base65536</a> Efficient
 							encoder for Twitter.</li>
 						<li class="list-group-item"><a href="https://en.bitcoin.it/wiki/Bech32">Bech32</a></li>
@@ -770,8 +758,7 @@
 			<p>Copy/Pastable ASCII - Rows 2-7 (SPACE and ! are flipped to avoid unwanted space stripping), excluding DEL,
 				Rows
 				A-F, excluding NBSP and SH</p>
-			<pre
-				class="text-wrap">!&#32;"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ</pre>
+			<pre class="text-wrap">!&#32;"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ</pre>
 
 			<table class="table table-bordered border-primary table-hover p-0">
 				<thead>

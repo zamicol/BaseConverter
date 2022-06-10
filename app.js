@@ -144,6 +144,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		outAlphElem.value = "Text";
 		Convert();
 	});
+	document.querySelector('#BytesInBtn').addEventListener('click', () => {
+		DefaultOut("Hex");
+		inAlphElem.value = "bytes";
+		Convert();
+	});
+	document.querySelector('#BytesOutBtn').addEventListener('click', () => {
+		DefaultIn("Hex");
+		outAlphElem.value = "bytes";
+		Convert();
+	});
 	document.getElementById('majusculeBtn').addEventListener('click', () => {
 		DefaultIn("text");
 		outAlphElem.value = "Majuscule";
@@ -170,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll(".destination").forEach(t => {
 		t.addEventListener('click', Destination);
 	});
+	
 
 	//////////////////
 	// Examples
@@ -765,7 +776,7 @@ function bitsBaseLengthGUI(alph, text) {
 		case "bytes":
 			bits = 8;
 			base = 2;
-			length = text.length + "\n(Chunks: " + text.split(",").length + ")";
+			length = text.length + " (Bytes: " + text.split(",").length + ")";
 			break;
 		case "base64":
 		case "b64":
