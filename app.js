@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll(".destination").forEach(t => {
 		t.addEventListener('click', Destination);
 	});
-	
+
 
 	//////////////////
 	// Examples
@@ -776,7 +776,14 @@ function bitsBaseLengthGUI(alph, text) {
 		case "bytes":
 			bits = 8;
 			base = 2;
-			length = text.length + " (Bytes: " + text.split(",").length + ")";
+			// Filter out zero case:
+			// WTF Javascript: "If separator does not occur, the returned array
+			// contains one element consisting of the entire string."
+			if ("[]" === text.split(",", 1)[0]) {
+				length = text.length + " (Bytes: 0)";
+			} else {
+				length = text.length + " (Bytes: " + text.split(",").length + ")";
+			}
 			break;
 		case "base64":
 		case "b64":
@@ -937,7 +944,7 @@ function Collapse(toggleElement, visibleElement) {
 	}
 
 	// console.debug(toggleElement, visibleElement);
-	toggleElement.addEventListener('click', function () {
+	toggleElement.addEventListener('click', function() {
 		let hidden = ToggleVisible(visibleElement);
 
 		// Icon
