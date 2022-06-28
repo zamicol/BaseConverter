@@ -618,7 +618,7 @@ function dndToDecimal(diceSides) {
  */
 function diceRollsToDecimal(diceSides, rolls) {
 	// console.debug(diceSides, rolls);
-	let sum = 0;
+	let sum = 0n;
 	let x = 0;
 	for (let i = rolls.length - 1; i >= 0; i--) {
 		// Shift dice roles from "human numbers" to computer science numbers (minus one)
@@ -629,7 +629,7 @@ function diceRollsToDecimal(diceSides, rolls) {
 		}
 		// For each column, the column is calculated by the value in the column
 		// times dice sides raised to the column number.
-		sum = (sum + (roll * (diceSides ** i)));
+		sum = (sum + BigInt(roll * (diceSides ** i)));
 	}
 	return sum.toString();
 }
