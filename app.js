@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector("#reverseOutBtn").addEventListener('click', ReverseOut);
 	lpadElem.addEventListener('click', Convert);
 
-	Collapse(document.querySelector("#toggleSquare"), document.querySelector("#card-hide"));
+	Collapse(document.querySelector("#extras"), document.querySelector("#toggleSquare"), document.querySelector("#extrasBody"));
 
 	// Remove spaces
 	// https://stackoverflow.com/a/5964427/15147681
@@ -225,6 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			"name": "lpad",
 			"id": "PadCheckbox",
 			"type": "bool",
+		},
+		{
+			"name": "extras",
+			"type": "bool",
+			"funcTrue": () => ToggleVisible(document.querySelector("#extrasBody")),
 		}
 	];
 
@@ -933,9 +938,10 @@ function isBool(bool) {
 
 /**
  * Collapse marks an element as not disabled.
- * @param {string|element} id     string id of element or element.
+ * @param {string|element} clickElement     
+ * @param {string|element} toggleElement     
  */
-function Collapse(toggleElement, visibleElement) {
+function Collapse(clickElement, toggleElement, visibleElement) {
 	if (typeof toggleElement == "string") {
 		var toggleElement = document.getElementById(toggleElement);
 	}
@@ -944,7 +950,7 @@ function Collapse(toggleElement, visibleElement) {
 	}
 
 	// console.debug(toggleElement, visibleElement);
-	toggleElement.addEventListener('click', function() {
+	clickElement.addEventListener('click', function() {
 		let hidden = ToggleVisible(visibleElement);
 
 		// Icon
