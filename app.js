@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector("#reverseOutBtn").addEventListener('click', ReverseOut);
 	lpadElem.addEventListener('click', Convert);
 
-	Collapse(document.querySelector("#extras"), document.querySelector("#toggleSquare"), document.querySelector("#extrasBody"));
+	Collapse(document.querySelector("#extrasHead"), document.querySelector("#toggleSquare"), document.querySelector("#extrasBody"));
 
 	// Remove spaces
 	// https://stackoverflow.com/a/5964427/15147681
