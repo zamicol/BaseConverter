@@ -714,12 +714,22 @@
 		<div id="ASCIIChart">
 			<h4>Unicode ASCII Extended Chart</h4>
 
-			<p>Copy/Pastable Printable ASCII Non-Control Characters</p>
-			<pre>&#32;!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ</pre>
+			Copy/Pastable ASCII Non-Control Characters. Contains three non-printable characters: Space, non-breaking space, and soft-hypen (191 characters)
+
+			<!-- Manual code points:
+				&#32;  - Space
+				&#160; - Non-breaking space
+				&#173; - Soft hyphen
+			-->
+			<pre>&#32;!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~&#160;¡¢£¤¥¦§¨©ª«¬&#173;®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ</pre>
+
+			Only pritable (188 characters):
+			<pre>!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ</pre>
 
 			<table class="table table-bordered border-primary table-hover p-0">
 				<thead>
 					<tr>
+						<th></th>
 						<th>0</th>
 						<th>1</th>
 						<th>2</th>
@@ -742,6 +752,7 @@
 				<tbody>
 					<!-- Row 1 (0) -->
 					<tr title="Row 0">
+						<th scope="row">0</th>
 						<td>NUL</td>
 						<td>SOH</td>
 						<td>STX</td>
@@ -761,6 +772,7 @@
 					</tr>
 					<!-- Row 2 (1) -->
 					<tr title="Row 1">
+						<th scope="row">1</th>
 						<td>DLE</td>
 						<td>DC1</td>
 						<td>DC2</td>
@@ -780,6 +792,7 @@
 					</tr>
 					<!-- Row 3 (2) -->
 					<tr title="Row 2">
+						<th scope="row">2</th>
 						<td> </td> <!-- SPACE -->
 						<td>!</td>
 						<td>"</td>
@@ -799,6 +812,7 @@
 					</tr>
 					<!-- Row 4 (3) -->
 					<tr title="Row 3">
+						<th scope="row">3</th>
 						<td>0</td>
 						<td>1</td>
 						<td>2</td>
@@ -819,6 +833,7 @@
 					</tr>
 					<!-- Row 5 (4) -->
 					<tr title="Row 4">
+						<th scope="row">4</th>
 						<td>@</td>
 						<td>A</td>
 						<td>B</td>
@@ -838,6 +853,7 @@
 					</tr>
 					<!-- Row 6 (5) -->
 					<tr title="Row 5">
+						<th scope="row">5</th>
 						<td>P</td>
 						<td>Q</td>
 						<td>R</td>
@@ -857,6 +873,7 @@
 					</tr>
 					<!-- Row 7 (6) -->
 					<tr title="Row 6">
+						<th scope="row">6</th>
 						<td>`</td>
 						<td>a</td>
 						<td>b</td>
@@ -876,6 +893,7 @@
 					</tr>
 					<!-- Row 8 (7) -->
 					<tr title="Row 7">
+						<th scope="row">7</th>
 						<td>p</td>
 						<td>q</td>
 						<td>r</td>
@@ -895,6 +913,7 @@
 					</tr>
 					<!-- Row 9 (8) -->
 					<tr title="Row 8">
+						<th scope="row">8</th>
 						<td>PAD</td>
 						<td>HOP</td>
 						<td>BPH</td>
@@ -914,6 +933,7 @@
 					</tr>
 					<!-- Row 10 (9) -->
 					<tr title="Row 9">
+						<th scope="row">9</th>
 						<td>DCS</td>
 						<td>PU1</td>
 						<td>PU2</td>
@@ -933,6 +953,7 @@
 					</tr>
 					<!-- Row 11 (A) -->
 					<tr title="Row A">
+						<th scope="row">A</th>
 						<td>NBSP</td>
 						<td>¡</td>
 						<td>¢</td>
@@ -952,6 +973,7 @@
 					</tr>
 					<!-- Row 12 (B) -->
 					<tr title="Row B">
+						<th scope="row">B</th>
 						<td>°</td>
 						<td>±</td>
 						<td>²</td>
@@ -971,6 +993,7 @@
 					</tr>
 					<!-- Row 13 (C) -->
 					<tr title="Row C">
+						<th scope="row">C</th>
 						<td>À</td>
 						<td>Á</td>
 						<td>Â</td>
@@ -990,6 +1013,7 @@
 					</tr>
 					<!-- Row 14 (D) -->
 					<tr title="Row D">
+						<th scope="row">D</th>
 						<td>Ð</td>
 						<td>Ñ</td>
 						<td>Ò</td>
@@ -1009,6 +1033,7 @@
 					</tr>
 					<!-- Row 15 (E) -->
 					<tr title="Row E">
+						<th scope="row">E</th>
 						<td>à</td>
 						<td>á</td>
 						<td>â</td>
@@ -1028,6 +1053,7 @@
 					</tr>
 					<!-- Row 16 (F) -->
 					<tr title="Row F">
+						<th scope="row">F</th>
 						<td>ð</td>
 						<td>ñ</td>
 						<td>ò</td>
