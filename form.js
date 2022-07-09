@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 // Example FormParameter: 
 
 // const PageFormParameters = [{
@@ -35,7 +33,7 @@
  * @property {String} name             - Parameter name in the URI.  Is used as the default value for id.  
  * @property {String} [id]             - Id of the html element if it differs from the name.  Example, URI parameter "retrieve" and html id "Retrieve"
  * @property {String} [type=string]    - Type of the parameter (bool/string). Defaults to string. 
- * @property {String} [funcTrue]       - Function to execute if param is true.  e.g. `"funcTrue": ToggleVisible(document.querySelector("#advancedOptions"));`
+ * @property {String} [funcTrue]       - Function to execute if param is true.  e.g. `"funcTrue": () => ToggleVisible(document.querySelector("#advancedOptions"));`
  * 
  */
 
@@ -160,10 +158,10 @@ async function PopulateFromURI(params) {
 
 
 /**
- * @param {Object}params        A Param object.
- * @param {Object}values        A values object. 
- * @param {Object}formOptions   A form options object.
- * @returns {void}         
+ * @param   {FormParameter}  params        A Param object.
+ * @param   {Object}         values        A values object. 
+ * @param   {Object}         formOptions   A form options object.
+ * @returns {void}
  */
 function PopulateFromValues(params, values, formOptions) {
 	if (isEmpty(params)) {
@@ -179,22 +177,21 @@ function PopulateFromValues(params, values, formOptions) {
 	}
 
 	for (const parameter in params) {
-		var name = params[parameter].name;
+		var name = params[parameter].name; // Required
 		var type = params[parameter].type;
 		var id = params[parameter].id;
 		var value = values[name];
-		if (!isEmpty(id)) {
-			//console.debug("Cusom value name: " + id);
-			value = values[id];
-		}
-
-
-		// console.debug(name, value, type);
 
 		if (!isEmpty(prefix)) {
 			name = prefix + name;
 		}
-		// console.debug(name);
+
+		// If id is empty, assume name is the id on the page.
+		if (isEmpty(id)) {
+			id = name;
+		}
+
+		// console.debug(params, name, value, type);
 
 		if (!isEmpty(value)) {
 			if (type == "bool" && value == true) {
@@ -215,14 +212,14 @@ function PopulateFromValues(params, values, formOptions) {
  * @returns {URL}             URL
  */
 function ShareURI(params) {
-	//console.log("ShareURI called");
+	// console.log("ShareURI", params);
 	var url = new URL(window.location.href);
 
 	for (const parameter in params) {
 		var name = params[parameter].name;
 		var id = params[parameter].id;
 		var type = params[parameter].type;
-		//console.log(name, id, type);
+		// console.log(name, id, type);
 
 		// `name` is default id for html element.  `id` overrides `name` for html
 		// elements ids.
@@ -231,14 +228,17 @@ function ShareURI(params) {
 		} else {
 			var htmlElementID = name;
 		}
-		var value = document.getElementById(htmlElementID).value;
 
-		// For bools
-		if (type == "bool") {
-			if (document.getElementById(htmlElementID).checked) {
-				value = "true";
-			} else {
-				value = "";
+		var elem = document.getElementById(htmlElementID);
+		if (elem !== null) {
+			var value = elem.value;
+
+			if (type == "bool") {
+				if (elem.checked) {
+					value = "true";
+				} else {
+					value = "";
+				}
 			}
 		}
 
@@ -250,7 +250,7 @@ function ShareURI(params) {
 			url.searchParams.delete(name);
 		}
 	}
-	
+
 	//Remove hash if there's nothing in it."#" character is pos [0]
 	if (isEmpty(url.hash.substring(1))) {
 		url.hash = "";

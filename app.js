@@ -872,9 +872,11 @@ function isJson(str) {
 /**
  * isEmpty is a helper function to determine if thing is empty. 
  * 
- * Objects are empty if they have no keys. (Returns len === 0 of object keys.)
- *
  * Functions are considered always not empty. 
+ * 
+ * Arrays are checked for the number of elements, and recursively calls isEmpty.  
+ * 
+ * Objects are empty if they have no keys. (Returns len === 0 of object keys.)
  * 
  * NaN returns true.  (NaN === NaN is always false, as NaN is never equal to
  * anything. NaN is the only JavaScript value unequal to itself.)
@@ -887,9 +889,13 @@ function isJson(str) {
  * @param   {any}     thing    Thing you wish was empty.  
  * @returns {boolean}          Boolean.  
  */
-function isEmpty(thing) {
+ function isEmpty(thing) {
 	if (typeof thing === 'function') {
 		return false;
+	}
+
+	if (Array.isArray(thing)) {
+		return isEmpty(thing[0]);
 	}
 
 	if (thing === Object(thing)) {
@@ -905,6 +911,7 @@ function isEmpty(thing) {
 	return false
 };
 
+
 /**
  * Helper function to determine boolean.  
  *
@@ -914,7 +921,7 @@ function isEmpty(thing) {
  * considered false unless true. 
  *
  * @param   {any}      bool   Thing that you wish was a boolean.  
- * @returns {boolean}         An actual boolean.  
+ * @returns {boolean}         An actual boolean.
  */
 function isBool(bool) {
 	if (
