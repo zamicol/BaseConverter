@@ -7,13 +7,13 @@
 	<title>Zamicol's Base Converter</title>
 
 	<script defer src="base_convert.js"></script>
-	<script defer src="form.js"></script>
 	<script defer src="app.js"></script>
 	<script defer src="hex64.js"></script>
 	<script defer src="base_func.js"></script>
 	<script defer src="hash_func.js"></script>
 	<script defer src="enum.js"></script>
 	<script defer src="noble-hashes.js"></script>
+	<script defer src="./urlformjs/urlform.js"></script>
 
 
 	<!-- SysCnv Main Styles.  Includes Bootstrap and Ubuntu fonts -->
@@ -71,7 +71,8 @@
 </head>
 
 <body>
-	<a class="github-fork-ribbon" href="https://github.com/zamicol/BaseConverter" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+	<a class="github-fork-ribbon" href="https://github.com/zamicol/BaseConverter" data-ribbon="Fork me on GitHub"
+		title="Fork me on GitHub">Fork me on GitHub</a>
 	<div class="container-xl">
 
 		<div class="text-start my-4 text-center">
@@ -92,7 +93,8 @@
 				<div class="card-body p-2" style="background-color: #F5FFFD;">
 					<label class="fw-bold mb-1">Alphabet</label>
 					<div class="input-group mb-1">
-						<input class="conversionTextArea form-control border-success fw-light" type="text" id="inputAlphabet" placeholder="In Alphabet">
+						<input class="conversionTextArea form-control border-success fw-light" type="text" id="inputAlphabet"
+							placeholder="In Alphabet">
 					</div>
 
 					<div class="row text-success">
@@ -105,12 +107,14 @@
 					</div>
 
 					<label class="fw-bold mb-1">Input</label>
-					<textarea rows="5" class="border-success conversionTextArea form-control fw-light" placeholder="In String" id="inputString"></textarea>
+					<textarea rows="5" class="border-success conversionTextArea form-control fw-light" placeholder="In String"
+						id="inputString"></textarea>
 
 					<div class="row">
 						<div class="col-8">
 							<button class="btn btn-primary btn-sm py-0" id="reverseInBtn"> Reverse ⇄ </button>
-							<button class="btn btn-primary btn-sm py-0" id="removeSpaceBtn"> Remove Spaces <i class="bi bi-arrows-angle-contract"></i></button>
+							<button class="btn btn-primary btn-sm py-0" id="removeSpaceBtn"> Remove Spaces <i
+									class="bi bi-arrows-angle-contract"></i></button>
 						</div>
 						<div class="col-4">
 							<p class="help text-end mb-0">Length: <span class="lengthDisplay" id="inputStringLength">0</span></p>
@@ -146,7 +150,8 @@
 				<div class="card-body p-2" style="background-color: #FFF5F7;">
 					<label class="fw-bold mb-1">Alphabet</label>
 					<div class="input-group mb-1">
-						<input class="conversionTextArea form-control border-danger fw-light" type="text" id="outputAlphabet" placeholder="Out Alphabet">
+						<input class="conversionTextArea form-control border-danger fw-light" type="text" id="outputAlphabet"
+							placeholder="Out Alphabet">
 					</div>
 
 					<div class="row text-danger">
@@ -159,7 +164,8 @@
 					</div>
 
 					<label class="fw-bold mb-1">Output</label>
-					<textarea rows="5" class="border-danger conversionTextArea form-control fw-light" placeholder="Out Encoding" id="outputString"></textarea>
+					<textarea rows="5" class="border-danger conversionTextArea form-control fw-light" placeholder="Out Encoding"
+						id="outputString"></textarea>
 
 
 					<div class="row">
@@ -220,11 +226,12 @@
 			</div>
 
 			<div class="col-sm-6">
-				<button class="btn btn-light border-dark mt-1 w-100" id="ShareBtn">
+				<button class="btn btn-light border-dark mt-1 w-100" id="shareURLBtn">
 					<span>Share 🔗</span>
 				</button>
 				<div class="col-12 mb-2">
-					<textarea rows="4" class="card border-success conversionTextArea w-100" placeholder="Share URL" id="shareURIArea"></textarea>
+					<textarea rows="4" class="card border-success conversionTextArea w-100" placeholder="Share URL"
+						id="shareURLArea"></textarea>
 				</div>
 			</div>
 		</div>
@@ -335,8 +342,10 @@
 				<!-- DND -->
 				<div class="row rounded border border-primary align-items-center p-2">
 					<div class="col-md-4 btn-group align-items-center">
-						<a id="DNDConvertInBtn" type="button" class="btn btn-success btn-md"><i class="bi bi-dice-5-fill"></i> DND</a>
-						<a id="DNDConvertOutBtn" type="button" class="btn btn-danger btn-md"><i class="bi bi-dice-5-fill"></i> DND</a>
+						<a id="DNDConvertInBtn" type="button" class="btn btn-success btn-md"><i class="bi bi-dice-5-fill"></i>
+							DND</a>
+						<a id="DNDConvertOutBtn" type="button" class="btn btn-danger btn-md"><i class="bi bi-dice-5-fill"></i>
+							DND</a>
 					</div>
 					<div class="col-md-8 text-start align-items-center">
 						<label for="numberOfDiceSides">Dice Sides: </label>
@@ -464,7 +473,8 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="0123456789AB" alt="0123456789↊↋" readonly id="base12">
+					<input class="input-group-text text-start" type="text" value="0123456789AB" alt="0123456789↊↋" readonly
+						id="base12">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -531,7 +541,8 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" readonly id="base32">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" readonly
+						id="base32">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -547,7 +558,8 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="ybndrfg8ejkmcpqxot1uwisza345h769" readonly id="zbase32">
+					<input class="input-group-text text-start" type="text" value="ybndrfg8ejkmcpqxot1uwisza345h769" readonly
+						id="zbase32">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -563,7 +575,8 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" readonly id="base58">
+					<input class="input-group-text text-start" type="text"
+						value="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" readonly id="base58">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -580,7 +593,8 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_" readonly id="base64UriSafe">
+					<input class="input-group-text text-start" type="text"
+						value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_" readonly id="base64UriSafe">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -596,7 +610,8 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" readonly id="base64UriUnsafe">
+					<input class="input-group-text text-start" type="text"
+						value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" readonly id="base64UriUnsafe">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -612,7 +627,9 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~" readonly id="base85">
+					<input class="input-group-text text-start" type="text"
+						value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~" readonly
+						id="base85">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -628,7 +645,9 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~&quot;" readonly id="base91">
+					<input class="input-group-text text-start" type="text"
+						value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~&quot;"
+						readonly id="base91">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -653,7 +672,9 @@
 					<!-- JavaScript string for running through the chiclet func (**must add back space**):
 					'                                 !"#$%&' + "'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ "
 					-->
-					<input class="input-group-text text-start" type="text" value=' !"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~' readonly id="base128">
+					<input class="input-group-text text-start" type="text"
+						value=' !"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
+						readonly id="base128">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -677,7 +698,9 @@
 					<!-- JavaScript string for running through the chiclet func: (**must add back space**)
 					'                                 !"' + "#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~                                  ¡¢£¤¥¦§¨©ª«¬ ®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ"
 				-->
-					<input class="input-group-text text-start" type="text" value=' !"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ' readonly id="base256">
+					<input class="input-group-text text-start" type="text"
+						value=' !"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ'
+						readonly id="base256">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -686,7 +709,8 @@
 				</div>
 			</div>
 			<div class="text-wrap mt-3">
-				<p>† Chiclet () is used to represent non-printable characters. (See <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_Extended-A">Wikipedia</a>))
+				<p>† Chiclet () is used to represent non-printable characters. (See <a
+						href="https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_Extended-A">Wikipedia</a>))
 				</p>
 			</div>
 		</div><!-- End Alphabet Row -->
@@ -712,7 +736,8 @@
 		<div id="ASCIIChart">
 			<h4>Unicode ASCII Extended Chart</h4>
 
-			Copy/Pastable ASCII Non-Control Characters. Contains three non-printable characters: Space, non-breaking space, and soft-hypen (191 characters)
+			Copy/Pastable ASCII Non-Control Characters. Contains three non-printable characters: Space, non-breaking space,
+			and soft-hypen (191 characters)
 
 			<!-- Manual code points:
 				&#32;  - Space
@@ -1080,7 +1105,8 @@
 			<div class="card-body text-start">
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item"><a href="https://cyphr.me/ed25519_applet/ed.html">Ed25519 Tool</a></li>
-					<li class="list-group-item">Protocol Labs' <a href="https://github.com/multiformats/multibase#multibase-table">multibase</a></li>
+					<li class="list-group-item">Protocol Labs' <a
+							href="https://github.com/multiformats/multibase#multibase-table">multibase</a></li>
 					<li class="list-group-item"><a href="https://github.com/qntm/base65536">tweet base65536</a> Efficient
 						encoder for Twitter.</li>
 					<li class="list-group-item"><a href="https://en.bitcoin.it/wiki/Bech32">Bech32</a></li>
