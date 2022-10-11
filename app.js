@@ -233,8 +233,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	];
 
-	document.querySelector("#ShareBtn").addEventListener('click', () => ShareURI(formParams));
-	PopulateFromURI(formParams);
+	window.urlformjs.Init(formParams);
+	window.urlformjs.PopulateFromURI();
 
 	//////////////////
 	// Live Update Conversion
@@ -889,7 +889,7 @@ function isJson(str) {
  * @param   {any}     thing    Thing you wish was empty.  
  * @returns {boolean}          Boolean.  
  */
- function isEmpty(thing) {
+function isEmpty(thing) {
 	if (typeof thing === 'function') {
 		return false;
 	}
@@ -957,7 +957,7 @@ function Collapse(clickElement, toggleElement, visibleElement) {
 	}
 
 	// console.debug(toggleElement, visibleElement);
-	clickElement.addEventListener('click', function() {
+	clickElement.addEventListener('click', function () {
 		let hidden = ToggleVisible(visibleElement);
 
 		// Icon
