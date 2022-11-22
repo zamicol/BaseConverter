@@ -246,15 +246,18 @@
 			</div>
 
 			<div class="card-body px-4 py-0" id="extrasBody" hidden>
+
+			<div class="pt-2"> If blank, pair defaults to Hex unless stated otherwise.</div>
 				<!-- Hex -->
 				<div class="row rounded border border-primary align-items-center p-2">
+				
 					<div class="col-md-4 btn-group align-items-center">
-						<button id="HexInBtn" type="button" class="btn btn-success btn-md">Hex</button>
+						<a id="HexInBtn" type="button" class="btn btn-success btn-md">Hex</a>
 						<a id="HexOutBtn" type="button" class="btn btn-danger btn-md">Hex</a>
 					</div>
 					<div class="col-md-8 text-start align-items-center">
-						In: Hex. Out: Any alphabet (Default: Text).
-						<br> In: Any alphabet (Default: Text). Out: Hex.
+						In: Upper case Hex  Out: Any alphabet.
+						<br> In: Any alphabet. Out: Upper case Hex
 					</div>
 				</div>
 
@@ -267,9 +270,9 @@
 						<!-- default RFC 4348 base64 -->
 					</div>
 					<div class="col-md-8 text-start align-items-center">
-						In: RFC 4648 base64 (uri/unsafe; truncated/padded). Out: Any alphabet (Default: Hex).
-						<br> In: Any alphabet (Default: Hex). Out: RFC 4648 base64 URI truncated.
-						<br> In: Any alphabet (Default: Hex). Out: RFC 4648 unsafe base64 padded.
+						In: Any RFC 4648 base64 (uri/unsafe; truncated/padded). Out: Any alphabet.
+						<br> In: Any alphabet. Out: RFC 4648 base64 URI truncated. (b64ut)
+						<br> In: Any alphabet. Out: Unsafe RFC 4648 base64 padded. (ub64p)
 					</div>
 				</div>
 
@@ -280,8 +283,8 @@
 						<a id="TextOutBtn" type="button" class="btn btn-danger btn-md">Text</a>
 					</div>
 					<div class="col-md-8 text-start align-items-center">
-						In: Text. Out: Any alphabet (Default: Hex).
-						<br> In: Any alphabet (Default: Hex). Out: Text.
+						In: Text. Out: Any alphabet.
+						<br> In: Any alphabet. Out: Text.
 					</div>
 				</div>
 
@@ -292,8 +295,8 @@
 						<a id="BytesOutBtn" type="button" class="btn btn-danger btn-md">Bytes</a>
 					</div>
 					<div class="col-md-8 text-start align-items-center">
-						In: Bytes. Out: Any alphabet (Default: Hex).
-						<br> In: Any alphabet (Default: Hex). Out: Bytes.
+						In: Bytes. Out: Any alphabet.
+						<br> In: Any alphabet. Out: Bytes.
 					</div>
 				</div>
 
@@ -351,9 +354,7 @@
 						<label for="numberOfDiceSides">Dice Sides: </label>
 						<input type="number" value=20 id="numberOfDiceSides">
 						<br>
-						In: Formatted either with padding (0102030405), or
-						with spaces (1 2 3 4 5). Out: Any alphabet (Default: Hex).
-						<br> In: Any alphabet (Default: Hex). Out: Formatted either with padding (0102030405), or
+						Formatted either with padding (0102030405), or
 						with spaces (1 2 3 4 5).
 					</div>
 				</div>

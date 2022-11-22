@@ -155,17 +155,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		Convert();
 	});
 	document.getElementById('majusculeBtn').addEventListener('click', () => {
-		DefaultIn("text");
+		inAlphElem.value = "text";
 		outAlphElem.value = "Majuscule";
 		Convert();
 	});
 	document.getElementById('minisculeBtn').addEventListener('click', () => {
-		DefaultIn("text");
+		inAlphElem.value = "text";
 		outAlphElem.value = "Miniscule";
 		Convert();
 	});
 	document.getElementById('ridiculeBtn').addEventListener('click', () => {
-		DefaultIn("text");
+		inAlphElem.value = "text";
 		outAlphElem.value = "Ridicule";
 		Convert();
 	});
@@ -208,33 +208,34 @@ document.addEventListener('DOMContentLoaded', () => {
 	//////////////////
 	// URI parameters
 	//////////////////
-	/** @type {FormParameter} */
-	let formParams = [{
-			"name": "inAlph",
-			"id": "inputAlphabet"
-		},
-		{
-			"name": "in",
-			"id": "inputString",
-		},
-		{
-			"name": "outAlph",
-			"id": "outputAlphabet",
-		},
-		{
-			"name": "lpad",
-			"id": "PadCheckbox",
-			"type": "bool",
-		},
-		{
-			"name": "extras",
-			"type": "bool",
-			"funcTrue": () => ToggleVisible(document.querySelector("#extrasBody")),
-		}
-	];
+	/**@type {FormOptions} */
+	const FormOptions = {
+		"FormParameters": [{
+				"name": "inAlph",
+				"id": "inputAlphabet"
+			},
+			{
+				"name": "in",
+				"id": "inputString",
+			},
+			{
+				"name": "outAlph",
+				"id": "outputAlphabet",
+			},
+			{
+				"name": "lpad",
+				"id": "PadCheckbox",
+				"type": "bool",
+			},
+			{
+				"name": "extras",
+				"type": "bool",
+				"funcTrue": () => ToggleVisible(document.querySelector("#extrasBody")),
+			}
+		]
+	};
 
-	window.urlformjs.Init(formParams);
-	window.urlformjs.PopulateFromURI();
+	URLForm.Populate(URLForm.Init(FormOptions));
 
 	//////////////////
 	// Live Update Conversion
@@ -957,7 +958,7 @@ function Collapse(clickElement, toggleElement, visibleElement) {
 	}
 
 	// console.debug(toggleElement, visibleElement);
-	clickElement.addEventListener('click', function () {
+	clickElement.addEventListener('click', function() {
 		let hidden = ToggleVisible(visibleElement);
 
 		// Icon
