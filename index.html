@@ -71,8 +71,7 @@
 </head>
 
 <body>
-	<a class="github-fork-ribbon" href="https://github.com/zamicol/BaseConverter" data-ribbon="Fork me on GitHub"
-		title="Fork me on GitHub">Fork me on GitHub</a>
+	<a class="github-fork-ribbon" href="https://github.com/zamicol/BaseConverter" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
 	<div class="container-xl">
 
 		<div class="text-start my-4 text-center">
@@ -93,8 +92,7 @@
 				<div class="card-body p-2" style="background-color: #F5FFFD;">
 					<label class="fw-bold mb-1">Alphabet</label>
 					<div class="input-group mb-1">
-						<input class="conversionTextArea form-control border-success fw-light" type="text" id="inputAlphabet"
-							placeholder="In Alphabet">
+						<input class="conversionTextArea form-control border-success fw-light" type="text" id="inputAlphabet" placeholder="In Alphabet">
 					</div>
 
 					<div class="row text-success">
@@ -107,14 +105,12 @@
 					</div>
 
 					<label class="fw-bold mb-1">Input</label>
-					<textarea rows="5" class="border-success conversionTextArea form-control fw-light" placeholder="In String"
-						id="inputString"></textarea>
+					<textarea rows="5" class="border-success conversionTextArea form-control fw-light" placeholder="In String" id="inputString"></textarea>
 
 					<div class="row">
 						<div class="col-8">
 							<button class="btn btn-primary btn-sm py-0" id="reverseInBtn"> Reverse ⇄ </button>
-							<button class="btn btn-primary btn-sm py-0" id="removeSpaceBtn"> Remove Spaces <i
-									class="bi bi-arrows-angle-contract"></i></button>
+							<button class="btn btn-primary btn-sm py-0" id="removeSpaceBtn"> Remove Spaces <i class="bi bi-arrows-angle-contract"></i></button>
 						</div>
 						<div class="col-4">
 							<p class="help text-end mb-0">Length: <span class="lengthDisplay" id="inputStringLength">0</span></p>
@@ -150,8 +146,7 @@
 				<div class="card-body p-2" style="background-color: #FFF5F7;">
 					<label class="fw-bold mb-1">Alphabet</label>
 					<div class="input-group mb-1">
-						<input class="conversionTextArea form-control border-danger fw-light" type="text" id="outputAlphabet"
-							placeholder="Out Alphabet">
+						<input class="conversionTextArea form-control border-danger fw-light" type="text" id="outputAlphabet" placeholder="Out Alphabet">
 					</div>
 
 					<div class="row text-danger">
@@ -164,8 +159,7 @@
 					</div>
 
 					<label class="fw-bold mb-1">Output</label>
-					<textarea rows="5" class="border-danger conversionTextArea form-control fw-light" placeholder="Out Encoding"
-						id="outputString"></textarea>
+					<textarea rows="5" class="border-danger conversionTextArea form-control fw-light" placeholder="Out Encoding" id="outputString"></textarea>
 
 
 					<div class="row">
@@ -230,8 +224,7 @@
 					<span>Share 🔗</span>
 				</button>
 				<div class="col-12 mb-2">
-					<textarea rows="4" class="card border-success conversionTextArea w-100" placeholder="Share URL"
-						id="shareURLArea"></textarea>
+					<textarea rows="4" class="card border-success conversionTextArea w-100" placeholder="Share URL" id="shareURLArea"></textarea>
 				</div>
 			</div>
 		</div>
@@ -246,24 +239,28 @@
 			</div>
 
 			<div class="card-body px-4 py-0" id="extrasBody" hidden>
-
-			<div class="pt-2"> If blank, pair defaults to Hex unless stated otherwise.</div>
 				<!-- Hex -->
-				<div class="row rounded border border-primary align-items-center p-2">
-				
-					<div class="col-md-4 btn-group align-items-center">
-						<a id="HexInBtn" type="button" class="btn btn-success btn-md">Hex</a>
-						<a id="HexOutBtn" type="button" class="btn btn-danger btn-md">Hex</a>
+				<div class="row rounded border border-primary p-2">
+
+					<div class="col-md-4 btn-group">
+						<span class="btn-group p-2">
+							<a id="HexInBtn" type="button" class="btn btn-success btn-md">Hex</a>
+							<a id="HexOutBtn" type="button" class="btn btn-danger btn-md">Hex</a>
+						</span><br> 
+						<div class="btn-group p-2">
+							<a id="hexInBtn" type="button" class="btn btn-success btn-md">hex</a>
+							<a id="hexOutBtn" type="button" class="btn btn-danger btn-md">hex</a>
+						</div>
 					</div>
-					<div class="col-md-8 text-start align-items-center">
-						In: Upper case Hex  Out: Any alphabet.
-						<br> In: Any alphabet. Out: Upper case Hex
+					<div class="col-md-8 text-start">
+						Upper case Hex.
+						<br> Lower case hex. 
 					</div>
 				</div>
 
 				<!-- base64 -->
-				<div class="row rounded border border-primary align-items-center p-2">
-					<div class="col-md-4 btn-group align-items-center">
+				<div class="row rounded border border-primary p-2 align-items-center">
+					<div class="col-md-4 btn-group">
 						<a id="base64InBtn" type="button" class="btn btn-success btn-md">base64</a>
 						<a id="b64utOutBtn" type="button" class="btn btn-danger btn-md">b64ut</a>
 						<a id="ub64pOutBtn" type="button" class="btn btn-danger btn-md">ub64p</a>
@@ -278,11 +275,11 @@
 
 				<!-- Text -->
 				<div class="row rounded border border-primary align-items-center p-2">
-					<div class="col-md-4 btn-group align-items-center">
+					<div class="col-md-4 btn-group">
 						<a id="TextInBtn" type="button" class="btn btn-success btn-md">Text</a>
 						<a id="TextOutBtn" type="button" class="btn btn-danger btn-md">Text</a>
 					</div>
-					<div class="col-md-8 text-start align-items-center">
+					<div class="col-md-8 text-start ">
 						In: Text. Out: Any alphabet.
 						<br> In: Any alphabet. Out: Text.
 					</div>
@@ -290,11 +287,11 @@
 
 				<!-- Bytes -->
 				<div class="row rounded border border-primary align-items-center p-2">
-					<div class="col-md-4 btn-group align-items-center">
+					<div class="col-md-4 btn-group">
 						<a id="BytesInBtn" type="button" class="btn btn-success btn-md">Bytes</a>
 						<a id="BytesOutBtn" type="button" class="btn btn-danger btn-md">Bytes</a>
 					</div>
-					<div class="col-md-8 text-start align-items-center">
+					<div class="col-md-8 text-start ">
 						In: Bytes. Out: Any alphabet.
 						<br> In: Any alphabet. Out: Bytes.
 					</div>
@@ -327,7 +324,7 @@
 						</select>
 					</div>
 					<div class="col-md-8 text-start">
-						In: Any alphabet (Default: Text). Out: Digest in Hex.
+						In: Any alphabet. Out: Digest in Hex.
 					</div>
 				</div>
 
@@ -338,7 +335,7 @@
 						<a id="SysCnvBtn" type="button" class="btn btn-danger btn-md">SysCnv</a>
 					</div>
 					<div class="col-md-8 text-start">
-						In: Any alphabet (Default: Hex). Out: SysCnv - Hex, b64up, ASCII†, and Bytes.
+						In: Any alphabet. Out: SysCnv - Hex, b64up, ASCII†, and Bytes.
 					</div>
 				</div>
 
@@ -354,8 +351,7 @@
 						<label for="numberOfDiceSides">Dice Sides: </label>
 						<input type="number" value=20 id="numberOfDiceSides">
 						<br>
-						Formatted either with padding (0102030405), or
-						with spaces (1 2 3 4 5).
+						Works with spaces (1 2 3 4 5) or without (0102030405).
 					</div>
 				</div>
 
@@ -474,8 +470,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="0123456789AB" alt="0123456789↊↋" readonly
-						id="base12">
+					<input class="input-group-text text-start" type="text" value="0123456789AB" alt="0123456789↊↋" readonly id="base12">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -542,8 +537,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" readonly
-						id="base32">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ234567" readonly id="base32">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -559,8 +553,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text" value="ybndrfg8ejkmcpqxot1uwisza345h769" readonly
-						id="zbase32">
+					<input class="input-group-text text-start" type="text" value="ybndrfg8ejkmcpqxot1uwisza345h769" readonly id="zbase32">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -576,8 +569,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text"
-						value="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" readonly id="base58">
+					<input class="input-group-text text-start" type="text" value="123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz" readonly id="base58">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -594,8 +586,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text"
-						value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_" readonly id="base64UriSafe">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_" readonly id="base64UriSafe">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -611,8 +602,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text"
-						value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" readonly id="base64UriUnsafe">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" readonly id="base64UriUnsafe">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -628,9 +618,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text"
-						value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~" readonly
-						id="base85">
+					<input class="input-group-text text-start" type="text" value="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~" readonly id="base85">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -646,9 +634,7 @@
 			</div>
 			<div class="col-sm-9 p-1 d-flex">
 				<div class="input-group justify-content-center">
-					<input class="input-group-text text-start" type="text"
-						value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~&quot;"
-						readonly id="base91">
+					<input class="input-group-text text-start" type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~&quot;" readonly id="base91">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -673,9 +659,7 @@
 					<!-- JavaScript string for running through the chiclet func (**must add back space**):
 					'                                 !"#$%&' + "'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ "
 					-->
-					<input class="input-group-text text-start" type="text"
-						value=' !"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
-						readonly id="base128">
+					<input class="input-group-text text-start" type="text" value=' !"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~' readonly id="base128">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -699,9 +683,7 @@
 					<!-- JavaScript string for running through the chiclet func: (**must add back space**)
 					'                                 !"' + "#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~                                  ¡¢£¤¥¦§¨©ª«¬ ®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ"
 				-->
-					<input class="input-group-text text-start" type="text"
-						value=' !"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ'
-						readonly id="base256">
+					<input class="input-group-text text-start" type="text" value=' !"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ' readonly id="base256">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -710,8 +692,7 @@
 				</div>
 			</div>
 			<div class="text-wrap mt-3">
-				<p>† Chiclet () is used to represent non-printable characters. (See <a
-						href="https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_Extended-A">Wikipedia</a>))
+				<p>† Chiclet () is used to represent non-printable characters. (See <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_Extended-A">Wikipedia</a>))
 				</p>
 			</div>
 		</div><!-- End Alphabet Row -->
@@ -1120,8 +1101,8 @@
 					<li class="list-group-item"><a href="http://blog.kevinalbs.com/base122">base-122</a> UTF-8 efficientencoding</li>
 					<li class="list-group-item"><a href="https://github.com/sveljko/base41">base41</a> ~50% efficient.
 						Alphabet: <code>)*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQ</code></li>
-					<li class="list-group-item">Keybase's <a href="https://github.com/keybase/saltpack" title="saltpack base62 (so called 'Basex'")">saltpack base62</a>.
-							 No special characters maximum. Alphabet: <code>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</code></li>
+					<li class="list-group-item">Keybase's <a href="https://github.com/keybase/saltpack" title="saltpack base62 (so called 'Basex'" )">saltpack base62</a>.
+						No special characters maximum. Alphabet: <code>0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</code></li>
 					<li class="list-group-item"><a href="https://en.wikipedia.org/wiki/Punycode">Punycode</a> ASCII encode Unicode</li>
 				</ul>
 			</div>

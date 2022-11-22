@@ -119,6 +119,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		outAlphElem.value = "Hex";
 		Convert();
 	});
+	document.querySelector('#hexInBtn').addEventListener('click', () => {
+		DefaultOut("text");
+		inAlphElem.value = "hex";
+		Convert();
+	});
+	document.querySelector('#hexOutBtn').addEventListener('click', () => {
+		DefaultIn("text");
+		outAlphElem.value = "hex";
+		Convert();
+	});
 	document.querySelector('#base64InBtn').addEventListener('click', () => {
 		DefaultOut("Hex");
 		inAlphElem.value = "base64";
