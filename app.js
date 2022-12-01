@@ -1,5 +1,14 @@
 "use strict";
 
+// If any new function does not support BigInt, use this:
+//
+// // Check if past max safe integer, 9,007,199,254,740,991 (2^53 – 1) If so,
+// // error.  This is done by assuming 16 and greater digits risk data truncation, so there
+// // are false positives.  
+// if (decimal.length > 15) {
+// 	//throw new Error("Over limit for decimal base conversion.  Conversion will fail.  (TODO, use BigInt)");
+// }
+
 // Many of these are not in use.
 const Base2 = document.getElementById('base2').value;
 const Base4 = document.getElementById('base4').value;
@@ -381,7 +390,7 @@ async function Convert() {
 				var hashAlg = outputAlphabet.substring(5);
 			} else if (outputAlphabet.substring(0, 4) == "DND:") {
 				keyword = "dnd";
-				var diceSides = parseInt(outputAlphabet.substring(4));
+				var diceSides = BigInt(parseInt(outputAlphabet.substring(4)));
 			}
 			// console.debug(keyword);
 			switch (keyword) {
@@ -587,7 +596,6 @@ function rollsPadded(rolls, diceSides) {
  */
 function dndToDecimal(diceSides) {
 	let cols = diceSides.length;
-	diceSides = parseInt(diceSides); // Guarantee number and not string.
 	// console.debug(diceSides);
 	if (diceSides == 0) {
 		throw new Error("must specify number of dice sides");
@@ -619,7 +627,7 @@ function dndToDecimal(diceSides) {
 		rollErrCheck(roll); // throws
 	}
 
-	return diceRollsToDecimal(diceSides, rolls);
+	return diceRollsToDecimal(BigInt(diceSides), rolls);
 }
 
 
@@ -627,7 +635,7 @@ function dndToDecimal(diceSides) {
  * Returns the decimal representation from the number of dice sides, and the
  * given rolls. Returns String because, unlike number, it handles null, e.g. "",
  * gracefully.
- * @param   {number}         diceSides   Number. Number of dice sides (determines base).
+ * @param   {BigInt}         diceSides   Number. Number of dice sides (determines base).
  * @param   {Array<number>}  rolls       Array.  Dice rolls.
  * @returns {string}         String.     Decimal representation of DND rolls.
  * @throws  {error}          error       Error.  Error when roll is higher than dice side.
@@ -637,23 +645,29 @@ function diceRollsToDecimal(diceSides, rolls) {
 	let sum = 0n;
 	let x = 0;
 	for (let i = rolls.length - 1; i >= 0; i--) {
-		// Shift dice roles from "human numbers" to computer science numbers (minus one)
-		let roll = parseInt(rolls[x] - 1);
+		// Minus one to shift dice roles from "human numbers" (starting at 1) to
+		// computer science numbers ( starting at 0)
+		let roll = BigInt(parseInt(rolls[x]) - 1);
 		x++;
 		if (roll > diceSides) {
 			throw new Error("cannot have a roll higher than the dice sides: " + roll);
 		}
 		// For each column, the column is calculated by the value in the column
 		// times dice sides raised to the column number.
-		sum = (sum + BigInt(roll * (diceSides ** i)));
+		// console.log("Roll and i", roll, BigInt(i));
+		let col = diceSides ** BigInt(i);
+		let n = (roll * col);
+		// console.log(n);
+		sum = sum + n;
+		// console.log("Sum:" + sum);
 	}
+
 	return sum.toString();
 }
 
 
 /**
  * Returns an array of the dice rolls, from the input.
- * FIXME since this function uses javascript's number, it's limited in size.  
  * @param   {String}    input        String. Input string to be converted to DND rolls.
  * @param   {String}    inputAlpha   String. Alphabet/Base that input is in.
  * @param   {number}    diceSides    Number. Number of dice sides (determines base).
@@ -669,25 +683,24 @@ function baseToDND(input, inputAlpha, diceSides) {
 	if (isEmpty(input)) {
 		return "";
 	}
-	let decimal = BaseConvert(input, inputAlpha, Base10);
+	let decimal = BigInt(BaseConvert(input, inputAlpha, Base10));
+	// console.log("baseToDND decimal: ", decimal);
 	let rolls = [];
-
-	// console.debug(decimal);
 
 	// Handle unary
 	if (diceSides === 1) {
 		return "1".repeat(parseInt(decimal)); // TODO possibly add to BaseConvert
 	}
 
-	// Discovery for column (radix column power)
-	for (var power = 1; true; power++) {
+	// Discovery for max column (radix column power)
+	for (var power = 1n; true; power++) {
 		let n = diceSides ** power;
 		if (n > decimal) {
 			power--;
 			break;
 		}
 	}
-
+	
 	for (let i = power; i >= 0; i--) {
 		let roll = ~~(decimal / (diceSides ** i)); // bitwise XOR XOR to get decimal. 
 		decimal = decimal % (diceSides ** i);
@@ -695,11 +708,15 @@ function baseToDND(input, inputAlpha, diceSides) {
 		if (roll > diceSides) {
 			throw new Error("cannot have a roll higher than dice sides: " + roll);
 		}
-		rolls.push(roll + 1); // convert from computer science numbers to human numbers
+		// Do "+1" to convert from computer science numbers (start dice counting at
+		// 0) to human numbers (start dice counting at 1)
+		rolls.push(roll + 1n);
 	}
 
-	// console.debug("Rolls:", rolls);
-	return rollsPadded(rolls, diceSides).toString().replaceAll(',', '', );
+	// console.log(rolls);
+	let rp = rollsPadded(rolls, diceSides);
+	let compressed = rp.toString().replaceAll(',', '');
+	return compressed;
 }
 
 ///////////////////////

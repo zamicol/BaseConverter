@@ -76,16 +76,16 @@
  				throw new Error('character not in alphabet: ' + digits[i]);
  			}
  			const n = inAlph.indexOf(digits[i])
- 			// Continue even if character is not found (possibly a padding character.)
+ 			// Continue even if character is not found (possibly padding character,
+ 			// see check above.)
  			if (n == -1) continue;
- 			// Alternatively, fail on bad character
- 			// if (n == -1) return null;
  			arr.push(n);
  		}
  		return arr;
  	}
 
  	const digits = decodeInput(input);
+ 	// console.log(digits);
  	if (digits === null) return null; // zero case is legit.  
  	// Get an array of what each position of character should be. 
  	let outArray = [];
@@ -112,6 +112,6 @@
  	for (let i = outArray.length - 1; i >= 0; i--) {
  		out += outAlph[outArray[i]];
  	}
-
+ 	// console.log(out);
  	return out;
  }
