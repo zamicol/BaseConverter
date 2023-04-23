@@ -3,7 +3,7 @@ https://convert.zamicol.com/
 # BaseConverter
 Zamicol's Base Converter 
 
-If your project needs to do base conversion, use `base_converter.js`.  
+If your project needs to do base conversion, use [`base_convert.js`](base_convert.js).  
 
 BaseConverter is a generalized, number first converter.  This converter treats
 input and output as numbers and uses the iterative divide by radix conversion
