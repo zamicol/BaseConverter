@@ -67,7 +67,6 @@
  	// decodeInput finds the position of each character in alphabet, thus decoding
  	// input into a useful array.  
  	const decodeInput = (input) => {
- 		// console.log("decodeInput: ", string);
  		const digits = input.split('');
  		let arr = [];
  		for (let i = digits.length - 1; i >= 0; i--) {
@@ -85,8 +84,7 @@
  	}
 
  	const digits = decodeInput(input);
- 	// console.log(digits);
- 	if (digits === null) return null; // zero case is legit.  
+ 	if (digits === []) return null; // zero case is legit.  
  	// Get an array of what each position of character should be. 
  	let outArray = [];
  	let power = [1];
