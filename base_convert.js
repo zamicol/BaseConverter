@@ -30,7 +30,7 @@
  	const fromBase = inAlph.length;
  	const toBase = outAlph.length;
  	const inAlphChars = inAlph.split('');
- 	// TODO support Base 1 decoding.  
+ 	// TODO support base 1 decoding.  
  	if (toBase == 1) return;
 
  	const add = (x, y, base) => {
@@ -67,7 +67,6 @@
  	// decodeInput finds the position of each character in alphabet, thus decoding
  	// input into a useful array.  
  	const decodeInput = (input) => {
- 		// console.log("decodeInput: ", string);
  		const digits = input.split('');
  		let arr = [];
  		for (let i = digits.length - 1; i >= 0; i--) {
@@ -85,10 +84,8 @@
  	}
 
  	const digits = decodeInput(input);
- 	// console.log(digits);
- 	if (digits === null) return null; // zero case is legit.  
- 	// Get an array of what each position of character should be. 
- 	let outArray = [];
+ 	if (digits === []) return null; // zero case is legit.
+ 	let outArray = []; // Array of character position.
  	let power = [1];
  	for (let i = 0; i < digits.length; i++) {
  		outArray = add(outArray, multiplyByNumber(digits[i], power, toBase), toBase);
@@ -97,7 +94,7 @@
 
  	// Finally, decode array into characters.  
  	let out = '';
- 	// Preceding padding characters - Add back in preceding padding characters.
+ 	// Add back left (preceding) padding characters.
  	if (LeftPadding) {
  		let inPad = inAlph.charAt(0);
  		let outPad = outAlph.charAt(0);
