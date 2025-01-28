@@ -12,17 +12,18 @@
  // on a 1:1 character basis.  
  let LeftPadding = false;
 
- /**
-  * BaseConvert converts a given string with a given encoding alphabet into
-  * another base with another given encoding alphabet.  
-  * Base is assumed from alphabet sizes. 
-  *
-  * @param  {string} input     Input string.  
-  * @param  {string} inAlph    Input alphabet (i.e. 0123456789ABCDEF)
-  * @param  {string} outAlph   Output alphabet (i.e. ABCDEFGHJKLMNPQRSTUVWXYZ234567)
-  */
+/**
+* BaseConvert converts a given string with a given encoding alphabet into
+* another base with another given encoding alphabet.  
+* Base is assumed from alphabet sizes. 
+*
+* @param   {string} input     Input string.  
+* @param   {string} inAlph    Input alphabet (i.e. 0123456789ABCDEF)
+* @param   {string} outAlph   Output alphabet (i.e. ABCDEFGHJKLMNPQRSTUVWXYZ234567)
+* @returns {string}           output number
+*/
  function BaseConvert(input, inAlph, outAlph) {
- 	//console.log("baseConvert: ", input, inAlph, outAlph);
+ 	console.log("baseConvert: ", input, inAlph, outAlph);
  	if (input === null || input == "" || inAlph == "" || outAlph == "") {
  		return null;
  	}
@@ -30,10 +31,27 @@
  	const fromBase = inAlph.length;
  	const toBase = outAlph.length;
  	const inAlphChars = inAlph.split('');
- 	// TODO support base 1 decoding.  
- 	if (toBase == 1) return;
+
+ 	// if(fromBase == 1){
+ 	// 	console.log("In Unary Case Hit");
+ 	// }
+
+ 	// // TODO support base 1/ unary encoding decoding.  
+ 	// if (toBase == 1) {
+ 	// 	console.log("Out Unary Case Hit");
+ 	// 	//return "1".repeat(parseInt(decimal)); // TODO possibly add to BaseConvert
+ 	// }
+
+
+
 
  	const add = (x, y, base) => {
+ 		// For base-1, just concatenate the arrays since each digit can only be 1
+ 		if (base === 1) {
+ 			return [...x, ...y];
+ 		}
+
+
  		let z = [];
  		const n = Math.max(x.length, y.length);
  		let carry = 0;
@@ -52,6 +70,16 @@
  	const multiplyByNumber = (num, power, base) => {
  		if (num < 0) return null;
  		if (num === 0) return [0]; // Zero is legit. 
+
+
+ 		// For base-1, multiplication is just repetition
+ 		if (base === 1) {
+ 			let result = [];
+ 			for (let i = 0; i < num; i++) {
+ 				result.push(...power);
+ 			}
+ 			return result;
+ 		}
 
  		let result = [];
  		while (true) {
@@ -84,7 +112,7 @@
  	}
 
  	const digits = decodeInput(input);
- 	if (digits === []) return null; // zero case is legit.
+ 	if (digits == []) return null; // zero case is legit.
  	let outArray = []; // Array of character position.
  	let power = [1];
  	for (let i = 0; i < digits.length; i++) {

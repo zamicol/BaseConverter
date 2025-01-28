@@ -689,7 +689,7 @@ function baseToDND(input, inputAlpha, diceSides) {
 
 	// Handle unary
 	if (diceSides === 1) {
-		return "1".repeat(parseInt(decimal)); // TODO possibly add to BaseConvert
+		return "1".repeat(parseInt(decimal));
 	}
 
 	// Discovery for max column (radix column power)

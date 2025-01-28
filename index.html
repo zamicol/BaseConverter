@@ -378,6 +378,26 @@
 		<!-- Alphabet Section -->
 		<div class="row text-center align-items-center alphabets">
 			<h4 class="fw-bold mb-3">Useful Alphabets</h4>
+			<h3> Note!  The conversion tool uses natural conversion (arbitrary conversion). If you need a 
+
+
+			<!-- Base 1 -->
+			<div class="col-sm-3">
+				<label class="label">Base 1</label>
+				<a href="https://en.wikipedia.org/wiki/Unary_numeral_system"> (unary)</a>
+				<span class="text-success"> (1 bit)</span>
+			</div>
+			<div class="col-sm-9 p-1 d-flex">
+				<div class="input-group justify-content-center">
+					<input class="input-group-text text-start" type="text" value="0" readonly id="base1">
+					<div class="btn-group">
+						<a class="btn btn-primary copy">Copy</a>
+						<a class="btn btn-success source">In</a>
+						<a class="btn btn-danger destination">Out</a>
+					</div>
+				</div>
+			</div>
+
 
 			<!-- Base 2 -->
 			<div class="col-sm-3">
@@ -659,7 +679,7 @@
 					<!-- JavaScript string for running through the chiclet func (**must add back space**):
 					'                                 !"#$%&' + "'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ "
 					-->
-					<input class="input-group-text text-start" type="text" value=' !"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~' readonly id="base128">
+					<input class="input-group-text text-start" type="text" value=' !"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~' readonly id="base128">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -683,7 +703,8 @@
 					<!-- JavaScript string for running through the chiclet func: (**must add back space**)
 					'                                 !"' + "#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~                                  ¡¢£¤¥¦§¨©ª«¬ ®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ"
 				-->
-					<input class="input-group-text text-start" type="text" value=' !"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ' readonly id="base256">
+
+					<input class="input-group-text text-start" type="text" value=' !"#$%&&apos;()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ' readonly id="base256">
 					<div class="btn-group">
 						<a class="btn btn-primary copy">Copy</a>
 						<a class="btn btn-success source">In</a>
@@ -692,11 +713,10 @@
 				</div>
 			</div>
 			<div class="text-wrap mt-3">
-				<p>† Chiclet () is used to represent non-printable characters. (See <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_Extended-A">Wikipedia</a>))
+				<p>† SUB (code point 0x1A or the non-printable form of ␚) is used to represent non-printable characters. (See <a href="https://en.wikipedia.org/wiki/Substitute_character">Wikipedia</a>))
 				</p>
 			</div>
 		</div><!-- End Alphabet Row -->
-
 
 		<!-- Examples -->
 		<div class="text-center mt-3">
